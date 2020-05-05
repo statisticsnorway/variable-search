@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 import { AppSettings } from '../components'
 import { ApiContext, LanguageContext } from '../utilities'
-import { TEST_CONFIGURATIONS } from '../configurations'
+import { API, TEST_CONFIGURATIONS } from '../configurations'
 import { SETTINGS, TEST_IDS } from '../enums'
 
 const { alternativeApi, language } = TEST_CONFIGURATIONS
@@ -50,5 +50,5 @@ test('Resetting to default values works correctly', () => {
 
   expect(getByPlaceholderText(SETTINGS.API[language])).toHaveValue(apiContext.restApi)
   expect(apiContext.setRestApi).toHaveBeenCalledWith(apiContext.restApi)
-  expect(apiContext.setGraphqlApi).toHaveBeenCalledWith(`${apiContext.restApi}/graphiql`)
+  expect(apiContext.setGraphqlApi).toHaveBeenCalledWith(`${apiContext.restApi}${API.GRAPHQL}`)
 })

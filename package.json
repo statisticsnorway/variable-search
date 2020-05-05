@@ -9,8 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "axios-hooks": "^1.10.0",
-    "graphql-request": "^1.8.2",
-    "humanize-graphql-response": "^1.0.0",
+    "graphql-hooks": "^4.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
