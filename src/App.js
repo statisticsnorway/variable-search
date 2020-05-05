@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useEffect, useState } from 'react'
+import useAxios from 'axios-hooks'
+import { Divider, Loader, Segment } from 'semantic-ui-react'
 
-function App() {
+import { AppHome, AppMenu, AppSettings, ErrorMessage } from './components'
+import { ApiContext, LanguageContext } from './utilities'
+import { API } from './configurations'
+import { UI } from './enums'
+
+function App () {
+  const { restApi } = useContext(ApiContext)
+  const { language } = useContext(LanguageContext)
+
+  const [apiReady, setApiReady] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+
+  const [{ loading, error }] = useAxios(`${restApi}${API.GET_HEALTH}`)
+
+  useEffect(() => {
+    if (!loading && !error) {
+      setApiReady(true)
+    } else {
+      setApiReady(false)
+    }
+  }, [error, loading])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <AppMenu setSettingsOpen={setSettingsOpen} />
+      <Divider />
+      <Segment basic>
+        {loading ? <Loader active inline='centered' /> :
+          error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} /> :
+            apiReady && <AppHome />
+        }
+      </Segment>
+      <AppSettings error={error} loading={loading} setSettingsOpen={setSettingsOpen} open={settingsOpen} />
+    </>
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,20 @@
+import { LANGUAGE } from '../enums'
+
+const errorString = 'A problem occured'
+
+export const TEST_CONFIGURATIONS = {
+  alternativeApi: 'http://localhost:9999',
+  apiContext: (fn, fn2) => ({
+    graphqlApi: `${process.env.REACT_APP_API}/graphiql`,
+    restApi: process.env.REACT_APP_API,
+    setRestApi: fn,
+    setGraphqlApi: fn2
+  }),
+  errorHeader: 'Error header',
+  errorString: errorString,
+  errorObject: { response: { data: errorString } },
+  errorStatus: { response: { statusText: errorString } },
+  language: LANGUAGE.LANGUAGES.ENGLISH.languageCode,
+  objectToString: '[object Object]',
+  otherLanguage: LANGUAGE.LANGUAGES.NORWEGIAN.languageCode
+}
