@@ -108,6 +108,8 @@ export const GET_DATASETS_FROM_VARIABLE = `
                                                                 languageCode
                                                                 languageText
                                                             }
+                                                            createdDate
+                                                            createdBy
                                                         }
                                                     }
                                                 }

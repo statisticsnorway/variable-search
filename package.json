@@ -51,7 +51,9 @@
       "!src/configurations/**",
       "!src/enums/**",
       "!src/media/**",
-      "!src/__tests__/test-data/**"
+      "!src/__tests__/test-data/**",
+      "!src/components/AppHome.js",
+      "!src/components/search/**"
     ],
     "coverageThreshold": {
       "global": {

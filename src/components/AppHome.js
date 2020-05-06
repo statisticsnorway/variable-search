@@ -1,33 +1,37 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
-import { Header, Input, Segment } from 'semantic-ui-react'
+import { Divider, Grid, Header, Icon, Search, Segment } from 'semantic-ui-react'
 
 import { SearchResultVariable } from './search'
-import { FULL_TEXT_SEARCH, mapSearchResult } from '../configurations'
+import { FULL_TEXT_SEARCH, mapSearchResult, splitSearchResult, SSB_COLORS } from '../configurations'
 import { LanguageContext } from '../utilities'
-import { UI } from '../enums'
+import { SEARCH, UI } from '../enums'
 
 function AppHome () {
   const { language } = useContext(LanguageContext)
 
+  const [searched, setSearched] = useState(false)
   const [searchValue, setSearchValue] = useState('')
+  const [searchEdited, setSearchEdited] = useState(false)
+  const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
   const [variableResults, setVariableResults] = useState([])
 
-  const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, {
-    variables: {
-      text: searchValue
+  const [fetchResults, { loading, error, data }] = useManualQuery(
+    FULL_TEXT_SEARCH,
+    {
+      variables: {
+        text: searchValue
+      }
     }
-  })
+  )
 
   useEffect(() => {
     if (!error && !loading && data !== undefined) {
-      console.log(data)
+      const results = splitSearchResult(mapSearchResult(data))
 
-      const results = mapSearchResult(data)
-
-      setDatasetResults(results.filter(entry => entry.type !== 'RepresentedVariable'))
-      setVariableResults(results.filter(entry => entry.type === 'RepresentedVariable'))
+      setDatasetResults(results.datasets)
+      setVariableResults(results.variables)
     }
   }, [error, loading, data])
 
@@ -38,32 +42,57 @@ function AppHome () {
   }, [error, loading])
 
   return (
-    <Segment basic>
-      <Input
-        size='big'
+    <Segment basic textAlign='center'>
+      <Search
+        size='huge'
+        open={false}
+        loading={loading}
         value={searchValue}
-        error={!!error}
-        disabled={loading}
         placeholder={UI.SEARCH[language]}
-        onChange={(event, { value }) => setSearchValue(value)}
+        onSearchChange={(event, { value }) => {
+          setSearchEdited(true)
+          setSearchValue(value)
+        }}
         onKeyPress={({ key }) => {
           if (key === 'Enter') {
+            setSearched(true)
+            setSearchEdited(false)
+            setPreviousSearch(searchValue)
+            // noinspection JSIgnoredPromiseFromCall
             fetchResults()
           }
         }}
       />
-      <Header content='Dataset results' />
-      {datasetResults.length >= 1 ?
-        <pre>{JSON.stringify(datasetResults, null, 2)}</pre>
-        :
-        UI.SEARCH_NO_RESULTS[language]
+      {searched && searchEdited &&
+      <>
+        <Icon name='info circle' style={{ color: SSB_COLORS.BLUE }} />
+        {SEARCH.EDITED[language]}
+      </>
       }
-      <Header content='Variable results' />
-      {variableResults.length >= 1 ?
-        variableResults.map(variable => <SearchResultVariable key={variable.id} variable={variable} />)
-        :
-        UI.SEARCH_NO_RESULTS[language]
+      {searched && searchEdited && previousSearch !== '' &&
+      <>
+        {` (`}<i>{SEARCH.PREVIOUS[language]}</i>{`'`}<b>{previousSearch}</b>{`')`}<p>{SEARCH.NEW_SEARCH[language]}</p>
+      </>
       }
+      <Divider hidden />
+      <Grid columns='equal'>
+        <Grid.Column>
+          <Header size='huge' content={SEARCH.DATASET_RESULTS[language]} />
+          {datasetResults.length >= 1 ?
+            <pre>{JSON.stringify(datasetResults, null, 2)}</pre>
+            :
+            searched ? UI.SEARCH_NO_RESULTS[language] : null
+          }
+        </Grid.Column>
+        <Grid.Column>
+          <Header size='huge' content={SEARCH.VARIABLE_RESULTS[language]} />
+          {variableResults.length >= 1 ?
+            variableResults.map(variable => <SearchResultVariable key={variable.id} variable={variable} />)
+            :
+            searched ? UI.SEARCH_NO_RESULTS[language] : null
+          }
+        </Grid.Column>
+      </Grid>
     </Segment>
   )
 }

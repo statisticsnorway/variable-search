@@ -18,5 +18,6 @@ export const UI = {
   SEARCH_NO_RESULTS: {
     en: 'No results found',
     nb: 'Fant ingen resultater'
-  }
+  },
+  UNKOWN: '-'
 }

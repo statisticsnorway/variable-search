@@ -7,7 +7,16 @@ export const API = {
   GRAPHQL: '/graphql'
 }
 
+export const GSIM = {
+  LOCALIZED: {
+    CODE: 'languageCode',
+    TEXT: 'languageText'
+  }
+}
+
 export const QUERY_RESULT_TRAVERSE = {
+  CREATED_BY: (object) => getNestedObject(object, ['createdBy']),
+  CREATED_DATE: (object) => getNestedObject(object, ['createdDate']),
   DATASET_BY_VARIABLE: (object) => getNestedObject(
     object,
     [
@@ -20,6 +29,7 @@ export const QUERY_RESULT_TRAVERSE = {
       'edges'
     ]
   ),
+  DESCRIPTION: (object) => getNestedObject(object, ['description']),
   EDGE_DATASET: (object) => getNestedObject(
     object,
     [
@@ -34,6 +44,7 @@ export const QUERY_RESULT_TRAVERSE = {
       'node'
     ]
   ),
+  NAME: (object) => getNestedObject(object, ['name']),
   NOT_EMPTY_DATASET: (object) => getNestedObject(
     object,
     [
@@ -47,5 +58,10 @@ export const QUERY_RESULT_TRAVERSE = {
     ]
   ),
   NOT_EMPTY_SEARCH: (object) => getNestedObject(object, ['node', 'name']),
-  SEARCH: (object) => getNestedObject(object, ['Search', 'edges'])
+  SEARCH: (object) => getNestedObject(object, ['Search', 'edges']),
+  SUBJECT_FIELD_NAME: (object) => getNestedObject(object, ['node', 'name']),
+  SUBJECT_FIELDS_FROM_VARIABLE: (object) => getNestedObject(object, ['variable', 'subjectFields', 'edges']),
+  TYPE: 'type',
+  UNIT_TYPE_FROM_VARIABLE: (object) => getNestedObject(object, ['variable', 'unitType', 'name']),
+  VARIABLE: 'RepresentedVariable'
 }
