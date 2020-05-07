@@ -1,4 +1,5 @@
 # variable-search
+[![Build Status](https://drone.prod-bip-ci.ssb.no/api/badges/statisticsnorway/variable-search/status.svg)](https://drone.prod-bip-ci.ssb.no/statisticsnorway/variable-search)
 
 This application aims to create an interactive search against the 
 [graphql-api](https://github.com/statisticsnorway/linked-data-store-documentation/blob/master/docs/graphql-api.adoc) 
