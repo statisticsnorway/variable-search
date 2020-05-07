@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
-import { Divider, Grid, Header, Icon, Search, Segment } from 'semantic-ui-react'
+import { Divider, Grid, Header, Icon, Loader, Search, Segment } from 'semantic-ui-react'
 
 import { SearchResultVariable } from './search'
 import { FULL_TEXT_SEARCH, mapSearchResult, splitSearchResult, SSB_COLORS } from '../configurations'
@@ -78,7 +78,7 @@ function AppHome () {
       <Grid columns='equal'>
         <Grid.Column>
           <Header size='huge' content={SEARCH.DATASET_RESULTS[language]} />
-          {datasetResults.length >= 1 ?
+          {loading ? <Loader active inline='centered' /> : datasetResults.length >= 1 ?
             <pre>{JSON.stringify(datasetResults, null, 2)}</pre>
             :
             searched ? UI.SEARCH_NO_RESULTS[language] : null
@@ -86,7 +86,7 @@ function AppHome () {
         </Grid.Column>
         <Grid.Column>
           <Header size='huge' content={SEARCH.VARIABLE_RESULTS[language]} />
-          {variableResults.length >= 1 ?
+          {loading ? <Loader active inline='centered' /> : variableResults.length >= 1 ?
             variableResults.map(variable => <SearchResultVariable key={variable.id} variable={variable} />)
             :
             searched ? UI.SEARCH_NO_RESULTS[language] : null
