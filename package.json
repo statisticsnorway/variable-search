@@ -9,11 +9,10 @@
   "dependencies": {
     "axios": "^0.19.2",
     "axios-hooks": "^1.10.0",
-    "graphql-request": "^1.8.2",
-    "humanize-graphql-response": "^1.0.0",
+    "graphql-hooks": "^4.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2"
   },
@@ -21,7 +20,7 @@
     "start": "react-scripts start",
     "build": "node ./node_modules/react-scripts/bin/react-scripts.js build",
     "test": "react-scripts test",
-    "coverage": "node ./node_modules/react-scripts/bin/react-scripts test --coverage --watchAll=false",
+    "coverage": "node ./node_modules/react-scripts/bin/react-scripts.js test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -52,7 +51,9 @@
       "!src/configurations/**",
       "!src/enums/**",
       "!src/media/**",
-      "!src/__tests__/test-data/**"
+      "!src/__tests__/test-data/**",
+      "!src/components/AppHome.js",
+      "!src/components/search/**"
     ],
     "coverageThreshold": {
       "global": {

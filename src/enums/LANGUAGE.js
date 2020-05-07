@@ -19,6 +19,10 @@ export const LANGUAGE = {
     en: 'English',
     nb: 'Norsk'
   },
+  LOCALE: {
+    en: 'en-GB',
+    nb: 'nb-NO'
+  },
   NORWEGIAN: {
     en: 'Norwegian',
     nb: 'Norsk'

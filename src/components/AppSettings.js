@@ -3,7 +3,7 @@ import { Button, Container, Divider, Form, Grid, Header, Icon, List, Modal, Popu
 
 import { ErrorMessage } from './'
 import { ApiContext, LanguageContext } from '../utilities'
-import { SSB_COLORS, SSB_STYLE } from '../configurations'
+import { API, SSB_COLORS, SSB_STYLE } from '../configurations'
 import { SETTINGS, TEST_IDS } from '../enums'
 
 function AppSettings ({ error, loading, open, setSettingsOpen }) {
@@ -50,7 +50,7 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
                 disabled={loading}
                 onClick={() => {
                   setRestApi(apiUrl)
-                  setGraphqlApi(`${apiUrl}/graphiql`)
+                  setGraphqlApi(`${apiUrl}${API.GRAPHQL}`)
                   setSettingsEdited(false)
                 }}
               >
@@ -70,7 +70,7 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
                   onClick={() => {
                     setApiUrl(process.env.REACT_APP_API)
                     setRestApi(process.env.REACT_APP_API)
-                    setGraphqlApi(`${process.env.REACT_APP_API}/graphiql`)
+                    setGraphqlApi(`${process.env.REACT_APP_API}${API.GRAPHQL}`)
                     setSettingsEdited(false)
                   }}
                 />

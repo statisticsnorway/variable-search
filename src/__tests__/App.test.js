@@ -23,7 +23,7 @@ const setup = () => {
 }
 
 describe('Common mock', () => {
-  useAxios.mockReturnValue([{ data: [], loading: false, error: null }])
+  useAxios.mockReturnValue([{ loading: false, error: null }])
 
   test('Renders basics', () => {
     const { getByText } = setup()
@@ -49,14 +49,14 @@ describe('Common mock', () => {
 })
 
 test('Does not crash', () => {
-  useAxios.mockReturnValue([{ data: undefined, loading: true, error: null }])
+  useAxios.mockReturnValue([{ loading: true, error: null }])
   setup()
 
   expect(useAxios).toHaveBeenCalledWith(`${process.env.REACT_APP_API}${API.GET_HEALTH}`)
 })
 
 test('Renders error when backend call returns error', () => {
-  useAxios.mockReturnValue([{ data: undefined, loading: false, error: errorObject }])
+  useAxios.mockReturnValue([{ loading: false, error: errorObject }])
   const { getByText } = setup()
 
   expect(getByText(UI.API_ERROR_MESSAGE[language])).toBeInTheDocument()

@@ -11,8 +11,13 @@ export const UI = {
     en: 'Variable search',
     nb: 'Variabelsøk'
   },
+  SEARCH: {
+    en: 'Search...',
+    nb: 'Søk...'
+  },
   SEARCH_NO_RESULTS: {
     en: 'No results found',
     nb: 'Fant ingen resultater'
-  }
+  },
+  UNKOWN: '-'
 }
