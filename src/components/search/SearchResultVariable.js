@@ -2,19 +2,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'graphql-hooks'
 import { Divider, Grid, Icon, Label, List, Popup, Segment } from 'semantic-ui-react'
 
-import { LanguageContext } from '../../utilities'
 import {
-  GET_DATASETS_FROM_VARIABLE,
-  getCreatedBy,
-  getCreatedDate,
+  datasetsFromVariable,
+  getDatasetCreatedDate,
+  getDatasetState,
+  getDatasetValuation,
   getDescription,
   getName,
-  getSubjectFields,
-  getUnitTypeName,
-  mapDatasetsByVariableIdResult,
-  SSB_COLORS
-} from '../../configurations'
+  getVariableSubjectFields,
+  getVariableUnitType,
+  LanguageContext
+} from '../../utilities'
+import { MODEL, SSB_COLORS } from '../../configurations'
 import { SEARCH, SEARCH_VARIABLE, UI } from '../../enums'
+import { DATASETS_FROM } from '../../queries'
 
 function SearchResultVariable ({ variable }) {
   const { language } = useContext(LanguageContext)
@@ -23,7 +24,7 @@ function SearchResultVariable ({ variable }) {
   const [datasetsOpen, setDatasetsOpen] = useState(false)
 
   const { loading, error, data } = useQuery(
-    GET_DATASETS_FROM_VARIABLE,
+    DATASETS_FROM[variable[MODEL.TYPE[1]]],
     {
       variables: {
         id: variable.id
@@ -33,9 +34,9 @@ function SearchResultVariable ({ variable }) {
 
   useEffect(() => {
     if (!error && !loading && data !== undefined) {
-      setDatasets(mapDatasetsByVariableIdResult(data))
+      setDatasets(datasetsFromVariable(data, variable[MODEL.TYPE[1]]))
     }
-  }, [error, loading, data])
+  }, [error, loading, data, variable])
 
   useEffect(() => {
     if (error && !loading) {
@@ -46,19 +47,20 @@ function SearchResultVariable ({ variable }) {
   return (
     <Segment textAlign='left'>
       <Label ribbon size='large' style={{ backgroundColor: SSB_COLORS.BLUE, borderColor: SSB_COLORS.BLUE }}>
-        {getUnitTypeName(language, variable)}
+        {getVariableUnitType(language, variable, variable[MODEL.TYPE[1]])}
       </Label>
       <Grid columns='equal'>
         <Grid.Column>
           <Divider hidden />
           <List relaxed>
+            <List.Item><b>{`${SEARCH_VARIABLE.TYPE[language]}: `}</b>{variable[MODEL.TYPE[1]]}</List.Item>
             <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, variable)}</List.Item>
             <List.Item>
               <b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, variable)}
             </List.Item>
           </List>
           <Divider hidden />
-          {getSubjectFields(language, variable)}
+          {getVariableSubjectFields(language, variable, variable[MODEL.TYPE[1]])}
         </Grid.Column>
         <Grid.Column>
           <Popup
@@ -80,13 +82,19 @@ function SearchResultVariable ({ variable }) {
               <List key={dataset.id} relaxed>
                 <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, dataset)}</List.Item>
                 <List.Item>
-                  <b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, dataset)}
+                  <b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>
+                  {getDescription(language, dataset)}
                 </List.Item>
                 <List.Item>
-                  <b>{`${SEARCH_VARIABLE.DATE_CREATED[language]}: `}</b>{getCreatedDate(language, dataset)}
+                  <b>{`${SEARCH_VARIABLE.DATASET_STATE[language]}: `}</b>
+                  {getDatasetState(dataset)}
                 </List.Item>
                 <List.Item>
-                  <b>{`${SEARCH_VARIABLE.CREATED_BY[language]}: `}</b>{getCreatedBy(language, dataset)}
+                  <b>{`${SEARCH_VARIABLE.DATASET_VALUATION[language]}: `}</b>
+                  {getDatasetValuation(dataset)}
+                </List.Item>
+                <List.Item>
+                  <b>{`${SEARCH_VARIABLE.DATE_CREATED[language]}: `}</b>{getDatasetCreatedDate(language, dataset)}
                 </List.Item>
               </List>
             )

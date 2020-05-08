@@ -51,6 +51,8 @@
       "!src/configurations/**",
       "!src/enums/**",
       "!src/media/**",
+      "!src/queries/**",
+      "!src/utilities/**",
       "!src/__tests__/test-data/**",
       "!src/components/AppHome.js",
       "!src/components/search/**"

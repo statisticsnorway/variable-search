@@ -30,9 +30,13 @@ export const SEARCH = {
 }
 
 export const SEARCH_VARIABLE = {
-  CREATED_BY: {
-    en: 'Created by',
-    nb: 'Opprettet av'
+  DATASET_STATE: {
+    en: 'State',
+    nb: 'Tilstand'
+  },
+  DATASET_VALUATION: {
+    en: 'Valuation',
+    nb: 'Verdivurdering'
   },
   DATE_CREATED: {
     en: 'Date created',
@@ -45,5 +49,9 @@ export const SEARCH_VARIABLE = {
   NAME: {
     en: 'Name',
     nb: 'Navn'
+  },
+  TYPE: {
+    en: 'Type',
+    nb: 'Type'
   }
 }

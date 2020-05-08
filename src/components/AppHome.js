@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
-import { Divider, Grid, Header, Icon, Loader, Search, Segment } from 'semantic-ui-react'
+import { Checkbox, Divider, Grid, Header, Icon, Loader, Search, Segment } from 'semantic-ui-react'
 
 import { SearchResultVariable } from './search'
-import { FULL_TEXT_SEARCH, mapSearchResult, splitSearchResult, SSB_COLORS } from '../configurations'
-import { LanguageContext } from '../utilities'
+import { MODEL, SSB_COLORS } from '../configurations'
+import { LanguageContext, splitSearchResult } from '../utilities'
 import { SEARCH, UI } from '../enums'
+import { FULL_VARIABLE_TEXT_SEARCH } from '../queries'
 
 function AppHome () {
   const { language } = useContext(LanguageContext)
@@ -16,9 +17,10 @@ function AppHome () {
   const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
   const [variableResults, setVariableResults] = useState([])
+  const [variableFilter, setVariableFilter] = useState(MODEL.VARIABLES)
 
   const [fetchResults, { loading, error, data }] = useManualQuery(
-    FULL_TEXT_SEARCH,
+    FULL_VARIABLE_TEXT_SEARCH,
     {
       variables: {
         text: searchValue
@@ -28,10 +30,10 @@ function AppHome () {
 
   useEffect(() => {
     if (!error && !loading && data !== undefined) {
-      const results = splitSearchResult(mapSearchResult(data))
+      const searchResults = splitSearchResult(data)
 
-      setDatasetResults(results.datasets)
-      setVariableResults(results.variables)
+      setDatasetResults(searchResults.datasets)
+      setVariableResults(searchResults.variables)
     }
   }, [error, loading, data])
 
@@ -40,6 +42,14 @@ function AppHome () {
       console.log(error)
     }
   }, [error, loading])
+
+  const handleCheckbox = (includes, variable) => {
+    if (includes) {
+      setVariableFilter(variableFilter.filter(element => element !== variable))
+    } else {
+      setVariableFilter(variableFilter.concat([variable]))
+    }
+  }
 
   return (
     <Segment basic textAlign='center'>
@@ -86,8 +96,18 @@ function AppHome () {
         </Grid.Column>
         <Grid.Column>
           <Header size='huge' content={SEARCH.VARIABLE_RESULTS[language]} />
+          {MODEL.VARIABLES.map(variable =>
+            <Checkbox
+              key={variable}
+              label={variable}
+              style={{ marginRight: '2em' }}
+              checked={variableFilter.includes(variable)}
+              onClick={() => handleCheckbox(variableFilter.includes(variable), variable)}
+            />
+          )}
           {loading ? <Loader active inline='centered' /> : variableResults.length >= 1 ?
-            variableResults.map(variable => <SearchResultVariable key={variable.id} variable={variable} />)
+            variableResults.filter(variable => variableFilter.includes(variable.node[MODEL.TYPE[1]]))
+              .map(variable => <SearchResultVariable key={variable.node.id} variable={variable.node} />)
             :
             searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
