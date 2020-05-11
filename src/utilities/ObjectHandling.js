@@ -1,7 +1,4 @@
-import React from 'react'
-import { Label } from 'semantic-ui-react'
-
-import { GSIM, MODEL, SSB_COLORS } from '../configurations'
+import { GSIM, MODEL, subjectFieldLayout } from '../configurations'
 import { LANGUAGE, UI } from '../enums'
 
 export const getNestedObject = (nestedObject, pathArray) =>
@@ -42,24 +39,17 @@ export const getDescription = (language, object) =>
 
 export const getName = (language, object) => returnString(language, getNestedObject(object, MODEL.GET_NAME))
 
-export const getVariableSubjectFields = (language, variable, type) => {
+export const getVariableSubjectFields = (language, type, variable) => {
   const subjectFields = getNestedObject(variable, MODEL.GET_SUBJECT_FIELDS[type])
 
   if (subjectFields === undefined) {
     return UI.UNKOWN
   } else {
     return subjectFields.map((subjectField, index) =>
-      <Label
-        tag
-        key={index}
-        size='large'
-        style={{ backgroundColor: SSB_COLORS.GREEN, borderColor: SSB_COLORS.GREEN, marginRight: '0.5em' }}
-      >
-        {returnString(language, getNestedObject(subjectField, MODEL.GET_SUBJECT_FIELD_NAME))}
-      </Label>
+      subjectFieldLayout(returnString(language, getNestedObject(subjectField, MODEL.GET_SUBJECT_FIELD_NAME)), index)
     )
   }
 }
 
-export const getVariableUnitType = (language, variable, type) =>
+export const getVariableUnitType = (language, type, variable) =>
   returnString(language, getNestedObject(variable, MODEL.GET_UNIT_TYPE[type]))

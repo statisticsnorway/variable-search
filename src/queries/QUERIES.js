@@ -61,7 +61,7 @@ export const DATASETS_FROM = {
   `
 }
 
-export const FULL_VARIABLE_TEXT_SEARCH = `
+export const FULL_TEXT_SEARCH = `
 query textSearch($text: String!) {
   Search(query: $text, filter: [InstanceVariable, RepresentedVariable, Variable, UnitDataSet]) {
     edges {

@@ -20,8 +20,8 @@ export const SEARCH = {
     nb: 'Skjul datasett'
   },
   VARIABLE_DATASETS_OPEN: {
-    en: 'Show datasets using the variable',
-    nb: 'Vis datasett som bruker variabelen'
+    en: 'Show datasets using this variable',
+    nb: 'Vis datasett som bruker denne variabelen'
   },
   VARIABLE_RESULTS: {
     en: 'Variable results',
@@ -50,8 +50,16 @@ export const SEARCH_VARIABLE = {
     en: 'Name',
     nb: 'Navn'
   },
+  SUBJECT_FIELDS: {
+    en: 'Subject fields',
+    nb: '"Emner"'
+  },
   TYPE: {
     en: 'Type',
     nb: 'Type'
+  },
+  UNIT_TYPE: {
+    en: 'Unit type',
+    nb: 'Enhetstype'
   }
 }
