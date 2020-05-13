@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
-import { Divider, Grid, Header, Icon, Search, Segment } from 'semantic-ui-react'
+import { Checkbox, Divider, Grid, Header, Loader, Search, Segment } from 'semantic-ui-react'
 
-import { SearchResultVariable } from './search'
-import { FULL_TEXT_SEARCH, mapSearchResult, splitSearchResult, SSB_COLORS } from '../configurations'
-import { LanguageContext } from '../utilities'
+import { SearchResultDatasets, SearchResultVariable } from './search'
+import { infoText, MODEL } from '../configurations'
+import { LanguageContext, splitSearchResult } from '../utilities'
 import { SEARCH, UI } from '../enums'
+import { FULL_TEXT_SEARCH } from '../queries'
 
 function AppHome () {
   const { language } = useContext(LanguageContext)
@@ -16,22 +17,16 @@ function AppHome () {
   const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
   const [variableResults, setVariableResults] = useState([])
+  const [variableFilter, setVariableFilter] = useState(MODEL.VARIABLES)
 
-  const [fetchResults, { loading, error, data }] = useManualQuery(
-    FULL_TEXT_SEARCH,
-    {
-      variables: {
-        text: searchValue
-      }
-    }
-  )
+  const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue } })
 
   useEffect(() => {
     if (!error && !loading && data !== undefined) {
-      const results = splitSearchResult(mapSearchResult(data))
+      const searchResults = splitSearchResult(data)
 
-      setDatasetResults(results.datasets)
-      setVariableResults(results.variables)
+      setDatasetResults(searchResults.datasets)
+      setVariableResults(searchResults.variables)
     }
   }, [error, loading, data])
 
@@ -41,6 +36,35 @@ function AppHome () {
     }
   }, [error, loading])
 
+  const doSearch = () => {
+    setSearched(true)
+    setSearchEdited(false)
+    setPreviousSearch(searchValue)
+    // noinspection JSIgnoredPromiseFromCall
+    fetchResults()
+  }
+
+  const handleCheckbox = (includes, variable) => {
+    if (includes) {
+      setVariableFilter(variableFilter.filter(element => element !== variable))
+    } else {
+      setVariableFilter(variableFilter.concat([variable]))
+    }
+  }
+
+  const variablesList = variableResults.filter(variable => variableFilter.includes(variable.node[MODEL.TYPE[1]]))
+    .map(variable => <SearchResultVariable key={variable.node.id} variable={variable.node} />)
+
+  const variableSelect = MODEL.VARIABLES.map(variable =>
+    <Checkbox
+      key={variable}
+      label={variable}
+      style={{ marginRight: '2em' }}
+      checked={variableFilter.includes(variable)}
+      onClick={() => handleCheckbox(variableFilter.includes(variable), variable)}
+    />
+  )
+
   return (
     <Segment basic textAlign='center'>
       <Search
@@ -49,26 +73,13 @@ function AppHome () {
         loading={loading}
         value={searchValue}
         placeholder={UI.SEARCH[language]}
+        onKeyPress={({ key }) => key === 'Enter' && doSearch()}
         onSearchChange={(event, { value }) => {
           setSearchEdited(true)
           setSearchValue(value)
         }}
-        onKeyPress={({ key }) => {
-          if (key === 'Enter') {
-            setSearched(true)
-            setSearchEdited(false)
-            setPreviousSearch(searchValue)
-            // noinspection JSIgnoredPromiseFromCall
-            fetchResults()
-          }
-        }}
       />
-      {searched && searchEdited &&
-      <>
-        <Icon name='info circle' style={{ color: SSB_COLORS.BLUE }} />
-        {SEARCH.EDITED[language]}
-      </>
-      }
+      {searched && searchEdited && infoText(SEARCH.EDITED[language])}
       {searched && searchEdited && previousSearch !== '' &&
       <>
         {` (`}<i>{SEARCH.PREVIOUS[language]}</i>{`'`}<b>{previousSearch}</b>{`')`}<p>{SEARCH.NEW_SEARCH[language]}</p>
@@ -78,18 +89,18 @@ function AppHome () {
       <Grid columns='equal'>
         <Grid.Column>
           <Header size='huge' content={SEARCH.DATASET_RESULTS[language]} />
-          {datasetResults.length >= 1 ?
-            <pre>{JSON.stringify(datasetResults, null, 2)}</pre>
-            :
-            searched ? UI.SEARCH_NO_RESULTS[language] : null
+          {loading ? <Loader active inline='centered' /> : datasetResults.length >= 1 ?
+              <SearchResultDatasets datasets={datasetResults} /> : searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
         </Grid.Column>
         <Grid.Column>
           <Header size='huge' content={SEARCH.VARIABLE_RESULTS[language]} />
-          {variableResults.length >= 1 ?
-            variableResults.map(variable => <SearchResultVariable key={variable.id} variable={variable} />)
-            :
-            searched ? UI.SEARCH_NO_RESULTS[language] : null
+          {variableSelect}
+          <Divider hidden />
+          {loading ? <Loader active inline='centered' /> :
+            variableResults.length >= 1 ? variablesList :
+              searched ? UI.SEARCH_NO_RESULTS[language] :
+                null
           }
         </Grid.Column>
       </Grid>

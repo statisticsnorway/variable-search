@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { Button, Container, Divider, Form, Grid, Header, Icon, List, Modal, Popup, Segment } from 'semantic-ui-react'
+import { Button, Container, Divider, Form, Grid, Header, Icon, List, Modal, Segment } from 'semantic-ui-react'
 
 import { ErrorMessage } from './'
 import { ApiContext, LanguageContext } from '../utilities'
-import { API, SSB_COLORS, SSB_STYLE } from '../configurations'
+import { API, infoPopup, infoText, SSB_COLORS, SSB_STYLE } from '../configurations'
 import { SETTINGS, TEST_IDS } from '../enums'
 
 function AppSettings ({ error, loading, open, setSettingsOpen }) {
@@ -12,6 +12,13 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
 
   const [apiUrl, setApiUrl] = useState(restApi)
   const [settingsEdited, setSettingsEdited] = useState(false)
+
+  const setDefaults = () => {
+    setApiUrl(process.env.REACT_APP_API)
+    setRestApi(process.env.REACT_APP_API)
+    setGraphqlApi(`${process.env.REACT_APP_API}${API.GRAPHQL}`)
+    setSettingsEdited(false)
+  }
 
   return (
     <Modal open={open} onClose={() => setSettingsOpen(false)} style={SSB_STYLE}>
@@ -24,8 +31,8 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
           <Form.Input
             value={apiUrl}
             disabled={loading}
-            error={!!error && !settingsEdited}
             label={SETTINGS.API[language]}
+            error={!!error && !settingsEdited}
             placeholder={SETTINGS.API[language]}
             onChange={(event, { value }) => {
               setApiUrl(value)
@@ -35,12 +42,7 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
         </Form>
         {!loading && !settingsEdited && error && <ErrorMessage error={error} />}
         <Container style={{ marginTop: '1em' }}>
-          {settingsEdited &&
-          <>
-            <Icon name='info circle' style={{ color: SSB_COLORS.BLUE }} />
-            {SETTINGS.EDITED_VALUES[language]}
-          </>
-          }
+          {settingsEdited && infoText(SETTINGS.EDITED_VALUES[language])}
           <Divider hidden />
           <Grid columns='equal'>
             <Grid.Column>
@@ -59,25 +61,19 @@ function AppSettings ({ error, loading, open, setSettingsOpen }) {
               </Button>
             </Grid.Column>
             <Grid.Column textAlign='right'>
-              <Popup basic flowing position='left center' trigger={
+              {infoPopup(
+                SETTINGS.RESET_SETTINGS[language],
                 <Icon
                   link
                   fitted
                   name='undo'
                   size='large'
+                  onClick={() => setDefaults()}
                   style={{ color: SSB_COLORS.BLUE }}
                   data-testid={TEST_IDS.DEFAULT_SETTINGS_BUTTON}
-                  onClick={() => {
-                    setApiUrl(process.env.REACT_APP_API)
-                    setRestApi(process.env.REACT_APP_API)
-                    setGraphqlApi(`${process.env.REACT_APP_API}${API.GRAPHQL}`)
-                    setSettingsEdited(false)
-                  }}
-                />
-              }>
-                <Icon name='info circle' style={{ color: SSB_COLORS.BLUE }} />
-                {SETTINGS.RESET_SETTINGS[language]}
-              </Popup>
+                />,
+                'left center'
+              )}
             </Grid.Column>
           </Grid>
         </Container>

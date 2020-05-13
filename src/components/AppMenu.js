@@ -19,20 +19,14 @@ function AppMenu ({ setSettingsOpen }) {
 
   return (
     <Menu secondary size='huge' style={{ padding: '1em' }}>
-      <Menu.Item>
-        <Image size='medium' src={SSBLogo} />
-      </Menu.Item>
-      <Menu.Item>
-        <Header size='huge' content={UI.HEADER[language]} />
-      </Menu.Item>
+      <Menu.Item><Image size='medium' src={SSBLogo} /></Menu.Item>
+      <Menu.Item><Header size='huge' content={UI.HEADER[language]} /></Menu.Item>
       <Menu.Menu position='right'>
-        <Menu.Item>
-          <Divider vertical />
-        </Menu.Item>
+        <Menu.Item><Divider vertical /></Menu.Item>
         <Menu.Item
+          style={{ color: SSB_COLORS.GREEN }}
           onClick={() => setSettingsOpen(true)}
           icon={{ name: 'setting', size: 'big', 'data-testid': TEST_IDS.ACCESS_SETTINGS_BUTTON }}
-          style={{ color: SSB_COLORS.GREEN }}
         />
         <Dropdown item text={`${LANGUAGE.LANGUAGE[language]} (${LANGUAGE.LANGUAGE_CHOICE[language]})`}>
           <Dropdown.Menu>{dropdownItems}</Dropdown.Menu>

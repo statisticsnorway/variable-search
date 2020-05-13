@@ -1,5 +1,3 @@
-import { getNestedObject } from '../utilities'
-
 export const API = {
   ERROR_PATH: ['response', 'data'],
   ERROR_STATUS_PATH: ['response', 'statusText'],
@@ -14,12 +12,37 @@ export const GSIM = {
   }
 }
 
-export const QUERY_RESULT_TRAVERSE = {
-  CREATED_BY: (object) => getNestedObject(object, ['createdBy']),
-  CREATED_DATE: (object) => getNestedObject(object, ['createdDate']),
-  DATASET_BY_VARIABLE: (object) => getNestedObject(
-    object,
-    [
+export const MODEL = {
+  DATASET: 'UnitDataSet',
+  GET_CREATED_DATE: ['createdDate'],
+  GET_DATASET: [
+    'node',
+    'reverseUnitDataStructureLogicalRecords',
+    'edges',
+    0,
+    'node',
+    'reverseUnitDataSetUnitDataStructure',
+    'edges',
+    0,
+    'node'
+  ],
+  GET_DATASETS: [
+    'node',
+    'reverseUnitDataStructureLogicalRecords',
+    'edges',
+    0,
+    'node',
+    'reverseUnitDataSetUnitDataStructure',
+    'edges'
+  ],
+  GET_DESCRIPTION: ['description'],
+  GET_LOGICAL_RECORDS: {
+    InstanceVariable: [
+      'InstanceVariableById',
+      'reverseLogicalRecordInstanceVariables',
+      'edges'
+    ],
+    RepresentedVariable: [
       'RepresentedVariableById',
       'reverseInstanceVariableRepresentedVariable',
       'edges',
@@ -27,41 +50,36 @@ export const QUERY_RESULT_TRAVERSE = {
       'node',
       'reverseLogicalRecordInstanceVariables',
       'edges'
-    ]
-  ),
-  DESCRIPTION: (object) => getNestedObject(object, ['description']),
-  EDGE_DATASET: (object) => getNestedObject(
-    object,
-    [
-      'node',
-      'reverseUnitDataStructureLogicalRecords',
+    ],
+    Variable: [
+      'VariableById',
+      'reverseRepresentedVariableVariable',
       'edges',
       0,
       'node',
-      'reverseUnitDataSetUnitDataStructure',
-      'edges',
-      0,
-      'node'
-    ]
-  ),
-  NAME: (object) => getNestedObject(object, ['name']),
-  NOT_EMPTY_DATASET: (object) => getNestedObject(
-    object,
-    [
-      'node',
-      'reverseUnitDataStructureLogicalRecords',
+      'reverseInstanceVariableRepresentedVariable',
       'edges',
       0,
       'node',
-      'reverseUnitDataSetUnitDataStructure',
+      'reverseLogicalRecordInstanceVariables',
       'edges'
     ]
-  ),
-  NOT_EMPTY_SEARCH: (object) => getNestedObject(object, ['node', 'name']),
-  SEARCH: (object) => getNestedObject(object, ['Search', 'edges']),
-  SUBJECT_FIELD_NAME: (object) => getNestedObject(object, ['node', 'name']),
-  SUBJECT_FIELDS_FROM_VARIABLE: (object) => getNestedObject(object, ['variable', 'subjectFields', 'edges']),
-  TYPE: 'type',
-  UNIT_TYPE_FROM_VARIABLE: (object) => getNestedObject(object, ['variable', 'unitType', 'name']),
-  VARIABLE: 'RepresentedVariable'
+  },
+  GET_NAME: ['name'],
+  GET_STATE: ['dataSetState'],
+  GET_SUBJECT_FIELD_NAME: ['node', 'name'],
+  GET_SUBJECT_FIELDS: {
+    InstanceVariable: ['representedVariable', 'variable', 'subjectFields', 'edges'],
+    RepresentedVariable: ['variable', 'subjectFields', 'edges'],
+    Variable: ['subjectFields', 'edges']
+  },
+  GET_UNIT_TYPE: {
+    InstanceVariable: ['representedVariable', 'variable', 'unitType', 'name'],
+    RepresentedVariable: ['variable', 'unitType', 'name'],
+    Variable: ['unitType', 'name']
+  },
+  GET_VALUATION: ['valuation'],
+  SEARCH: ['Search', 'edges'],
+  TYPE: ['node', '__typename'],
+  VARIABLES: ['InstanceVariable', 'RepresentedVariable', 'Variable']
 }
