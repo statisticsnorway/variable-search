@@ -7,6 +7,7 @@ exposed by [Linked Data Store](https://github.com/statisticsnorway/linked-data-s
 
 Functionality includes:
 * Searching through domains (spesifically variables and dataset)
+* Listing connections between variables and datasets
 
 The project makes limited use of the [Component library for SSB](https://github.com/statisticsnorway/ssb-component-library)
 and is based upon [react-reference-app](https://github.com/statisticsnorway/fe-react-reference-app).
