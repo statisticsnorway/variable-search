@@ -1,5 +1,5 @@
 # variable-search
-[![Build Status](https://drone.prod-bip-ci.ssb.no/api/badges/statisticsnorway/variable-search/status.svg)](https://drone.prod-bip-ci.ssb.no/statisticsnorway/variable-search)
+
 
 This application aims to create an interactive search against the 
 [graphql-api](https://github.com/statisticsnorway/linked-data-store-documentation/blob/master/docs/graphql-api.adoc) 
@@ -13,9 +13,9 @@ The project makes limited use of the [Component library for SSB](https://github.
 and is based upon [react-reference-app](https://github.com/statisticsnorway/fe-react-reference-app).
 
 ### Try this application locally
-The first time you clone the repository, remember to run `yarn install`.
+The first time you clone the repository, remember to run `yarn` or `yarn install`.
 
-Run `yarn start` and navigate to `http://localhost:3000`.
+Run `yarn start` and navigate to `http://localhost:3000/`.
 
 `yarn test` runs all tests and `yarn coverage` calculates (rather unreliably) test coverage.
 
