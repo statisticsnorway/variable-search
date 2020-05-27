@@ -4,10 +4,6 @@ import { ClientContext, GraphQLClient } from 'graphql-hooks'
 import { API } from '../configurations'
 import { LANGUAGE } from '../enums'
 
-const graphqlClient = new GraphQLClient({
-  url: `${process.env.REACT_APP_API}${API.GRAPHQL}`
-})
-
 export const ApiContext = React.createContext({
   graphqlApi: `${process.env.REACT_APP_API}${API.GRAPHQL}`,
   restApi: process.env.REACT_APP_API
@@ -19,6 +15,10 @@ export const AppContextProvider = (props) => {
   const [restApi, setRestApi] = useState(process.env.REACT_APP_API)
   const [language, setLanguage] = useState(LANGUAGE.LANGUAGES.ENGLISH.languageCode)
   const [graphqlApi, setGraphqlApi] = useState(`${process.env.REACT_APP_API}${API.GRAPHQL}`)
+
+  const graphqlClient = new GraphQLClient({
+    url: `${graphqlApi}`
+  })
 
   return (
     <ClientContext.Provider value={graphqlClient}>
