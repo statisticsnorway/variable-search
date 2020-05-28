@@ -32,9 +32,21 @@ function AppHome () {
 
   useEffect(() => {
     if (error && !loading) {
+      if (data !== undefined) {
+        try {
+          const searchResults = splitSearchResult(data)
+
+          setDatasetResults(searchResults.datasets)
+          setVariableResults(searchResults.variables)
+        } catch (e) {
+          console.log('Tried to extract query results from returned error but could not:')
+          console.log(e)
+        }
+      }
+
       console.log(error)
     }
-  }, [error, loading])
+  }, [data, error, loading])
 
   const doSearch = () => {
     setSearched(true)
@@ -90,7 +102,7 @@ function AppHome () {
         <Grid.Column>
           <Header size='huge' content={SEARCH.DATASET_RESULTS[language]} />
           {loading ? <Loader active inline='centered' /> : datasetResults.length >= 1 ?
-              <SearchResultDatasets datasets={datasetResults} /> : searched ? UI.SEARCH_NO_RESULTS[language] : null
+            <SearchResultDatasets datasets={datasetResults} /> : searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
         </Grid.Column>
         <Grid.Column>
