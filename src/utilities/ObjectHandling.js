@@ -7,9 +7,13 @@ export const getNestedObject = (nestedObject, pathArray) =>
   )
 
 export const getLocalizedGsimObjectText = (language, object) => {
-  const localized = object.find(object => object[GSIM.LOCALIZED.CODE] === language)
+  if (object !== null) {
+    const localized = object.find(object => object[GSIM.LOCALIZED.CODE] === language)
 
-  return localized === undefined ? object[0][GSIM.LOCALIZED.TEXT] : localized[GSIM.LOCALIZED.TEXT]
+    return localized === undefined ? object[0][GSIM.LOCALIZED.TEXT] : localized[GSIM.LOCALIZED.TEXT]
+  } else {
+    return UI.UNKOWN
+  }
 }
 
 const returnString = (language, object) => {
