@@ -7,6 +7,10 @@ export const UI = {
     en: 'Error',
     nb: 'Problem'
   },
+  EXTERNAL_GRAPHIQL: {
+    en: 'Access GraphiQL directly',
+    nb: 'Skriv Graphql spørringer direkte mot tjenesten'
+  },
   HEADER: {
     en: 'Variable search',
     nb: 'Variabelsøk'

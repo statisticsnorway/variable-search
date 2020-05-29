@@ -37,26 +37,6 @@ function SearchResultVariable ({ variable }) {
     }
   }, [error, loading])
 
-  const datasetsList = datasets.map(dataset =>
-    <List key={dataset.id} relaxed>
-      <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, dataset)}</List.Item>
-      <List.Item><b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, dataset)}</List.Item>
-      <List.Item><b>{`${SEARCH_VARIABLE.DATASET_STATE[language]}: `}</b>{getDatasetState(dataset)}</List.Item>
-      <List.Item><b>{`${SEARCH_VARIABLE.DATASET_VALUATION[language]}: `}</b>{getDatasetValuation(dataset)}</List.Item>
-      <List.Item>
-        <b>{`${SEARCH_VARIABLE.DATE_CREATED[language]}: `}</b>
-        {getDatasetCreatedDate(language, dataset)}
-      </List.Item>
-    </List>
-  )
-
-  const variableInfo =
-    <List relaxed>
-      <List.Item><b>{`${SEARCH_VARIABLE.TYPE[language]}: `}</b>{variable[MODEL.TYPE[1]]}</List.Item>
-      <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, variable)}</List.Item>
-      <List.Item><b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, variable)}</List.Item>
-    </List>
-
   return (
     <Segment textAlign='left'>
       {infoPopup(
@@ -68,7 +48,12 @@ function SearchResultVariable ({ variable }) {
       <Grid columns='equal'>
         <Grid.Column>
           <Divider hidden />
-          {variableInfo}
+          <List relaxed>
+            <List.Item><b>{`${SEARCH_VARIABLE.TYPE[language]}: `}</b>{variable[MODEL.TYPE[1]]}</List.Item>
+            <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, variable)}</List.Item>
+            <List.Item><b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, variable)}
+            </List.Item>
+          </List>
           <Divider hidden />
           {infoPopup(
             SEARCH_VARIABLE.SUBJECT_FIELDS[language],
@@ -88,7 +73,20 @@ function SearchResultVariable ({ variable }) {
             </Label>,
             'left center'
           )}
-          {datasetsOpen ? datasets.length >= 1 ? datasetsList : UI.SEARCH_NO_RESULTS[language] : null}
+          {datasetsOpen ? datasets.length >= 1 ? datasets.map(dataset =>
+            <List key={dataset.id} relaxed>
+              <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, dataset)}</List.Item>
+              <List.Item><b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, dataset)}
+              </List.Item>
+              <List.Item><b>{`${SEARCH_VARIABLE.DATASET_STATE[language]}: `}</b>{getDatasetState(dataset)}</List.Item>
+              <List.Item><b>{`${SEARCH_VARIABLE.DATASET_VALUATION[language]}: `}</b>{getDatasetValuation(dataset)}
+              </List.Item>
+              <List.Item>
+                <b>{`${SEARCH_VARIABLE.DATE_CREATED[language]}: `}</b>
+                {getDatasetCreatedDate(language, dataset)}
+              </List.Item>
+            </List>
+          ) : UI.SEARCH_NO_RESULTS[language] : null}
         </Grid.Column>
       </Grid>
       {datasetsOpen && datasets.length >= 1 && <Divider vertical><Icon name='arrow circle right' /></Divider>}

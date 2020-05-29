@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
-import { Checkbox, Divider, Grid, Header, Loader, Search, Segment } from 'semantic-ui-react'
+import { Checkbox, Divider, Grid, Header, Icon, Label, Loader, Search, Segment } from 'semantic-ui-react'
 
 import { SearchResultDatasets, SearchResultVariable } from './search'
-import { infoText, MODEL } from '../configurations'
-import { LanguageContext, splitSearchResult } from '../utilities'
+import { infoPopup, infoText, MODEL, SSB_COLORS } from '../configurations'
+import { ApiContext, LanguageContext, splitSearchResult } from '../utilities'
 import { SEARCH, UI } from '../enums'
 import { FULL_TEXT_SEARCH } from '../queries'
 
 function AppHome () {
   const { language } = useContext(LanguageContext)
+  const { restApi } = useContext(ApiContext)
 
   const [searched, setSearched] = useState(false)
   const [searchValue, setSearchValue] = useState('')
@@ -79,6 +80,15 @@ function AppHome () {
 
   return (
     <Segment basic textAlign='center'>
+      <Label attached='top right' style={{ background: 'transparent' }}>
+        {infoPopup(
+          UI.EXTERNAL_GRAPHIQL[language],
+          <a href={`${restApi}/graphiql`} target='_blank' rel='noopener noreferrer'>
+            <Icon link size='large' name='external' style={{ color: SSB_COLORS.BLUE }} />
+          </a>,
+          'bottom right'
+        )}
+      </Label>
       <Search
         size='huge'
         open={false}
