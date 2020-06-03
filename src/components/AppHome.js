@@ -17,7 +17,7 @@ function AppHome () {
   const [searchEdited, setSearchEdited] = useState(false)
   const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
-  const [variableResults, setVariableResults] = useState([])
+  const [variableResults, setVariableResults] = useState({})
   const [variableFilter, setVariableFilter] = useState(MODEL.VARIABLES)
 
   const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue } })
@@ -65,11 +65,9 @@ function AppHome () {
     }
   }
 
-  const variablesList = variableResults.filter(variable => variableFilter.includes(variable.node[MODEL.TYPE[1]]))
-    .map(variable => <SearchResultVariable key={variable.node.id} variable={variable.node} />)
-
   const variableSelect = MODEL.VARIABLES.map(variable =>
     <Checkbox
+      disabled
       key={variable}
       label={variable}
       style={{ marginRight: '2em' }}
@@ -120,9 +118,9 @@ function AppHome () {
           {variableSelect}
           <Divider hidden />
           {loading ? <Loader active inline='centered' /> :
-            variableResults.length >= 1 ? variablesList :
-              searched ? UI.SEARCH_NO_RESULTS[language] :
-                null
+            Object.keys(variableResults).length >= 1 ? Object.entries(variableResults)
+                .map(([id, variables]) => <SearchResultVariable key={id} id={id} variables={variables} />) :
+              searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
         </Grid.Column>
       </Grid>

@@ -9,6 +9,7 @@ export const datasetsFromVariable = (result, type) => {
 
     if (filteredDatasets.length !== 0) {
       return datasets.map(dataset => getNestedObject(dataset, MODEL.GET_DATASET))
+        .filter(element => element !== undefined)
     } else {
       return []
     }
@@ -19,9 +20,23 @@ export const datasetsFromVariable = (result, type) => {
 
 export const splitSearchResult = results => {
   const edges = getNestedObject(results, MODEL.SEARCH)
+  const datasets = edges.filter(entry => getNestedObject(entry, MODEL.TYPE) === MODEL.DATASET)
+
+  const variables = edges.filter(entry => getNestedObject(entry, MODEL.TYPE) !== MODEL.DATASET)
+    .reduce((accumulator, object) => {
+      let id = object.node.id
+
+      if (!accumulator[id]) {
+        accumulator[id] = []
+      }
+
+      accumulator[id].push(object)
+
+      return accumulator
+    }, {})
 
   return ({
-    variables: edges.filter(entry => getNestedObject(entry, MODEL.TYPE) !== MODEL.DATASET),
-    datasets: edges.filter(entry => getNestedObject(entry, MODEL.TYPE) === MODEL.DATASET)
+    variables: variables,
+    datasets: datasets
   })
 }

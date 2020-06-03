@@ -17,19 +17,19 @@ import { infoPopup, MODEL, SSB_COLORS } from '../../configurations'
 import { SEARCH, SEARCH_VARIABLE, UI } from '../../enums'
 import { DATASETS_FROM } from '../../queries'
 
-function SearchResultVariable ({ variable }) {
+function SearchResultVariable ({ id, variables }) {
   const { language } = useContext(LanguageContext)
 
   const [datasets, setDatasets] = useState([])
   const [datasetsOpen, setDatasetsOpen] = useState(false)
 
-  const { loading, error, data } = useQuery(DATASETS_FROM[variable[MODEL.TYPE[1]]], { variables: { id: variable.id } })
+  const { loading, error, data } = useQuery(DATASETS_FROM[variables[0].node[MODEL.TYPE[1]]], { variables: { id: id } })
 
   useEffect(() => {
     if (!error && !loading && data !== undefined) {
-      setDatasets(datasetsFromVariable(data, variable[MODEL.TYPE[1]]))
+      setDatasets(datasetsFromVariable(data, variables[0].node[MODEL.TYPE[1]]))
     }
-  }, [error, loading, data, variable])
+  }, [error, loading, data, variables])
 
   useEffect(() => {
     if (error && !loading) {
@@ -42,22 +42,26 @@ function SearchResultVariable ({ variable }) {
       {infoPopup(
         SEARCH_VARIABLE.UNIT_TYPE[language],
         <Label ribbon size='large' style={{ backgroundColor: SSB_COLORS.BLUE, borderColor: SSB_COLORS.BLUE }}>
-          {getVariableUnitType(language, variable[MODEL.TYPE[1]], variable)}
+          {getVariableUnitType(language, variables[0].node[MODEL.TYPE[1]], variables[0].node)}
         </Label>
       )}
       <Grid columns='equal'>
         <Grid.Column>
           <Divider hidden />
           <List relaxed>
-            <List.Item><b>{`${SEARCH_VARIABLE.TYPE[language]}: `}</b>{variable[MODEL.TYPE[1]]}</List.Item>
-            <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, variable)}</List.Item>
-            <List.Item><b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, variable)}
+            <List.Item><b>{`${SEARCH_VARIABLE.TYPE[language]}: `}</b>{variables[0].node[MODEL.TYPE[1]]}</List.Item>
+            <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, variables[0].node)}</List.Item>
+            <List.Item>
+              <b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, variables[0].node)}
             </List.Item>
+            {variables.length > 1 &&
+            <List.Item><b>{`${SEARCH_VARIABLE.UPDATES[language]}: `}</b>{variables.length}</List.Item>
+            }
           </List>
           <Divider hidden />
           {infoPopup(
             SEARCH_VARIABLE.SUBJECT_FIELDS[language],
-            <Container>{getVariableSubjectFields(language, variable[MODEL.TYPE[1]], variable)}</Container>
+            <Container>{getVariableSubjectFields(language, variables[0].node[MODEL.TYPE[1]], variables[0].node)}</Container>
           )}
         </Grid.Column>
         <Grid.Column>

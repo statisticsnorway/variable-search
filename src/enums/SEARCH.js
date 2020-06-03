@@ -61,5 +61,9 @@ export const SEARCH_VARIABLE = {
   UNIT_TYPE: {
     en: 'Unit type',
     nb: 'Enhetstype'
-  }
+  },
+  UPDATES: {
+    en: 'Times changed',
+    nb: 'Ganger endret'
+  },
 }
