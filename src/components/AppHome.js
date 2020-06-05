@@ -117,8 +117,10 @@ function AppHome () {
           <Header size='huge' content={SEARCH.VARIABLE_RESULTS[language]} />
           {variableSelect}
           <Divider hidden />
-          {loading ? <Loader active inline='centered' /> :
-            Object.keys(variableResults).length >= 1 ? Object.entries(variableResults)
+          { loading ? <Loader active inline='centered' /> :
+            Object.keys(variableResults).length >= 1 ?
+              Object.entries(variableResults)
+                .filter(([id, entry]) => variableFilter.includes(entry[0].node[MODEL.TYPE[1]]))
                 .map(([id, variables]) => <SearchResultVariable key={id} id={id} variables={variables} />) :
               searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
