@@ -67,7 +67,6 @@ function AppHome () {
 
   const variableSelect = MODEL.VARIABLES.map(variable =>
     <Checkbox
-      disabled
       key={variable}
       label={variable}
       style={{ marginRight: '2em' }}
@@ -116,11 +115,15 @@ function AppHome () {
         <Grid.Column>
           <Header size='huge' content={SEARCH.VARIABLE_RESULTS[language]} />
           {variableSelect}
+          {Object.keys(variableResults).length >= 1 &&
+          `${SEARCH.HITS[language]}: ${Object.keys(variableResults).length}`
+          }
           <Divider hidden />
           {loading ? <Loader active inline='centered' /> :
             Object.keys(variableResults).length >= 1 ? Object.entries(variableResults)
-                .map(([id, variables]) => <SearchResultVariable key={id} id={id} variables={variables} />) :
-              searched ? UI.SEARCH_NO_RESULTS[language] : null
+                .filter(entry => variableFilter.includes(entry[1][0].node[MODEL.TYPE[1]]))
+                .map(([id, variables]) => <SearchResultVariable key={id} id={id} variables={variables} />)
+              : searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
         </Grid.Column>
       </Grid>

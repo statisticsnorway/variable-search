@@ -35,8 +35,6 @@ export const splitSearchResult = results => {
   const datasets = splitAndReverse(edges.filter(entry => getNestedObject(entry, MODEL.TYPE) === MODEL.DATASET))
   const variables = splitAndReverse(edges.filter(entry => getNestedObject(entry, MODEL.TYPE) !== MODEL.DATASET))
 
-  console.log(datasets)
-
   return ({
     variables: variables,
     datasets: datasets
