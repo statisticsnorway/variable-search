@@ -15,7 +15,7 @@ export const TEST_CONFIGURATIONS = {
   errorString: errorString,
   errorObject: { response: { data: errorString } },
   errorStatus: { response: { statusText: errorString } },
-  language: LANGUAGE.LANGUAGES.ENGLISH.languageCode,
+  language: LANGUAGE.LANGUAGES.NORWEGIAN.languageCode,
   objectToString: '[object Object]',
-  otherLanguage: LANGUAGE.LANGUAGES.NORWEGIAN.languageCode
+  otherLanguage: LANGUAGE.LANGUAGES.ENGLISH.languageCode
 }

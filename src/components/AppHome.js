@@ -109,7 +109,7 @@ function AppHome () {
       <Grid columns='equal'>
         <Grid.Column>
           <Header size='huge' content={SEARCH.DATASET_RESULTS[language]} />
-          {loading ? <Loader active inline='centered' /> : datasetResults.length >= 1 ?
+          {loading ? <Loader active inline='centered' /> : Object.keys(datasetResults).length >= 1 ?
             <SearchResultDatasets datasets={datasetResults} /> : searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
         </Grid.Column>

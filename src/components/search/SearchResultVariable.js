@@ -55,7 +55,13 @@ function SearchResultVariable ({ id, variables }) {
               <b>{`${SEARCH_VARIABLE.DESCRIPTION[language]}: `}</b>{getDescription(language, variables[0].node)}
             </List.Item>
             {variables.length > 1 &&
-            <List.Item><b>{`${SEARCH_VARIABLE.UPDATES[language]}: `}</b>{variables.length}</List.Item>
+            <List.Item>
+              <b>{`${SEARCH_VARIABLE.UPDATES[language]}: ${variables.length - 1} `}</b>
+              {`
+              (${SEARCH_VARIABLE.CURSOR_OLDER[language]}:
+              ${variables.map(variable => variable.cursor).filter((cursor, index) => index !== 0).join(', ')})
+              `}
+            </List.Item>
             }
           </List>
           <Divider hidden />

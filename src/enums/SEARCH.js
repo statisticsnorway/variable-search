@@ -30,6 +30,10 @@ export const SEARCH = {
 }
 
 export const SEARCH_VARIABLE = {
+  CURSOR_OLDER: {
+    en: 'Cursors to older versions',
+    nb: 'Pekere til eldre versjoner'
+  },
   DATASET_STATE: {
     en: 'State',
     nb: 'Tilstand'

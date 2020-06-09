@@ -36,6 +36,7 @@ export const MODEL = {
     'edges'
   ],
   GET_DESCRIPTION: ['description'],
+  GET_ID: ['node', 'id'],
   GET_LOGICAL_RECORDS: {
     InstanceVariable: [
       'InstanceVariableById',

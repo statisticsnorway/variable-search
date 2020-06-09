@@ -18,22 +18,24 @@ export const datasetsFromVariable = (result, type) => {
   }
 }
 
+const splitAndReverse = array => array.reduceRight((accumulator, object) => {
+  let id = getNestedObject(object, MODEL.GET_ID)
+
+  if (!accumulator[id]) {
+    accumulator[id] = []
+  }
+
+  accumulator[id].push(object)
+
+  return accumulator
+}, {})
+
 export const splitSearchResult = results => {
   const edges = getNestedObject(results, MODEL.SEARCH)
-  const datasets = edges.filter(entry => getNestedObject(entry, MODEL.TYPE) === MODEL.DATASET)
+  const datasets = splitAndReverse(edges.filter(entry => getNestedObject(entry, MODEL.TYPE) === MODEL.DATASET))
+  const variables = splitAndReverse(edges.filter(entry => getNestedObject(entry, MODEL.TYPE) !== MODEL.DATASET))
 
-  const variables = edges.filter(entry => getNestedObject(entry, MODEL.TYPE) !== MODEL.DATASET)
-    .reduce((accumulator, object) => {
-      let id = object.node.id
-
-      if (!accumulator[id]) {
-        accumulator[id] = []
-      }
-
-      accumulator[id].push(object)
-
-      return accumulator
-    }, {})
+  console.log(datasets)
 
   return ({
     variables: variables,
