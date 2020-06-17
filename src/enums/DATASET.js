@@ -19,6 +19,10 @@ export const DATASET = {
     DATE_CREATED: {
       en: 'Date created',
       nb: 'Dato opprettet'
+    },
+    CURSOR: {
+      en: 'Cursor (changes)',
+      nb: 'Peker (endringer)'
     }
   }
 }

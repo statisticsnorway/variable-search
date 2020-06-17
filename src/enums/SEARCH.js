@@ -7,6 +7,10 @@ export const SEARCH = {
     en: 'Current results came from a previous search',
     nb: 'Resultatene som foreligger gjelder forrige søk'
   },
+  HITS: {
+    en: 'Number of hits in total',
+    nb: 'Antall treff totalt'
+  },
   NEW_SEARCH: {
     en: 'Hit \'Enter\' for a new search',
     nb: 'Trykk \'Enter\' for et nytt søk'
@@ -30,6 +34,10 @@ export const SEARCH = {
 }
 
 export const SEARCH_VARIABLE = {
+  CURSOR_OLDER: {
+    en: 'Cursors to older versions',
+    nb: 'Pekere til eldre versjoner'
+  },
   DATASET_STATE: {
     en: 'State',
     nb: 'Tilstand'

@@ -25,15 +25,18 @@ function SearchResultDatasets ({ datasets }) {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {datasets.map(({ node }) =>
-          <Table.Row key={node.id}>
-            <Table.Cell>{getName(language, node)}</Table.Cell>
-            <Table.Cell>{getDescription(language, node)}</Table.Cell>
-            <Table.Cell>{getDatasetState(node)}</Table.Cell>
+        {Object.entries(datasets).map(([id, dataset]) =>
+          <Table.Row key={id}>
+            <Table.Cell>{getName(language, dataset[0].node)}</Table.Cell>
+            <Table.Cell>{getDescription(language, dataset[0].node)}</Table.Cell>
+            <Table.Cell>{getDatasetState(dataset[0].node)}</Table.Cell>
             <Table.Cell>
-              <span style={{ color: VALUATION_COLORS[getDatasetValuation(node)] }}>{getDatasetValuation(node)}</span>
+              <span style={{ color: VALUATION_COLORS[getDatasetValuation(dataset[0].node)] }}>
+                {getDatasetValuation(dataset[0].node)}
+              </span>
             </Table.Cell>
-            <Table.Cell>{getDatasetCreatedDate(language, node)}</Table.Cell>
+            <Table.Cell>{getDatasetCreatedDate(language, dataset[0].node)}</Table.Cell>
+            <Table.Cell>{`${dataset[0].cursor} (${dataset.length - 1})`}</Table.Cell>
           </Table.Row>
         )}
       </Table.Body>

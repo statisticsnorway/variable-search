@@ -65,6 +65,7 @@ export const FULL_TEXT_SEARCH = `
 query textSearch($text: String!) {
   Search(query: $text, filter: [InstanceVariable, RepresentedVariable, Variable, UnitDataSet]) {
     edges {
+      cursor
       node {
         __typename
         ... on Variable {
