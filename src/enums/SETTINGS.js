@@ -1,7 +1,7 @@
 export const SETTINGS = {
   API: {
-    en: 'Linked Data Store service',
-    nb: 'Linked Data Store tjeneste'
+    en: 'Metadata service',
+    nb: 'Metadatatjeneste'
   },
   APPLY: {
     en: 'Apply',
