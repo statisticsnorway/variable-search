@@ -1,7 +1,7 @@
 {
   "name": "variable-search",
   "version": "0.1.7",
-  "description": "Variable and dataset search through GSIM",
+  "description": "Variable and dataset search through GSIM for Statistics Norway Dataplatform",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/statisticsnorway/variable-search.git"
