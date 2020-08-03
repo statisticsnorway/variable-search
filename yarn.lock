@@ -1381,6 +1381,11 @@
     prop-types "^15.7.2"
     react-is "^16.6.3"
 
+"@statisticsnorway/dapla-js-utilities@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@statisticsnorway/dapla-js-utilities/-/dapla-js-utilities-0.1.1.tgz#cf78ef36da3c9cef6fc31403b98e0d20e5a3cdcb"
+  integrity sha512-+Ps7p/R8fveu+nKAsC+THqJIYOyLyK7ZiMKS8QJJ1pWmPD/ZWWp6bRhjMQL49e/dulCC2j5MZpB8tnfPWIWyzQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"

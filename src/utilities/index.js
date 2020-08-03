@@ -4,9 +4,7 @@ export {
   getDatasetState,
   getDatasetValuation,
   getDescription,
-  getLocalizedGsimObjectText,
   getName,
-  getNestedObject,
   getVariableSubjectFields,
   getVariableUnitType
 } from './ObjectHandling'

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'graphql-hooks'
 import { Container, Divider, Grid, Icon, Label, List, Segment } from 'semantic-ui-react'
+import { InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import {
   datasetsFromVariable,
@@ -13,7 +14,7 @@ import {
   getVariableUnitType,
   LanguageContext
 } from '../../utilities'
-import { infoPopup, MODEL, SSB_COLORS } from '../../configurations'
+import { MODEL } from '../../configurations'
 import { SEARCH, SEARCH_VARIABLE, UI } from '../../enums'
 import { DATASETS_FROM } from '../../queries'
 
@@ -39,12 +40,14 @@ function SearchResultVariable ({ id, variables }) {
 
   return (
     <Segment textAlign='left'>
-      {infoPopup(
-        SEARCH_VARIABLE.UNIT_TYPE[language],
-        <Label ribbon size='large' style={{ backgroundColor: SSB_COLORS.BLUE, borderColor: SSB_COLORS.BLUE }}>
-          {getVariableUnitType(language, variables[0].node[MODEL.TYPE[1]], variables[0].node)}
-        </Label>
-      )}
+      <InfoPopup
+        text={SEARCH_VARIABLE.UNIT_TYPE[language]}
+        trigger={
+          <Label ribbon size='large' style={{ backgroundColor: SSB_COLORS.BLUE, borderColor: SSB_COLORS.BLUE }}>
+            {getVariableUnitType(language, variables[0].node[MODEL.TYPE[1]], variables[0].node)}
+          </Label>
+        }
+      />
       <Grid columns='equal'>
         <Grid.Column>
           <Divider hidden />
@@ -65,24 +68,30 @@ function SearchResultVariable ({ id, variables }) {
             }
           </List>
           <Divider hidden />
-          {infoPopup(
-            SEARCH_VARIABLE.SUBJECT_FIELDS[language],
-            <Container>{getVariableSubjectFields(language, variables[0].node[MODEL.TYPE[1]], variables[0].node)}</Container>
-          )}
+          <InfoPopup
+            text={SEARCH_VARIABLE.SUBJECT_FIELDS[language]}
+            trigger={
+              <Container>
+                {getVariableSubjectFields(language, variables[0].node[MODEL.TYPE[1]], variables[0].node)}
+              </Container>
+            }
+          />
         </Grid.Column>
         <Grid.Column>
-          {infoPopup(
-            SEARCH[`VARIABLE_DATASETS_${datasetsOpen ? 'CLOSED' : 'OPEN'}`][language],
-            <Label
-              floating
-              size='large'
-              onClick={() => setDatasetsOpen(!datasetsOpen)}
-              style={{ backgroundColor: SSB_COLORS.PURPLE, borderColor: SSB_COLORS.PURPLE }}
-            >
-              <Icon name={datasetsOpen ? 'minus circle' : 'plus circle'} />
-            </Label>,
-            'left center'
-          )}
+          <InfoPopup
+            position='left center'
+            text={SEARCH[`VARIABLE_DATASETS_${datasetsOpen ? 'CLOSED' : 'OPEN'}`][language]}
+            trigger={
+              <Label
+                floating
+                size='large'
+                onClick={() => setDatasetsOpen(!datasetsOpen)}
+                style={{ backgroundColor: SSB_COLORS.PURPLE, borderColor: SSB_COLORS.PURPLE }}
+              >
+                <Icon name={datasetsOpen ? 'minus circle' : 'plus circle'} />
+              </Label>
+            }
+          />
           {datasetsOpen ? datasets.length >= 1 ? datasets.map(dataset =>
             <List key={dataset.id} relaxed>
               <List.Item><b>{`${SEARCH_VARIABLE.NAME[language]}: `}</b>{getName(language, dataset)}</List.Item>

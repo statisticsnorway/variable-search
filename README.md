@@ -1,7 +1,7 @@
 # variable-search
 [![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.variable-search?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=12&branchName=master)
 
-This application aims to create an interactive search against the 
+This application is built for in-house use in SSB and it aims to create an interactive search against the 
 [graphql-api](https://github.com/statisticsnorway/linked-data-store-documentation/blob/master/docs/graphql-api.adoc) 
 exposed by [Linked Data Store](https://github.com/statisticsnorway/linked-data-store-documentation).
 
