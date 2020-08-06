@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { Divider, Loader, Segment } from 'semantic-ui-react'
+import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
-import { AppHome, AppMenu, AppSettings, ErrorMessage } from './components'
+import { AppHome, AppMenu, AppSettings } from './components'
 import { ApiContext, LanguageContext } from './utilities'
 import { API } from './configurations'
 import { UI } from './enums'
@@ -30,7 +31,7 @@ function App () {
       <Divider />
       <Segment basic>
         {loading ? <Loader active inline='centered' /> :
-          error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} /> :
+          error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /> :
             apiReady && <AppHome />
         }
       </Segment>

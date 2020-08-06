@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { Divider, Dropdown, Header, Image, Menu } from 'semantic-ui-react'
+import { LANGUAGE, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import SSBLogo from '../media/ssb-logo-rgb.svg'
 import { LanguageContext } from '../utilities'
-import { SSB_COLORS } from '../configurations'
-import { LANGUAGE, TEST_IDS, UI } from '../enums'
+import { TEST_IDS, UI } from '../enums'
 
 function AppMenu ({ setSettingsOpen }) {
   const { language, setLanguage } = useContext(LanguageContext)

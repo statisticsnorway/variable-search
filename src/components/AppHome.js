@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
 import { Checkbox, Divider, Grid, Header, Icon, Label, Loader, Search, Segment } from 'semantic-ui-react'
+import { InfoPopup, InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { SearchResultDatasets, SearchResultVariable } from './search'
-import { infoPopup, infoText, MODEL, SSB_COLORS } from '../configurations'
+import { MODEL } from '../configurations'
 import { ApiContext, LanguageContext, splitSearchResult } from '../utilities'
 import { SEARCH, UI } from '../enums'
 import { FULL_TEXT_SEARCH } from '../queries'
@@ -78,13 +79,15 @@ function AppHome () {
   return (
     <Segment basic textAlign='center'>
       <Label attached='top right' style={{ background: 'transparent' }}>
-        {infoPopup(
-          UI.EXTERNAL_GRAPHIQL[language],
-          <a href={`${restApi}/graphiql`} target='_blank' rel='noopener noreferrer'>
-            <Icon link size='large' name='external' style={{ color: SSB_COLORS.BLUE }} />
-          </a>,
-          'bottom right'
-        )}
+        <InfoPopup
+          position='bottom right'
+          text={UI.EXTERNAL_GRAPHIQL[language]}
+          trigger={
+            <a href={`${restApi}/graphiql`} target='_blank' rel='noopener noreferrer'>
+              <Icon link size='large' name='external' style={{ color: SSB_COLORS.BLUE }} />
+            </a>
+          }
+        />
       </Label>
       <Search
         size='huge'
@@ -98,7 +101,7 @@ function AppHome () {
           setSearchValue(value)
         }}
       />
-      {searched && searchEdited && infoText(SEARCH.EDITED[language])}
+      {searched && searchEdited && <InfoText text={SEARCH.EDITED[language]} />}
       {searched && searchEdited && previousSearch !== '' &&
       <>
         {` (`}<i>{SEARCH.PREVIOUS[language]}</i>{`'`}<b>{previousSearch}</b>{`')`}<p>{SEARCH.NEW_SEARCH[language]}</p>

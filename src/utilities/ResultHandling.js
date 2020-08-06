@@ -1,4 +1,5 @@
-import { getNestedObject } from '../utilities'
+import { getNestedObject } from '@statisticsnorway/dapla-js-utilities'
+
 import { MODEL } from '../configurations'
 
 export const datasetsFromVariable = (result, type) => {
