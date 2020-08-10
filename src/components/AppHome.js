@@ -70,7 +70,7 @@ function AppHome () {
     <Checkbox
       key={variable}
       label={variable}
-      style={{ marginRight: '2em' }}
+      style={{ marginRight: '2rem' }}
       checked={variableFilter.includes(variable)}
       onClick={() => handleCheckbox(variableFilter.includes(variable), variable)}
     />

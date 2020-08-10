@@ -1,5 +1,5 @@
 export const API = {
-  GET_HEALTH: '/ping',
+  GET_HEALTH: '/health/ready',
   GRAPHQL: '/graphql'
 }
 
