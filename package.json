@@ -4,7 +4,7 @@
   "description": "Variable and dataset search through GSIM for Statistics Norway Dataplatform",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/statisticsnorway/variable-search.git"
+    "url": "https://github.com/statisticsnorway/variable-search"
   },
   "author": "Statistics Norway",
   "license": "Apache-2.0",
