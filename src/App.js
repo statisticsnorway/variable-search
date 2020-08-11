@@ -15,7 +15,7 @@ function App () {
   const [apiReady, setApiReady] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
 
-  const [{ loading, error }] = useAxios(`${restApi}${API.GET_HEALTH}`)
+  const [{ loading, error }] = useAxios(`${restApi}${API.GET_HEALTH}`, { useCache: false })
 
   useEffect(() => {
     if (!loading && !error) {
