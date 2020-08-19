@@ -1,7 +1,8 @@
 {
   "name": "variable-search",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Variable and dataset search through GSIM for Statistics Norway Dataplatform",
+  "main": "lib/bundle.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/statisticsnorway/variable-search"
@@ -28,9 +29,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "package": "rollup --config",
     "test": "react-scripts test",
-    "coverage": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject"
+    "coverage": "react-scripts test --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,13 +49,23 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^10.0.0",
-    "@testing-library/user-event": "^12.0.11"
+    "@testing-library/user-event": "^12.0.11",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "rollup": "^2.23.0",
+    "rollup-plugin-terser": "^7.0.0"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**",
+      "!src/main.js",
       "!src/index.js",
       "!src/ssb-logo-rgb.svg",
       "!src/**/index.js",
@@ -74,5 +85,13 @@
         "statements": 75
       }
     }
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "contributors": [
+    {
+      "name": "Magnus M. Jenssen"
+    }
+  ]
 }
