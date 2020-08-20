@@ -1,4 +1,5 @@
 # variable-search
+[![npm version](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search.svg)](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search)
 [![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.variable-search?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=12&branchName=master)
 
 This application is built for in-house use in SSB and it aims to create an interactive search against the 
