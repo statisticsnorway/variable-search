@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 import { AppSettings } from '../components'
 import { ApiContext, LanguageContext } from '../utilities'
-import { API, TEST_CONFIGURATIONS } from '../configurations'
+import { TEST_CONFIGURATIONS } from '../configurations'
 import { SETTINGS, TEST_IDS } from '../enums'
 
 const { alternativeApi, language } = TEST_CONFIGURATIONS
