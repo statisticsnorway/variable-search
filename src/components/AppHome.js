@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
 import { Checkbox, Divider, Grid, Header, Icon, Label, Loader, Search, Segment } from 'semantic-ui-react'
 import { InfoPopup, InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { SearchResultDatasets, SearchResultVariable } from './search'
 import { MODEL } from '../configurations'
-import { ApiContext, LanguageContext, splitSearchResult } from '../utilities'
+import { splitSearchResult } from '../utilities'
 import { SEARCH, UI } from '../enums'
 import { FULL_TEXT_SEARCH } from '../queries'
 
-function AppHome () {
-  const { language } = useContext(LanguageContext)
-  const { restApi } = useContext(ApiContext)
-
+function AppHome ({ restApi, language }) {
   const [searched, setSearched] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const [searchEdited, setSearchEdited] = useState(false)
@@ -112,7 +109,9 @@ function AppHome () {
         <Grid.Column>
           <Header size='huge' content={SEARCH.DATASET_RESULTS[language]} />
           {loading ? <Loader active inline='centered' /> : Object.keys(datasetResults).length >= 1 ?
-            <SearchResultDatasets datasets={datasetResults} /> : searched ? UI.SEARCH_NO_RESULTS[language] : null
+            <SearchResultDatasets datasets={datasetResults} language={language} />
+            : searched ? UI.SEARCH_NO_RESULTS[language]
+              : null
           }
         </Grid.Column>
         <Grid.Column>
@@ -125,7 +124,9 @@ function AppHome () {
           {loading ? <Loader active inline='centered' /> :
             Object.keys(variableResults).length >= 1 ? Object.entries(variableResults)
                 .filter(entry => variableFilter.includes(entry[1][0].node[MODEL.TYPE[1]]))
-                .map(([id, variables]) => <SearchResultVariable key={id} id={id} variables={variables} />)
+                .map(([id, variables]) =>
+                  <SearchResultVariable key={id} id={id} language={language} variables={variables} />
+                )
               : searched ? UI.SEARCH_NO_RESULTS[language] : null
           }
         </Grid.Column>

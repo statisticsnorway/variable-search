@@ -32,7 +32,7 @@ function App () {
       <Segment basic>
         {loading ? <Loader active inline='centered' /> :
           error ? <ErrorMessage error={UI.API_ERROR_MESSAGE[language]} language={language} /> :
-            apiReady && <AppHome />
+            apiReady && <AppHome restApi={restApi} language={language} />
         }
       </Segment>
       <AppSettings error={error} loading={loading} setSettingsOpen={setSettingsOpen} open={settingsOpen} />

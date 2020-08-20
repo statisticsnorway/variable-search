@@ -13,12 +13,13 @@ variables:
 
 jobs:
   - job: pullRequest
-    displayName: 'Run tests'
+    displayName: 'Run tests and build library'
     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
     steps:
       - script: |
           yarn
           CI=true yarn coverage
+          CI=true yarn package
   - job: mergeToMaster
     displayName: 'Analyze code and build and push Docker image'
     condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))

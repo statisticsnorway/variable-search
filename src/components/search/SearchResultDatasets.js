@@ -1,20 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Table } from 'semantic-ui-react'
 
-import {
-  getDatasetCreatedDate,
-  getDatasetState,
-  getDatasetValuation,
-  getDescription,
-  getName,
-  LanguageContext
-} from '../../utilities'
+import { getDatasetCreatedDate, getDatasetState, getDatasetValuation, getDescription, getName } from '../../utilities'
 import { VALUATION_COLORS } from '../../configurations'
 import { DATASET } from '../../enums'
 
-function SearchResultDatasets ({ datasets }) {
-  const { language } = useContext(LanguageContext)
-
+function SearchResultDatasets ({ datasets, language }) {
   return (
     <Table basic='very'>
       <Table.Header>

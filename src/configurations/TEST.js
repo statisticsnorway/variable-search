@@ -1,4 +1,4 @@
-import { API } from './'
+import { API } from './API'
 import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 const errorString = 'A problem occured'

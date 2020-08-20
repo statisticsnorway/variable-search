@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'graphql-hooks'
 import { Container, Divider, Grid, Icon, Label, List, Segment } from 'semantic-ui-react'
 import { InfoPopup, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
@@ -11,16 +11,13 @@ import {
   getDescription,
   getName,
   getVariableSubjectFields,
-  getVariableUnitType,
-  LanguageContext
+  getVariableUnitType
 } from '../../utilities'
 import { MODEL } from '../../configurations'
 import { SEARCH, SEARCH_VARIABLE, UI } from '../../enums'
 import { DATASETS_FROM } from '../../queries'
 
-function SearchResultVariable ({ id, variables }) {
-  const { language } = useContext(LanguageContext)
-
+function SearchResultVariable ({ id, language, variables }) {
   const [datasets, setDatasets] = useState([])
   const [datasetsOpen, setDatasetsOpen] = useState(false)
 
