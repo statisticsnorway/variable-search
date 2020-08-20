@@ -10,7 +10,7 @@ Functionality includes:
 * Listing connections between variables and datasets
 
 The project makes limited use of the [Component library for SSB](https://github.com/statisticsnorway/ssb-component-library)
-and is based upon [react-reference-app](https://github.com/statisticsnorway/fe-react-reference-app).
+and is based upon [react-reference-app](https://github.com/statisticsnorway/react-reference-app).
 
 ### Use as a library
 If you want to use this application as a library in your project, simply install it from yarn.
