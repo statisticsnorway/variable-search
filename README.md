@@ -2,19 +2,19 @@
 [![npm version](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search.svg)](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search)
 [![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.variable-search?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=12&branchName=master)
 
-This application is built for in-house use in SSB and it aims to create an interactive search against the 
+This application is built for in-house use in Statistics Norway and it aims to create an interactive search against the 
 [graphql-api](https://github.com/statisticsnorway/linked-data-store-documentation/blob/master/docs/graphql-api.adoc) 
 exposed by [Linked Data Store](https://github.com/statisticsnorway/linked-data-store-documentation).
 
 Functionality includes:
-* Searching through domains (spesifically variables and dataset)
-* Listing connections between variables and datasets
+* Searching through GSIM domains (spesifically variables and datasets)
+* Listing connections between variables and datasets (which datasets use which variables and vice versa)
 
-The project makes limited use of the [Component library for SSB](https://github.com/statisticsnorway/ssb-component-library)
+The project makes limited use of the [ssb-component-library](https://github.com/statisticsnorway/ssb-component-library)
 and is based upon [react-reference-app](https://github.com/statisticsnorway/react-reference-app).
 
 ### Use as a library
-If you want to use this application as a library in your project, simply install it from yarn.
+If you want to use this application as a library in your project, simply add it with yarn.
 
 `yarn add @statisticsnorway/dapla-variable-search`
 
@@ -37,9 +37,9 @@ The component needs two properties to function correctly, `restApi` and `languag
 `restApi` is the base url for any Linked Data Store you wish to use and `language` sets the language of the component.
 `en` (English) and `nb` (Norwegian) is available.
 
-In your application housing this component as a library you also need to set up graphql-hooks in a React `Context`.
-You can checkout how to do it in `/src/utilities/ContextHandling.js` in this project. This is because the component
-needs several instances of graphql-hooks to run and without setting up a GraphQLClient that is impossible.
+In your application housing this component you also need to set up graphql-hooks in a React `Context`.
+You can checkout how to do it in `/src/utilities/ContextHandling.js` in this project. This is done because the component
+needs several instances of graphql-hooks to run, and without setting up a GraphQLClient that is impossible.
 
 ### Try this application locally
 The first time you clone the repository, remember to run `yarn` or `yarn install`.
@@ -59,9 +59,9 @@ running to function locally (or atleast a running instance of [Linked Data Store
 
 ### Publish library
 To publish to [npm](https://www.npmjs.com/) you need a user and a membership in the `statisticsnorway` organization on 
-there. The user must also have 2FA authentication enabled. Steps to follow:
+npm. The user must also have 2FA authentication enabled. Steps to follow:
 
-1. Login into your npm account in the terminal with `npm login`
+1. Login into your npm account in a terminal with `npm login`
 2. Make sure all tests works (test components in the example application aswell, if you made a new one)
 3. Bump version in `package.json`
 4. Run `yarn package`
