@@ -5,8 +5,16 @@ import { MODEL } from '../configurations'
 export const datasetsFromVariable = (result, type) => {
   const datasets = getNestedObject(result, MODEL.GET_LOGICAL_RECORDS[type])
 
-  if (datasets !== undefined) {
-    const filteredDatasets = datasets.filter(entry => getNestedObject(entry, MODEL.GET_DATASETS).length !== 0)
+  if (Array.isArray(datasets)) {
+    const filteredDatasets = datasets.filter(entry => {
+      const datasetsFromEntry = getNestedObject(entry, MODEL.GET_DATASETS)
+
+      if (Array.isArray(datasetsFromEntry)) {
+        return datasetsFromEntry.length !== 0
+      } else {
+        return false
+      }
+    })
 
     if (filteredDatasets.length !== 0) {
       return datasets.map(dataset => getNestedObject(dataset, MODEL.GET_DATASET))
