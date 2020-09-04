@@ -5,8 +5,9 @@ import useAxios from 'axios-hooks'
 import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 import App from '../App'
-import { AppContextProvider } from '../utilities'
-import { API, TEST_CONFIGURATIONS } from '../configurations'
+import { AppContextProvider } from '../context/AppContext'
+import { API } from '../configurations'
+import { TEST_CONFIGURATIONS } from '../configurations/TEST'
 import { SETTINGS, TEST_IDS, UI } from '../enums'
 
 jest.mock('../components/AppHome', () => () => null)

@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
 import { Divider, Dropdown, Header, Image, Menu } from 'semantic-ui-react'
-import { LANGUAGE, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
+import { LANGUAGE, SSB_COLORS, ssb_logo_rgb } from '@statisticsnorway/dapla-js-utilities'
 
-import SSBLogo from '../ssb-logo-rgb.svg'
-import { LanguageContext } from '../utilities'
+import { LanguageContext } from '../context/AppContext'
 import { TEST_IDS, UI } from '../enums'
 
 function AppMenu ({ setSettingsOpen }) {
@@ -19,7 +18,7 @@ function AppMenu ({ setSettingsOpen }) {
 
   return (
     <Menu secondary size='huge' style={{ padding: '1rem', paddingTop: '2rem' }}>
-      <Menu.Item><Image size='medium' src={SSBLogo} /></Menu.Item>
+      <Menu.Item><Image size='medium' src={ssb_logo_rgb} /></Menu.Item>
       <Menu.Item><Header size='huge' content={UI.HEADER[language]} /></Menu.Item>
       <Menu.Menu position='right'>
         <Menu.Item><Divider vertical /></Menu.Item>
