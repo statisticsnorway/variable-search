@@ -1,37 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'semantic-ui-react'
+import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
-import { getDatasetCreatedDate, getDatasetState, getDatasetValuation, getDescription, getName } from '../../utilities'
-import { VALUATION_COLORS } from '../../configurations'
-import { DATASET } from '../../enums'
+import FilterWarning from './FilterWarning'
+import { RESULTS } from '../../enums'
 
-function SearchResultDatasets ({ datasets, language }) {
+function SearchResultDatasets ({ datasets, datasetTypeFilter, language }) {
+  const [filteredDatasets, setFilteredDatasets] = useState(
+    datasets.filter(dataset => datasetTypeFilter.includes(Object.keys(dataset)[0]))
+  )
+
+  useEffect(() => {
+    setFilteredDatasets(datasets.filter(dataset => datasetTypeFilter.includes(Object.keys(dataset)[0])))
+  }, [datasets, datasetTypeFilter])
+
   return (
-    <Table basic='very'>
-      <Table.Header>
-        <Table.Row>
-          {Object.entries(DATASET.TABLE_HEADERS).map(([header, text]) =>
-            <Table.HeaderCell key={header}>{text[language]}</Table.HeaderCell>
-          )}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {Object.entries(datasets).map(([id, dataset]) =>
-          <Table.Row key={id}>
-            <Table.Cell>{getName(language, dataset[0].node)}</Table.Cell>
-            <Table.Cell>{getDescription(language, dataset[0].node)}</Table.Cell>
-            <Table.Cell>{getDatasetState(dataset[0].node)}</Table.Cell>
-            <Table.Cell>
-              <span style={{ color: VALUATION_COLORS[getDatasetValuation(dataset[0].node)] }}>
-                {getDatasetValuation(dataset[0].node)}
-              </span>
-            </Table.Cell>
-            <Table.Cell>{getDatasetCreatedDate(language, dataset[0].node)}</Table.Cell>
-            <Table.Cell>{`${dataset[0].cursor} (${dataset.length - 1})`}</Table.Cell>
+    <>
+      {datasetTypeFilter.length !== 2 &&
+      <FilterWarning language={language} filtered={filteredDatasets.length} total={datasets.length} />
+      }
+      <Table basic='very' selectable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>{RESULTS.NAME[language]}</Table.HeaderCell>
+            <Table.HeaderCell>{RESULTS.DESCRIPTION[language]}</Table.HeaderCell>
+            <Table.HeaderCell>{RESULTS.TYPE[language]}</Table.HeaderCell>
           </Table.Row>
-        )}
-      </Table.Body>
-    </Table>
+        </Table.Header>
+        <Table.Body>
+          {filteredDatasets.map(dataset => {
+            const type = Object.keys(dataset)[0]
+            const values = dataset[type]
+            const { id, name, description } = values
+
+            return (
+              <Table.Row key={id}>
+                <Table.Cell>{getLocalizedGsimObjectText(language, name)}</Table.Cell>
+                <Table.Cell>{getLocalizedGsimObjectText(language, description)}</Table.Cell>
+                <Table.Cell>{type}</Table.Cell>
+              </Table.Row>
+            )
+          })}
+        </Table.Body>
+      </Table>
+    </>
   )
 }
 

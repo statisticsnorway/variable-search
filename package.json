@@ -71,10 +71,7 @@
       "!src/configurations/**",
       "!src/enums/**",
       "!src/queries/**",
-      "!src/utilities/**",
-      "!src/__tests__/test-data/**",
-      "!src/components/AppHome.js",
-      "!src/components/search/**"
+      "!src/__tests__/test-data/**"
     ],
     "coverageThreshold": {
       "global": {

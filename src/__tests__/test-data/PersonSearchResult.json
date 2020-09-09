@@ -1,0 +1,47 @@
+[
+  {
+    "representedVariable": {
+      "name": [
+        {
+          "languageText": "NationalPersonIdentifier"
+        }
+      ],
+      "description": [
+        {
+          "languageText": "National identifier number for person"
+        }
+      ],
+      "id": "6cdecd72-c4a8-4b56-9c0a-9fd01c4fea56"
+    }
+  },
+  {
+    "variable": {
+      "name": [
+        {
+          "languageText": "NationalPersonIdentifier"
+        }
+      ],
+      "description": [
+        {
+          "languageText": "National identifier number for person"
+        }
+      ],
+      "id": "0cbfbe23-5d4a-4503-9c3a-956e07574b65"
+    }
+  },
+  {
+    "unitDataSet": {
+      "name": [
+        {
+          "languageText": "PersonWithIncomeDataset"
+        }
+      ],
+      "description": [
+        {
+          "languageText": "Persons with income in Norway per 2018-01-01"
+        }
+      ],
+      "id": "b9c10b86-5867-4270-b56e-ee7439fe381e"
+    }
+  }
+]

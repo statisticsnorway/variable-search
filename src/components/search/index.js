@@ -1,2 +1,3 @@
+export { default as ConfigureSearch } from './ConfigureSearch'
 export { default as SearchResultDatasets } from './SearchResultDatasets'
-export { default as SearchResultVariable } from './SearchResultVariable'
+export { default as SearchResultVariables } from './SearchResultVariables'
