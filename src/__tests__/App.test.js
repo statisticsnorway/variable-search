@@ -54,7 +54,7 @@ test('Does not crash', () => {
   useAxios.mockReturnValue([{ loading: true, error: null }])
   setup()
 
-  expect(useAxios).toHaveBeenCalledWith(`${process.env.REACT_APP_API}${API.GET_HEALTH}`, { useCache: false })
+  expect(useAxios).toHaveBeenCalledWith(`${window._env.REACT_APP_API}${API.GET_HEALTH}`, { useCache: false })
 })
 
 test('Renders error when backend call returns error', () => {
