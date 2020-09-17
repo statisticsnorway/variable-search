@@ -1,10 +1,10 @@
 import React from 'react'
-import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { render } from '@testing-library/react'
 
 import { AppSettings } from '../components'
-import { ApiContext, LanguageContext } from '../utilities'
-import { TEST_CONFIGURATIONS } from '../configurations'
+import { ApiContext, LanguageContext } from '../context/AppContext'
+import { TEST_CONFIGURATIONS } from '../configurations/TEST'
 import { SETTINGS, TEST_IDS } from '../enums'
 
 const { alternativeApi, language } = TEST_CONFIGURATIONS

@@ -1,3 +1,4 @@
+import path from 'path'
 import babel from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import commonjs from '@rollup/plugin-commonjs'
@@ -28,11 +29,10 @@ export default {
   ],
   external: [
     '@statisticsnorway/dapla-js-utilities',
-    'axios',
-    'axios-hooks',
     'graphql-hooks',
     'react',
-    'semantic-ui-react'
+    'semantic-ui-react',
+    path.resolve(__dirname, 'src/configurations/TEST.js')
   ],
   plugins: [
     resolve(),

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
-import { Checkbox, Divider, Grid, Header, Icon, Label, Loader, Search, Segment } from 'semantic-ui-react'
+import { Grid, Icon, Label, Menu, Search, Segment, Tab } from 'semantic-ui-react'
 import { InfoPopup, InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { SearchResultDatasets, SearchResultVariable } from './search'
+import { ConfigureSearch, SearchResultDatasets, SearchResultVariables } from './search'
 import { MODEL } from '../configurations'
 import { splitSearchResult } from '../utilities'
-import { SEARCH, UI } from '../enums'
+import { UI } from '../enums'
 import { FULL_TEXT_SEARCH } from '../queries'
 
 function AppHome ({ restApi, language }) {
@@ -15,8 +15,9 @@ function AppHome ({ restApi, language }) {
   const [searchEdited, setSearchEdited] = useState(false)
   const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
-  const [variableResults, setVariableResults] = useState({})
-  const [variableFilter, setVariableFilter] = useState(MODEL.VARIABLES)
+  const [variableResults, setVariableResults] = useState([])
+  const [datasetTypeFilter, setDatasetTypeFilter] = useState(MODEL.DATASET_TYPES)
+  const [variableTypeFilter, setVariableTypeFilter] = useState(MODEL.VARIABLE_TYPES)
 
   const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue } })
 
@@ -29,109 +30,118 @@ function AppHome ({ restApi, language }) {
     }
   }, [error, loading, data])
 
-  useEffect(() => {
-    if (error && !loading) {
-      if (data !== undefined) {
-        try {
-          const searchResults = splitSearchResult(data)
-
-          setDatasetResults(searchResults.datasets)
-          setVariableResults(searchResults.variables)
-        } catch (e) {
-          console.log('Tried to extract query results from returned error but could not:')
-          console.log(e)
-        }
-      }
-
-      console.log(error)
-    }
-  }, [data, error, loading])
-
   const doSearch = () => {
-    setSearched(true)
-    setSearchEdited(false)
-    setPreviousSearch(searchValue)
-    // noinspection JSIgnoredPromiseFromCall
-    fetchResults()
-  }
-
-  const handleCheckbox = (includes, variable) => {
-    if (includes) {
-      setVariableFilter(variableFilter.filter(element => element !== variable))
-    } else {
-      setVariableFilter(variableFilter.concat([variable]))
+    if (searchValue.length >= 1) {
+      setSearched(true)
+      setSearchEdited(false)
+      setPreviousSearch(searchValue)
+      // noinspection JSIgnoredPromiseFromCall
+      fetchResults()
     }
   }
 
-  const variableSelect = MODEL.VARIABLES.map(variable =>
-    <Checkbox
-      key={variable}
-      label={variable}
-      style={{ marginRight: '2rem' }}
-      checked={variableFilter.includes(variable)}
-      onClick={() => handleCheckbox(variableFilter.includes(variable), variable)}
-    />
-  )
+  const handleDatasetTypeCheckbox = (includes, datasetType) => {
+    if (includes) {
+      setDatasetTypeFilter(datasetTypeFilter.filter(element => element !== datasetType))
+    } else {
+      setDatasetTypeFilter(datasetTypeFilter.concat([datasetType]))
+    }
+  }
+
+  const handleVariableTypeCheckbox = (includes, variableType) => {
+    if (includes) {
+      setVariableTypeFilter(variableTypeFilter.filter(element => element !== variableType))
+    } else {
+      setVariableTypeFilter(variableTypeFilter.concat([variableType]))
+    }
+  }
+
+  const panes = [
+    {
+      menuItem: (
+        <Menu.Item key='datasets'>
+          {UI.DATASETS[language]}
+          <Label style={{ background: SSB_COLORS.BLUE }}>
+            {loading ? <Icon loading name='spinner' /> : datasetResults.length}
+          </Label>
+        </Menu.Item>
+      ),
+      render: () => datasetResults.length >= 1 ?
+        <Tab.Pane as={Segment} basic style={{ border: 'none' }}>
+          <SearchResultDatasets
+            language={language}
+            datasets={datasetResults}
+            datasetTypeFilter={datasetTypeFilter}
+          />
+        </Tab.Pane>
+        : null
+    },
+    {
+      menuItem: (
+        <Menu.Item key='variables'>
+          {UI.VARIABLES[language]}
+          <Label style={{ background: SSB_COLORS.BLUE }}>
+            {loading ? <Icon loading name='spinner' /> : variableResults.length}
+          </Label>
+        </Menu.Item>
+      ),
+      render: () => variableResults.length >= 1 ?
+        <Tab.Pane as={Segment} basic style={{ border: 'none' }}>
+          <SearchResultVariables
+            language={language}
+            variables={variableResults}
+            variableTypeFilter={variableTypeFilter}
+          />
+        </Tab.Pane>
+        : null
+    }
+  ]
 
   return (
-    <Segment basic textAlign='center'>
-      <Label attached='top right' style={{ background: 'transparent' }}>
-        <InfoPopup
-          position='bottom right'
-          text={UI.EXTERNAL_GRAPHIQL[language]}
-          trigger={
-            <a href={`${restApi}/graphiql`} target='_blank' rel='noopener noreferrer'>
-              <Icon link size='large' name='external' style={{ color: SSB_COLORS.BLUE }} />
-            </a>
-          }
+    <Grid>
+      <Grid.Column width={4}>
+        <Label attached='top right' style={{ background: 'transparent' }}>
+          <InfoPopup
+            position='right center'
+            text={UI.EXTERNAL_GRAPHIQL[language]}
+            trigger={
+              <a href={`${restApi}/graphiql`} target='_blank' rel='noopener noreferrer'>
+                <Icon link size='large' name='external' style={{ color: SSB_COLORS.BLUE }} />
+              </a>
+            }
+          />
+        </Label>
+        <Search
+          size='huge'
+          open={false}
+          loading={loading}
+          value={searchValue}
+          placeholder={UI.SEARCH[language]}
+          onKeyPress={({ key }) => key === 'Enter' && doSearch()}
+          onSearchChange={(event, { value }) => {
+            setSearchEdited(true)
+            setSearchValue(value)
+          }}
         />
-      </Label>
-      <Search
-        size='huge'
-        open={false}
-        loading={loading}
-        value={searchValue}
-        placeholder={UI.SEARCH[language]}
-        onKeyPress={({ key }) => key === 'Enter' && doSearch()}
-        onSearchChange={(event, { value }) => {
-          setSearchEdited(true)
-          setSearchValue(value)
-        }}
-      />
-      {searched && searchEdited && <InfoText text={SEARCH.EDITED[language]} />}
-      {searched && searchEdited && previousSearch !== '' &&
-      <>
-        {` (`}<i>{SEARCH.PREVIOUS[language]}</i>{`'`}<b>{previousSearch}</b>{`')`}<p>{SEARCH.NEW_SEARCH[language]}</p>
-      </>
-      }
-      <Divider hidden />
-      <Grid columns='equal'>
-        <Grid.Column>
-          <Header size='huge' content={SEARCH.DATASET_RESULTS[language]} />
-          {loading ? <Loader active inline='centered' /> : Object.keys(datasetResults).length >= 1 ?
-            <SearchResultDatasets datasets={datasetResults} language={language} />
-            : searched ? UI.SEARCH_NO_RESULTS[language]
-              : null
-          }
-        </Grid.Column>
-        <Grid.Column>
-          <Header size='huge' content={SEARCH.VARIABLE_RESULTS[language]} />
-          {variableSelect}
-          {Object.keys(variableResults).length >= 1 &&
-          `${SEARCH.HITS[language]}: ${Object.keys(variableResults).length}`
-          }
-          <Divider hidden />
-          {loading ? <Loader active inline='centered' /> :
-            Object.keys(variableResults).length >= 1 ? Object.entries(variableResults)
-                .filter(entry => variableFilter.includes(entry[1][0].node[MODEL.TYPE[1]]))
-                .map(([id, variables]) =>
-                  <SearchResultVariable key={id} id={id} language={language} variables={variables} />
-                )
-              : searched ? UI.SEARCH_NO_RESULTS[language] : null
-          }
-        </Grid.Column>
-      </Grid>
-    </Segment>
+        {searched && searchEdited && <InfoText text={UI.EDITED[language]} />}
+        {searched && searchEdited && previousSearch !== '' &&
+        <>
+          {` (`}<i>{UI.PREVIOUS[language]}</i>{`'`}<b>{previousSearch}</b>{`')`}<p>{UI.NEW_SEARCH[language]}</p>
+        </>
+        }
+        <ConfigureSearch
+          language={language}
+          datasetTypeFilter={datasetTypeFilter}
+          variableTypeFilter={variableTypeFilter}
+          handleDatasetTypeCheckbox={handleDatasetTypeCheckbox}
+          handleVariableTypeCheckbox={handleVariableTypeCheckbox}
+        />
+      </Grid.Column>
+      <Grid.Column width={12}>
+        <Tab defaultActiveIndex={-1} menu={{ secondary: true, pointing: true }} panes={panes} />
+      </Grid.Column>
+    </Grid>
+
   )
 }
 

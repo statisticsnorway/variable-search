@@ -1,12 +1,13 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import useAxios from 'axios-hooks'
+import userEvent from '@testing-library/user-event'
+import { render } from '@testing-library/react'
 import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
 import App from '../App'
-import { AppContextProvider } from '../utilities'
-import { API, TEST_CONFIGURATIONS } from '../configurations'
+import { AppContextProvider } from '../context/AppContext'
+import { API } from '../configurations'
+import { TEST_CONFIGURATIONS } from '../configurations/TEST'
 import { SETTINGS, TEST_IDS, UI } from '../enums'
 
 jest.mock('../components/AppHome', () => () => null)
@@ -53,7 +54,7 @@ test('Does not crash', () => {
   useAxios.mockReturnValue([{ loading: true, error: null }])
   setup()
 
-  expect(useAxios).toHaveBeenCalledWith(`${process.env.REACT_APP_API}${API.GET_HEALTH}`, { useCache: false })
+  expect(useAxios).toHaveBeenCalledWith(`${window._env.REACT_APP_API}${API.GET_HEALTH}`, { useCache: false })
 })
 
 test('Renders error when backend call returns error', () => {

@@ -4,7 +4,7 @@ import { Divider, Loader, Segment } from 'semantic-ui-react'
 import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
 import { AppHome, AppMenu, AppSettings } from './components'
-import { ApiContext, LanguageContext } from './utilities'
+import { ApiContext, LanguageContext } from './context/AppContext'
 import { API } from './configurations'
 import { UI } from './enums'
 
