@@ -4,10 +4,10 @@ import { Grid, Icon, Label, Menu, Search, Segment, Tab } from 'semantic-ui-react
 import { InfoPopup, InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
 import { ConfigureSearch, SearchResultDatasets, SearchResultVariables } from './search'
-import { MODEL } from '../configurations'
 import { splitSearchResult } from '../utilities'
-import { UI } from '../enums'
 import { FULL_TEXT_SEARCH } from '../queries'
+import { API, MODEL } from '../configurations'
+import { UI } from '../enums'
 
 function AppHome ({ restApi, language }) {
   const [searched, setSearched] = useState(false)
@@ -18,6 +18,7 @@ function AppHome ({ restApi, language }) {
   const [variableResults, setVariableResults] = useState([])
   const [datasetTypeFilter, setDatasetTypeFilter] = useState(MODEL.DATASET_TYPES)
   const [variableTypeFilter, setVariableTypeFilter] = useState(MODEL.VARIABLE_TYPES)
+  const [chosenSearchMethod, setChosenSearchMethod] = useState(API.SEARCH_METHODS[0])
 
   const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue } })
 
@@ -56,6 +57,8 @@ function AppHome ({ restApi, language }) {
     }
   }
 
+  const handleSearchMethodCheckbox = searchMethod => setChosenSearchMethod(searchMethod)
+
   const panes = [
     {
       menuItem: (
@@ -90,6 +93,7 @@ function AppHome ({ restApi, language }) {
           <SearchResultVariables
             language={language}
             variables={variableResults}
+            searchMethod={chosenSearchMethod}
             variableTypeFilter={variableTypeFilter}
           />
         </Tab.Pane>
@@ -105,7 +109,7 @@ function AppHome ({ restApi, language }) {
             position='right center'
             text={UI.EXTERNAL_GRAPHIQL[language]}
             trigger={
-              <a href={`${restApi}/graphiql`} target='_blank' rel='noopener noreferrer'>
+              <a href={`${restApi}${API.GRAPHIQL}`} target='_blank' rel='noopener noreferrer'>
                 <Icon link size='large' name='external' style={{ color: SSB_COLORS.BLUE }} />
               </a>
             }
@@ -133,8 +137,10 @@ function AppHome ({ restApi, language }) {
           language={language}
           datasetTypeFilter={datasetTypeFilter}
           variableTypeFilter={variableTypeFilter}
+          chosenSearchMethod={chosenSearchMethod}
           handleDatasetTypeCheckbox={handleDatasetTypeCheckbox}
           handleVariableTypeCheckbox={handleVariableTypeCheckbox}
+          handleSearchMethodCheckbox={handleSearchMethodCheckbox}
         />
       </Grid.Column>
       <Grid.Column width={12}>

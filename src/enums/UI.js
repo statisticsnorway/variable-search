@@ -39,6 +39,10 @@ export const UI = {
     en: 'Search...',
     nb: 'Søk...'
   },
+  SEARCH_METHOD: {
+    en: 'Search method:',
+    nb: 'Søkemetode:'
+  },
   SHOW_OF_TYPE: (domain, language) => ({
     en: `Of ${(UI[domain][language]).toLowerCase()} show me: `,
     nb: `Av ${(UI[domain][language]).toLowerCase()} vis meg: `

@@ -5,7 +5,7 @@ import { render } from '@testing-library/react'
 
 import { AppHome } from '../components'
 import { FULL_TEXT_SEARCH } from '../queries'
-import { MODEL } from '../configurations'
+import { API, MODEL } from '../configurations'
 import { TEST_CONFIGURATIONS } from '../configurations/TEST'
 import { UI } from '../enums'
 
@@ -49,5 +49,11 @@ describe('Common mock', () => {
 
     userEvent.click(getByText(MODEL.VARIABLE_TYPES[0]))
     userEvent.click(getByText(MODEL.DATASET_TYPES[0]))
+  })
+
+  test('Sets search method', () => {
+    const { getByText } = setup()
+
+    userEvent.click(getByText(API.SEARCH_METHODS[1]))
   })
 })

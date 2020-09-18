@@ -2,13 +2,15 @@ import React from 'react'
 import { useManualQuery } from 'graphql-hooks'
 import { render } from '@testing-library/react'
 
-import VariableInDatasetLookup from '../components/search/VariableInDatasetLookup'
-import { DATASETS_FROM } from '../queries'
+import VariableInDatasetReverseLookup from '../components/search/VariableInDatasetReverseLookup'
+import { DATASETS_FROM_REVERSE } from '../queries'
 import { MODEL } from '../configurations'
 import { TEST_CONFIGURATIONS } from '../configurations/TEST'
+import { TEST_IDS } from '../enums'
 
 import PersonSearchResult from './test-data/PersonSearchResult.json'
 import ReverseDatasetLookupResult from './test-data/ReverseDatasetLookupResult.json'
+import userEvent from '@testing-library/user-event'
 
 const { language } = TEST_CONFIGURATIONS
 const datasetName = ReverseDatasetLookupResult[0].representedVariable.reverseInstanceVariableRepresentedVariable[0]
@@ -19,19 +21,34 @@ const variableType = MODEL.VARIABLE_TYPES[1]
 const fetchResults = jest.fn()
 
 const setup = () => {
-  const { getByText } = render(
-    <VariableInDatasetLookup id={variableId} type={variableType} language={language} />
+  const { getByTestId, getByText } = render(
+    <VariableInDatasetReverseLookup id={variableId} type={variableType} language={language} />
   )
 
-  return { getByText }
+  return { getByTestId, getByText }
 }
+
+test('Loads', () => {
+  useManualQuery.mockReturnValue([fetchResults, { loading: true, error: null, data: undefined }])
+
+  setup()
+})
 
 test('Renders basics', () => {
   useManualQuery.mockReturnValue([fetchResults, { loading: false, error: null, data: ReverseDatasetLookupResult }])
 
   const { getByText } = setup()
 
-  expect(useManualQuery).toHaveBeenCalledWith(DATASETS_FROM[variableType], { variables: { id: variableId } })
+  expect(useManualQuery).toHaveBeenCalledWith(DATASETS_FROM_REVERSE[variableType], { variables: { id: variableId } })
 
   expect(getByText(datasetName)).toBeInTheDocument()
+})
+
+test('Inflate test coverage by opening/closing accordion', () => {
+  useManualQuery.mockReturnValue([fetchResults, { loading: false, error: null, data: [] }])
+
+  const { getByTestId } = setup()
+
+  userEvent.click(getByTestId(TEST_IDS.DATASETS_ACCORDION_TOGGLE))
+  userEvent.click(getByTestId(TEST_IDS.DATASETS_ACCORDION_TOGGLE))
 })

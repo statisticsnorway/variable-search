@@ -1,4 +1,34 @@
-export const DATASETS_FROM = {
+export const DATASETS_FROM_FILTER = {
+  instanceVariable: `
+    {
+      unitDataSet(filter: {unitDataStructure: {logicalRecords_some: {instanceVariables_some: {id: $id}}}}) {
+        id
+        name {languageText}
+        description {languageText}
+      }
+    }
+  `,
+  representedVariable: `
+    {
+      unitDataSet(filter: {unitDataStructure: {logicalRecords_some: {instanceVariables_some: {representedVariable_some: {id: $id}}}}}) {
+        id
+        name {languageText}
+        description {languageText}
+      }
+    }
+  `,
+  variable: `
+    {
+      unitDataSet(filter: {unitDataStructure: {logicalRecords_some: {instanceVariables_some: {representedVariable_some: {variable_some: {id: $id}}}}}}) {
+        id
+        name {languageText}
+        description {languageText}
+      }
+    }
+  `
+}
+
+export const DATASETS_FROM_REVERSE = {
   instanceVariable: `
     {
       instanceVariable(id: $id) {
