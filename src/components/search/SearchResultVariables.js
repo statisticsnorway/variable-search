@@ -3,10 +3,12 @@ import { Popup, Table } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import FilterWarning from './FilterWarning'
-import VariableInDatasetLookup from './VariableInDatasetLookup'
+import VariableInDatasetFilterLookup from './VariableInDatasetFilterLookup'
+import VariableInDatasetReverseLookup from './VariableInDatasetReverseLookup'
+import { API } from '../../configurations'
 import { RESULTS } from '../../enums'
 
-function SearchResultVariables ({ language, variables, variableTypeFilter }) {
+function SearchResultVariables ({ language, searchMethod, variables, variableTypeFilter }) {
   const [filteredVariables, setFilteredVariables] = useState(
     variables.filter(variable => variableTypeFilter.includes(Object.keys(variable)[0]))
   )
@@ -46,7 +48,13 @@ function SearchResultVariables ({ language, variables, variableTypeFilter }) {
                     {getLocalizedGsimObjectText(language, description)}
                   </Popup>
                 </Table.Cell>
-                <Table.Cell><VariableInDatasetLookup id={id} type={type} language={language} /></Table.Cell>
+                <Table.Cell>
+                  {searchMethod === API.SEARCH_METHODS[0] ?
+                    <VariableInDatasetFilterLookup id={id} type={type} language={language} />
+                    :
+                    <VariableInDatasetReverseLookup id={id} type={type} language={language} />
+                  }
+                </Table.Cell>
                 <Table.Cell>{type}</Table.Cell>
               </Table.Row>
             )

@@ -8,11 +8,14 @@ const variable = ['reverseRepresentedVariableVariable'].concat(representedVariab
 
 export const API = {
   GET_HEALTH: '/health/ready',
-  GRAPHQL: '/graphql'
+  GRAPHQL: '/graphql',
+  GRAPHIQL: '/graphiql',
+  SEARCH_METHODS: ['filter', 'reverse']
 }
 
 export const MODEL = {
   DATASET_TYPES: ['dimensionalDataSet', 'unitDataSet'],
+  ID: 'id',
   REVERSE: {
     instanceVariable: instanceVariable,
     representedVariable: representedVariable,

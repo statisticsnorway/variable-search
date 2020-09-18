@@ -8,7 +8,7 @@ exposed by [Linked Data Store](https://github.com/statisticsnorway/linked-data-s
 
 Functionality includes:
 * Searching through GSIM domains (spesifically variables and datasets)
-* Listing connections between variables and datasets (which datasets use which variables and vice versa)
+* Listing connections between variables and datasets (which datasets use which variables)
 
 The project makes limited use of the [ssb-component-library](https://github.com/statisticsnorway/ssb-component-library)
 and is based upon [react-reference-app](https://github.com/statisticsnorway/react-reference-app).
