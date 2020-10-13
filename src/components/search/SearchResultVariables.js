@@ -3,7 +3,9 @@ import { Popup, Table } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import FilterWarning from './FilterWarning'
+import CopyToClipboard from './CopyToClipboard'
 import VariableInDatasetFilterLookup from './VariableInDatasetFilterLookup'
+import VariableInDatasetLineageLookup from './VariableInDatasetLineageLookup'
 import VariableInDatasetReverseLookup from './VariableInDatasetReverseLookup'
 import { API } from '../../configurations'
 import { RESULTS } from '../../enums'
@@ -25,19 +27,24 @@ function SearchResultVariables ({ language, searchMethod, variables, variableTyp
       <Table basic='very' selectable>
         <Table.Header>
           <Table.Row>
+            <Table.HeaderCell />
             <Table.HeaderCell>{RESULTS.NAME[language]}</Table.HeaderCell>
             <Table.HeaderCell>{RESULTS.VARIABLE_IN_DATASETS[language]}</Table.HeaderCell>
             <Table.HeaderCell>{RESULTS.TYPE[language]}</Table.HeaderCell>
+            <Table.HeaderCell>{RESULTS.SHORT_NAME[language]}</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {filteredVariables.map(variable => {
             const type = Object.keys(variable)[0]
             const values = variable[type]
-            const { id, name, description } = values
+            const { id, name, description, shortName } = values
 
             return (
               <Table.Row key={id}>
+                <Table.Cell textAlign='center'>
+                  <CopyToClipboard id={id} type={type} language={language} />
+                </Table.Cell>
                 <Table.Cell>
                   <Popup
                     basic
@@ -50,12 +57,16 @@ function SearchResultVariables ({ language, searchMethod, variables, variableTyp
                 </Table.Cell>
                 <Table.Cell>
                   {searchMethod === API.SEARCH_METHODS[0] ?
-                    <VariableInDatasetFilterLookup id={id} type={type} language={language} />
+                    <>
+                      <VariableInDatasetFilterLookup id={id} type={type} language={language} />
+                      <VariableInDatasetLineageLookup id={id} type={type} language={language} />
+                    </>
                     :
                     <VariableInDatasetReverseLookup id={id} type={type} language={language} />
                   }
                 </Table.Cell>
                 <Table.Cell>{type}</Table.Cell>
+                <Table.Cell>{shortName}</Table.Cell>
               </Table.Row>
             )
           })}

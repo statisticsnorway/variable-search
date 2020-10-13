@@ -3,7 +3,7 @@ import { useManualQuery } from 'graphql-hooks'
 import { Grid, Icon, Label, Menu, Search, Segment, Tab } from 'semantic-ui-react'
 import { InfoPopup, InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { ConfigureSearch, SearchResultDatasets, SearchResultVariables } from './search'
+import { ConfigureSearch, SearchResultDatasets, SearchResultLineage, SearchResultVariables } from './search'
 import { splitSearchResult } from '../utilities'
 import { FULL_TEXT_SEARCH } from '../queries'
 import { API, MODEL } from '../configurations'
@@ -16,6 +16,7 @@ function AppHome ({ restApi, language }) {
   const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
   const [variableResults, setVariableResults] = useState([])
+  const [lineageFieldResults, setLineageFieldResults] = useState([])
   const [datasetTypeFilter, setDatasetTypeFilter] = useState(MODEL.DATASET_TYPES)
   const [variableTypeFilter, setVariableTypeFilter] = useState(MODEL.VARIABLE_TYPES)
   const [chosenSearchMethod, setChosenSearchMethod] = useState(API.SEARCH_METHODS[0])
@@ -28,6 +29,7 @@ function AppHome ({ restApi, language }) {
 
       setDatasetResults(searchResults.datasets)
       setVariableResults(searchResults.variables)
+      setLineageFieldResults(searchResults.lineageFields)
     }
   }, [error, loading, data])
 
@@ -62,6 +64,26 @@ function AppHome ({ restApi, language }) {
   const panes = [
     {
       menuItem: (
+        <Menu.Item key='variables'>
+          {UI.VARIABLES[language]}
+          <Label style={{ background: SSB_COLORS.BLUE }}>
+            {loading ? <Icon loading name='spinner' /> : variableResults.length}
+          </Label>
+        </Menu.Item>
+      ),
+      render: () => variableResults.length >= 1 ?
+        <Tab.Pane as={Segment} basic style={{ border: 'none' }}>
+          <SearchResultVariables
+            language={language}
+            variables={variableResults}
+            searchMethod={chosenSearchMethod}
+            variableTypeFilter={variableTypeFilter}
+          />
+        </Tab.Pane>
+        : null
+    },
+    {
+      menuItem: (
         <Menu.Item key='datasets'>
           {UI.DATASETS[language]}
           <Label style={{ background: SSB_COLORS.BLUE }}>
@@ -81,20 +103,18 @@ function AppHome ({ restApi, language }) {
     },
     {
       menuItem: (
-        <Menu.Item key='variables'>
-          {UI.VARIABLES[language]}
+        <Menu.Item key='lineageFields'>
+          {UI.LINEAGE_FIELDS[language]}
           <Label style={{ background: SSB_COLORS.BLUE }}>
-            {loading ? <Icon loading name='spinner' /> : variableResults.length}
+            {loading ? <Icon loading name='spinner' /> : lineageFieldResults.length}
           </Label>
         </Menu.Item>
       ),
-      render: () => variableResults.length >= 1 ?
+      render: () => lineageFieldResults.length >= 1 ?
         <Tab.Pane as={Segment} basic style={{ border: 'none' }}>
-          <SearchResultVariables
+          <SearchResultLineage
             language={language}
-            variables={variableResults}
-            searchMethod={chosenSearchMethod}
-            variableTypeFilter={variableTypeFilter}
+            lineageFields={lineageFieldResults}
           />
         </Tab.Pane>
         : null
@@ -144,7 +164,7 @@ function AppHome ({ restApi, language }) {
         />
       </Grid.Column>
       <Grid.Column width={12}>
-        <Tab defaultActiveIndex={-1} menu={{ secondary: true, pointing: true }} panes={panes} />
+        <Tab defaultActiveIndex={0} menu={{ secondary: true, pointing: true }} panes={panes} />
       </Grid.Column>
     </Grid>
 

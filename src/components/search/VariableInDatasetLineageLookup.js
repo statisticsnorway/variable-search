@@ -3,15 +3,15 @@ import { useManualQuery } from 'graphql-hooks'
 import { Accordion, Icon, List } from 'semantic-ui-react'
 
 import DatasetModal from './DatasetModal'
-import { DATASETS_FROM_FILTER } from '../../queries'
+import { DATASETS_FROM_LINEAGE } from '../../queries'
 import { MODEL } from '../../configurations'
 import { RESULTS, TEST_IDS, UI } from '../../enums'
 
-function VariableInDatasetFilterLookup ({ id, type, language }) {
+function VariableInDatasetLineageLookup ({ id, type, language }) {
   const [activeIndex, setActiveIndex] = useState(-1)
   const [retrievedDatasets, setRetrievedDatasets] = useState([])
 
-  const [fetchResults, { loading, error, data }] = useManualQuery(DATASETS_FROM_FILTER[type], { variables: { id: id } })
+  const [fetchResults, { loading, error, data }] = useManualQuery(DATASETS_FROM_LINEAGE[type], { variables: { id: id } })
 
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
@@ -33,7 +33,7 @@ function VariableInDatasetFilterLookup ({ id, type, language }) {
     {
       key: 1,
       title: {
-        content: RESULTS.DIRECT[language],
+        content: RESULTS.LINEAGE[language],
         'data-testid': TEST_IDS.DATASETS_ACCORDION_TOGGLE
       },
       content: {
@@ -58,4 +58,4 @@ function VariableInDatasetFilterLookup ({ id, type, language }) {
   return <Accordion activeIndex={activeIndex} panels={panels} onTitleClick={handleTitleClick} />
 }
 
-export default VariableInDatasetFilterLookup
+export default VariableInDatasetLineageLookup

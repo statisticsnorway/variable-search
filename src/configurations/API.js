@@ -16,6 +16,7 @@ export const API = {
 export const MODEL = {
   DATASET_TYPES: ['dimensionalDataSet', 'unitDataSet'],
   ID: 'id',
+  LINEAGE_FIELD_TYPES: ['lineageField'],
   REVERSE: {
     instanceVariable: instanceVariable,
     representedVariable: representedVariable,

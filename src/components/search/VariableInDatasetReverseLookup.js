@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
 import { Accordion, Icon, List } from 'semantic-ui-react'
-import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
+import DatasetModal from './DatasetModal'
 import { DATASETS_FROM_REVERSE } from '../../queries'
 import { MODEL } from '../../configurations'
-import { TEST_IDS, UI } from '../../enums'
+import { RESULTS, TEST_IDS, UI } from '../../enums'
 
 function VariableInDatasetReverseLookup ({ id, type, language }) {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -54,7 +54,7 @@ function VariableInDatasetReverseLookup ({ id, type, language }) {
     {
       key: 1,
       title: {
-        content: '',
+        content: RESULTS.DIRECT[language],
         'data-testid': TEST_IDS.DATASETS_ACCORDION_TOGGLE
       },
       content: {
@@ -62,9 +62,13 @@ function VariableInDatasetReverseLookup ({ id, type, language }) {
           loading ? <Icon loading name='spinner' /> : retrievedDatasets.length >= 1 ?
             <List>
               {retrievedDatasets.map(dataset => {
-                const { id, name } = dataset
+                const { id } = dataset
 
-                return <List.Item key={id}>{getLocalizedGsimObjectText(language, name)}</List.Item>
+                return (
+                  <List.Item key={id} as='a'>
+                    <DatasetModal dataset={dataset} language={language} />
+                  </List.Item>
+                )
               })}
             </List> : UI.NO_RESULTS[language]
         )
