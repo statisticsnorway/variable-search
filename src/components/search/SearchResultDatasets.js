@@ -3,6 +3,8 @@ import { Table } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import FilterWarning from './FilterWarning'
+import CopyToClipboard from './CopyToClipboard'
+import { VALUATION_COLORS } from '../../configurations'
 import { RESULTS } from '../../enums'
 
 function SearchResultDatasets ({ datasets, datasetTypeFilter, language }) {
@@ -22,22 +24,30 @@ function SearchResultDatasets ({ datasets, datasetTypeFilter, language }) {
       <Table basic='very' selectable>
         <Table.Header>
           <Table.Row>
+            <Table.HeaderCell />
             <Table.HeaderCell>{RESULTS.NAME[language]}</Table.HeaderCell>
             <Table.HeaderCell>{RESULTS.DESCRIPTION[language]}</Table.HeaderCell>
+            <Table.HeaderCell>{RESULTS.VALUATION[language]}</Table.HeaderCell>
             <Table.HeaderCell>{RESULTS.TYPE[language]}</Table.HeaderCell>
+            <Table.HeaderCell>{RESULTS.VARIABLES_IN_DATASET[language]}</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {filteredDatasets.map(dataset => {
             const type = Object.keys(dataset)[0]
             const values = dataset[type]
-            const { id, name, description } = values
+            const { id, name, description, valuation, lineage } = values
 
             return (
               <Table.Row key={id}>
+                <Table.Cell textAlign='center'>
+                  <CopyToClipboard id={id} type={type} language={language} />
+                </Table.Cell>
                 <Table.Cell>{getLocalizedGsimObjectText(language, name)}</Table.Cell>
                 <Table.Cell>{getLocalizedGsimObjectText(language, description)}</Table.Cell>
+                <Table.Cell><span style={{ color: VALUATION_COLORS[valuation] }}>{valuation}</span></Table.Cell>
                 <Table.Cell>{type}</Table.Cell>
+                <Table.Cell>{lineage}</Table.Cell>
               </Table.Row>
             )
           })}

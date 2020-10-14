@@ -13,8 +13,15 @@ export const splitSearchResult = results => {
     )
   )
 
+  const lineageFields = results.filter(result =>
+    MODEL.LINEAGE_FIELD_TYPES.some(lineageField =>
+      Object.getOwnPropertyNames(result).includes(lineageField)
+    )
+  )
+
   return ({
     variables: variables,
-    datasets: datasets
+    datasets: datasets,
+    lineageFields: lineageFields
   })
 }

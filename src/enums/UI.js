@@ -7,6 +7,10 @@ export const UI = {
     en: 'Adjust search parameters',
     nb: 'Søkealternativer'
   },
+  COPY_ID_TO_CLIPBOARD: {
+    en: 'Click to copy id to clipboard',
+    nb: 'Klikk for å kopiere id til utklippstavlen'
+  },
   DATASETS: {
     en: 'Datasets',
     nb: 'Datasett'
@@ -22,6 +26,10 @@ export const UI = {
   HEADER: {
     en: 'Variable search',
     nb: 'Variabelsøk'
+  },
+  LINEAGE_FIELDS: {
+    en: 'Lineage',
+    nb: 'Lineage'
   },
   NEW_SEARCH: {
     en: 'Hit \'Enter\' for a new search',

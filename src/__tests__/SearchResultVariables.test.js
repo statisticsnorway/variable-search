@@ -10,6 +10,7 @@ import { RESULTS } from '../enums'
 import PersonSearchResult from './test-data/PersonSearchResult.json'
 
 jest.mock('../components/search/VariableInDatasetFilterLookup', () => () => null)
+jest.mock('../components/search/VariableInDatasetLineageLookup', () => () => null)
 jest.mock('../components/search/VariableInDatasetReverseLookup', () => () => null)
 
 const { language } = TEST_CONFIGURATIONS
