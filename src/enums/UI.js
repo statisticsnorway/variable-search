@@ -28,8 +28,8 @@ export const UI = {
     nb: 'Variabelsøk'
   },
   LINEAGE_FIELDS: {
-    en: 'Lineage fields',
-    nb: 'Lineage fields'
+    en: 'Lineage',
+    nb: 'Lineage'
   },
   NEW_SEARCH: {
     en: 'Hit \'Enter\' for a new search',

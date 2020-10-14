@@ -2,13 +2,14 @@
 [![npm version](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search.svg)](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search)
 [![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.variable-search?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=12&branchName=master)
 
-This application is built for in-house use in Statistics Norway and it aims to create an interactive search against the 
+This application is built for in-house use in Statistics Norway and it aims to create a smart and interactive variable
+and dataset search with the help of the 
 [graphql-api](https://github.com/statisticsnorway/linked-data-store-documentation/blob/master/docs/graphql-api.adoc) 
 exposed by [Linked Data Store](https://github.com/statisticsnorway/linked-data-store-documentation).
 
 Functionality includes:
-* Searching through GSIM domains (spesifically variables and datasets)
-* Listing connections between variables and datasets (which datasets use which variables)
+* Searching through GSIM domains (specifically variables and datasets) and Lineage
+* Listing connections between variables and datasets (which datasets use which variables and vice versa)
 
 The project makes limited use of the [ssb-component-library](https://github.com/statisticsnorway/ssb-component-library)
 and is based upon [react-reference-app](https://github.com/statisticsnorway/react-reference-app).
@@ -39,7 +40,7 @@ The component needs two properties to function correctly, `restApi` and `languag
 
 In your application housing this component you also need to set up graphql-hooks in a React `Context`.
 You can checkout how to do it in `/src/utilities/ContextHandling.js` in this project. This is done because the component
-needs several instances of graphql-hooks to run, and without setting up a GraphQLClient that is impossible.
+needs several instances of graphql-hooks to run, and without setting up a GraphQLClient that, is impossible.
 
 ### Try this application locally
 The first time you clone the repository, remember to run `yarn` or `yarn install`.

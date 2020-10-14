@@ -53,10 +53,14 @@
       "confidence": 0.99,
       "relationType": "unkown",
       "instanceVariable": [
-        {"id": "national.person.id.lineage.324tds"}
+        {
+          "id": "national.person.id.lineage.324tds"
+        }
       ],
       "lineageDataset": [
-        {"id": "person.stuff.lineage.dataset.dq323t45h"}
+        {
+          "id": "person.stuff.lineage.dataset.dq323t45h"
+        }
       ],
       "id": "ella.åtte.pw.sdaq3r"
     }

@@ -123,7 +123,7 @@ function AppHome ({ restApi, language }) {
 
   return (
     <Grid>
-      <Grid.Column width={4}>
+      <Grid.Column width={3}>
         <Label attached='top right' style={{ background: 'transparent' }}>
           <InfoPopup
             position='right center'
@@ -163,7 +163,7 @@ function AppHome ({ restApi, language }) {
           handleSearchMethodCheckbox={handleSearchMethodCheckbox}
         />
       </Grid.Column>
-      <Grid.Column width={12}>
+      <Grid.Column width={13}>
         <Tab defaultActiveIndex={0} menu={{ secondary: true, pointing: true }} panes={panes} />
       </Grid.Column>
     </Grid>

@@ -39,7 +39,7 @@ function VariableInDatasetLineageLookup ({ id, type, language }) {
       content: {
         content: (
           loading ? <Icon loading name='spinner' /> : retrievedDatasets.length >= 1 ?
-            <List>
+            <List bulleted style={{ padding: '0 1rem 1rem 1rem' }}>
               {retrievedDatasets.map(dataset => {
                 const { id } = dataset
 
