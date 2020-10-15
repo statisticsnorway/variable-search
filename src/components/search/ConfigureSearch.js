@@ -1,10 +1,10 @@
 import React from 'react'
 import { Accordion, Checkbox, Grid, List } from 'semantic-ui-react'
 
-import { API, MODEL } from '../../configurations'
-import { UI } from '../../enums'
+import { MODEL } from '../../configurations'
+import { TEST_IDS, UI } from '../../enums'
 
-function ConfigureSearch ({ datasetTypeFilter, handleDatasetTypeCheckbox, chosenSearchMethod, handleSearchMethodCheckbox, variableTypeFilter, handleVariableTypeCheckbox, language }) {
+function ConfigureSearch ({ datasetTypeFilter, searchDataset, resultAsBoxes, handleSearchDataset, handleDatasetTypeCheckbox, handleResultAsBoxes, variableTypeFilter, handleVariableTypeCheckbox, language }) {
   const panels = [
     {
       key: 1,
@@ -14,19 +14,24 @@ function ConfigureSearch ({ datasetTypeFilter, handleDatasetTypeCheckbox, chosen
           <Grid columns='equal'>
             <Grid.Row>
               <Grid.Column>
-                {UI.SHOW_OF_TYPE('DATASETS', language)[language]}
+                {UI.SHOW_RESULTS_AS[language]}
               </Grid.Column>
               <Grid.Column>
                 <List>
-                  {MODEL.DATASET_TYPES.map(datasetType =>
-                    <List.Item key={datasetType}>
-                      <Checkbox
-                        label={datasetType}
-                        checked={datasetTypeFilter.includes(datasetType)}
-                        onClick={() => handleDatasetTypeCheckbox(datasetTypeFilter.includes(datasetType), datasetType)}
-                      />
-                    </List.Item>
-                  )}
+                  <List.Item>
+                    <Checkbox
+                      label={UI.BOXES[language]}
+                      checked={resultAsBoxes}
+                      onClick={() => handleResultAsBoxes(true)}
+                    />
+                  </List.Item>
+                  <List.Item>
+                    <Checkbox
+                      label={UI.TABLE[language]}
+                      checked={!resultAsBoxes}
+                      onClick={() => handleResultAsBoxes(false)}
+                    />
+                  </List.Item>
                 </List>
               </Grid.Column>
             </Grid.Row>
@@ -50,22 +55,36 @@ function ConfigureSearch ({ datasetTypeFilter, handleDatasetTypeCheckbox, chosen
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                {UI.SEARCH_METHOD[language]}
+                {UI.SEARCH_DATASETS[language]}
+              </Grid.Column>
+              <Grid.Column>
+                <Checkbox
+                  checked={searchDataset}
+                  data-testid={TEST_IDS.SEARCH_DATASET_TOGGLE}
+                  onClick={() => handleSearchDataset(!searchDataset)}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            {searchDataset &&
+            <Grid.Row>
+              <Grid.Column>
+                {UI.SHOW_OF_TYPE('DATASETS', language)[language]}
               </Grid.Column>
               <Grid.Column>
                 <List>
-                  {API.SEARCH_METHODS.map(searchMethod =>
-                    <List.Item key={searchMethod}>
+                  {MODEL.DATASET_TYPES.map(datasetType =>
+                    <List.Item key={datasetType}>
                       <Checkbox
-                        label={searchMethod}
-                        checked={searchMethod === chosenSearchMethod}
-                        onClick={() => handleSearchMethodCheckbox(searchMethod)}
+                        label={datasetType}
+                        checked={datasetTypeFilter.includes(datasetType)}
+                        onClick={() => handleDatasetTypeCheckbox(datasetTypeFilter.includes(datasetType), datasetType)}
                       />
                     </List.Item>
                   )}
                 </List>
               </Grid.Column>
             </Grid.Row>
+            }
           </Grid>
         )
       }

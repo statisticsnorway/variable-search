@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useManualQuery } from 'graphql-hooks'
 import { Grid, Icon, Label, Menu, Search, Segment, Tab } from 'semantic-ui-react'
-import { InfoPopup, InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
+import { InfoText, SSB_COLORS } from '@statisticsnorway/dapla-js-utilities'
 
-import { ConfigureSearch, SearchResultDatasets, SearchResultLineage, SearchResultVariables } from './search'
+import { ConfigureSearch, SearchResultDatasets, SearchResultVariables } from './search'
 import { splitSearchResult } from '../utilities'
 import { FULL_TEXT_SEARCH } from '../queries'
-import { API, MODEL } from '../configurations'
+import { MODEL } from '../configurations'
 import { UI } from '../enums'
 
-function AppHome ({ restApi, language }) {
+function AppHome ({ language }) {
   const [searched, setSearched] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const [searchEdited, setSearchEdited] = useState(false)
+  const [resultAsBoxes, setResultAsBoxes] = useState(true)
+  const [searchDataset, setSearchDataset] = useState(false)
   const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
   const [variableResults, setVariableResults] = useState([])
-  const [lineageFieldResults, setLineageFieldResults] = useState([])
   const [datasetTypeFilter, setDatasetTypeFilter] = useState(MODEL.DATASET_TYPES)
-  const [variableTypeFilter, setVariableTypeFilter] = useState(MODEL.VARIABLE_TYPES)
-  const [chosenSearchMethod, setChosenSearchMethod] = useState(API.SEARCH_METHODS[0])
+  const [variableTypeFilter, setVariableTypeFilter] = useState([MODEL.VARIABLE_TYPES[1]])
 
   const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue } })
 
@@ -29,7 +29,6 @@ function AppHome ({ restApi, language }) {
 
       setDatasetResults(searchResults.datasets)
       setVariableResults(searchResults.variables)
-      setLineageFieldResults(searchResults.lineageFields)
     }
   }, [error, loading, data])
 
@@ -59,7 +58,9 @@ function AppHome ({ restApi, language }) {
     }
   }
 
-  const handleSearchMethodCheckbox = searchMethod => setChosenSearchMethod(searchMethod)
+  const handleSearchDataset = value => setSearchDataset(value)
+
+  const handleResultAsBoxes = value => setResultAsBoxes(value)
 
   const panes = [
     {
@@ -76,7 +77,7 @@ function AppHome ({ restApi, language }) {
           <SearchResultVariables
             language={language}
             variables={variableResults}
-            searchMethod={chosenSearchMethod}
+            resultAsBoxes={resultAsBoxes}
             variableTypeFilter={variableTypeFilter}
           />
         </Tab.Pane>
@@ -100,41 +101,12 @@ function AppHome ({ restApi, language }) {
           />
         </Tab.Pane>
         : null
-    },
-    {
-      menuItem: (
-        <Menu.Item key='lineageFields'>
-          {UI.LINEAGE_FIELDS[language]}
-          <Label style={{ background: SSB_COLORS.BLUE }}>
-            {loading ? <Icon loading name='spinner' /> : lineageFieldResults.length}
-          </Label>
-        </Menu.Item>
-      ),
-      render: () => lineageFieldResults.length >= 1 ?
-        <Tab.Pane as={Segment} basic style={{ border: 'none' }}>
-          <SearchResultLineage
-            language={language}
-            lineageFields={lineageFieldResults}
-          />
-        </Tab.Pane>
-        : null
     }
   ]
 
   return (
     <Grid>
       <Grid.Column width={3}>
-        <Label attached='top right' style={{ background: 'transparent' }}>
-          <InfoPopup
-            position='right center'
-            text={UI.EXTERNAL_GRAPHIQL[language]}
-            trigger={
-              <a href={`${restApi}${API.GRAPHIQL}`} target='_blank' rel='noopener noreferrer'>
-                <Icon link size='large' name='external' style={{ color: SSB_COLORS.BLUE }} />
-              </a>
-            }
-          />
-        </Label>
         <Search
           size='huge'
           open={false}
@@ -150,21 +122,27 @@ function AppHome ({ restApi, language }) {
         {searched && searchEdited && <InfoText text={UI.EDITED[language]} />}
         {searched && searchEdited && previousSearch !== '' &&
         <>
-          {` (`}<i>{UI.PREVIOUS[language]}</i>{`'`}<b>{previousSearch}</b>{`')`}<p>{UI.NEW_SEARCH[language]}</p>
+          {` '`}<b>{previousSearch}</b>{`'`}<p>{UI.NEW_SEARCH[language]}</p>
         </>
         }
         <ConfigureSearch
           language={language}
+          resultAsBoxes={resultAsBoxes}
+          searchDataset={searchDataset}
           datasetTypeFilter={datasetTypeFilter}
           variableTypeFilter={variableTypeFilter}
-          chosenSearchMethod={chosenSearchMethod}
+          handleResultAsBoxes={handleResultAsBoxes}
+          handleSearchDataset={handleSearchDataset}
           handleDatasetTypeCheckbox={handleDatasetTypeCheckbox}
           handleVariableTypeCheckbox={handleVariableTypeCheckbox}
-          handleSearchMethodCheckbox={handleSearchMethodCheckbox}
         />
       </Grid.Column>
       <Grid.Column width={13}>
-        <Tab defaultActiveIndex={0} menu={{ secondary: true, pointing: true }} panes={panes} />
+        <Tab
+          defaultActiveIndex={0}
+          menu={{ secondary: true, pointing: true }}
+          panes={searchDataset ? panes : [panes.shift()]}
+        />
       </Grid.Column>
     </Grid>
 
