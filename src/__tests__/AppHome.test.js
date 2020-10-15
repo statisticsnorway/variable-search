@@ -42,15 +42,11 @@ describe('Common mock', () => {
   })
 
   test('Sets filtering off/on', () => {
-    const { getByTestId, getByText } = setup()
-
-    userEvent.click(getByTestId(TEST_IDS.SEARCH_DATASET_TOGGLE))
+    const { getByText } = setup()
 
     userEvent.click(getByText(MODEL.VARIABLE_TYPES[0]))
-    userEvent.click(getByText(MODEL.DATASET_TYPES[0]))
 
     userEvent.click(getByText(MODEL.VARIABLE_TYPES[0]))
-    userEvent.click(getByText(MODEL.DATASET_TYPES[0]))
   })
 
   test('Sets dataset search on/off', () => {

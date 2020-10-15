@@ -4,7 +4,7 @@ import { Accordion, Checkbox, Grid, List } from 'semantic-ui-react'
 import { MODEL } from '../../configurations'
 import { TEST_IDS, UI } from '../../enums'
 
-function ConfigureSearch ({ datasetTypeFilter, searchDataset, resultAsBoxes, handleSearchDataset, handleDatasetTypeCheckbox, handleResultAsBoxes, variableTypeFilter, handleVariableTypeCheckbox, language }) {
+function ConfigureSearch ({ searchDataset, resultAsBoxes, handleSearchDataset, handleResultAsBoxes, variableTypeFilter, handleVariableTypeCheckbox, language }) {
   const panels = [
     {
       key: 1,
@@ -65,26 +65,6 @@ function ConfigureSearch ({ datasetTypeFilter, searchDataset, resultAsBoxes, han
                 />
               </Grid.Column>
             </Grid.Row>
-            {searchDataset &&
-            <Grid.Row>
-              <Grid.Column>
-                {UI.SHOW_OF_TYPE('DATASETS', language)[language]}
-              </Grid.Column>
-              <Grid.Column>
-                <List>
-                  {MODEL.DATASET_TYPES.map(datasetType =>
-                    <List.Item key={datasetType}>
-                      <Checkbox
-                        label={datasetType}
-                        checked={datasetTypeFilter.includes(datasetType)}
-                        onClick={() => handleDatasetTypeCheckbox(datasetTypeFilter.includes(datasetType), datasetType)}
-                      />
-                    </List.Item>
-                  )}
-                </List>
-              </Grid.Column>
-            </Grid.Row>
-            }
           </Grid>
         )
       }

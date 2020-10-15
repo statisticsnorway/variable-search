@@ -3,23 +3,30 @@ import { useManualQuery } from 'graphql-hooks'
 import { Accordion, Icon, List } from 'semantic-ui-react'
 
 import DatasetModal from './DatasetModal'
-import { DATASETS_FROM_DIRECT, DATASETS_FROM_LINEAGE } from '../../queries'
+import { DATASETS_FROM_LINEAGE } from '../../queries'
 import { MODEL } from '../../configurations'
 import { RESULTS, TEST_IDS, UI } from '../../enums'
+import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
-function VariableInDatasetLookup ({ id, type, direct, language }) {
+function VariableInDatasetLookup ({ id, type, language }) {
   const [activeIndex, setActiveIndex] = useState(-1)
   const [retrievedDatasets, setRetrievedDatasets] = useState([])
 
-  const [fetchResults, { loading, error, data }] = useManualQuery(direct? DATASETS_FROM_DIRECT(type) : DATASETS_FROM_LINEAGE(type), { variables: { id: id } })
+  const [fetchResults, { loading, error, data }] = useManualQuery(DATASETS_FROM_LINEAGE(type), { variables: { id: id } })
 
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
       if (Array.isArray(data) && data.length !== 0) {
-        setRetrievedDatasets(data.map(dataset => dataset[MODEL.DATASET_TYPES[0]]))
+        //TODO: Drop this filter when backend correctly removes nameless results
+        setRetrievedDatasets(data.map(dataset => dataset[MODEL.DATASET_TYPES[0]]).filter(dataset => {
+          const { name } = dataset
+          const extractedName = getLocalizedGsimObjectText(language, name)
+
+          return extractedName !== ''
+        }))
       }
     }
-  }, [loading, error, data, type])
+  }, [loading, error, data, type, language])
 
   const handleTitleClick = (e, { index }) => {
     if (activeIndex !== index) {
@@ -33,7 +40,7 @@ function VariableInDatasetLookup ({ id, type, direct, language }) {
     {
       key: 1,
       title: {
-        content: direct ? RESULTS.DIRECT[language] : RESULTS.LINEAGE[language],
+        content: <b>{RESULTS.VARIABLE_IN_DATASETS[language]}</b>,
         'data-testid': TEST_IDS.DATASETS_ACCORDION_TOGGLE
       },
       content: {

@@ -1,6 +1,6 @@
 {
   "name": "@statisticsnorway/dapla-variable-search",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Variable and dataset search through GSIM for Statistics Norway Dataplatform",
   "main": "lib/bundle.js",
   "repository": {
