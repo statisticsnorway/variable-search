@@ -5,9 +5,9 @@ import { render } from '@testing-library/react'
 
 import { AppHome } from '../components'
 import { FULL_TEXT_SEARCH } from '../queries'
-import { API, MODEL } from '../configurations'
+import { MODEL } from '../configurations'
 import { TEST_CONFIGURATIONS } from '../configurations/TEST'
-import { UI } from '../enums'
+import { TEST_IDS, UI } from '../enums'
 
 import PersonSearchResult from './test-data/PersonSearchResult.json'
 
@@ -19,11 +19,11 @@ const apiContext = TEST_CONFIGURATIONS.apiContext(jest.fn(), jest.fn())
 const fetchResults = jest.fn()
 
 const setup = () => {
-  const { getByPlaceholderText, getByText } = render(
+  const { getByPlaceholderText, getByTestId, getByText } = render(
     <AppHome restApi={apiContext.restApi} language={language} />
   )
 
-  return { getByPlaceholderText, getByText }
+  return { getByPlaceholderText, getByTestId, getByText }
 }
 
 describe('Common mock', () => {
@@ -42,7 +42,9 @@ describe('Common mock', () => {
   })
 
   test('Sets filtering off/on', () => {
-    const { getByText } = setup()
+    const { getByTestId, getByText } = setup()
+
+    userEvent.click(getByTestId(TEST_IDS.SEARCH_DATASET_TOGGLE))
 
     userEvent.click(getByText(MODEL.VARIABLE_TYPES[0]))
     userEvent.click(getByText(MODEL.DATASET_TYPES[0]))
@@ -51,9 +53,18 @@ describe('Common mock', () => {
     userEvent.click(getByText(MODEL.DATASET_TYPES[0]))
   })
 
-  test('Sets search method', () => {
+  test('Sets dataset search on/off', () => {
+    const { getByTestId } = setup()
+
+    userEvent.click(getByTestId(TEST_IDS.SEARCH_DATASET_TOGGLE))
+
+    userEvent.click(getByTestId(TEST_IDS.SEARCH_DATASET_TOGGLE))
+  })
+
+  test('Sets results showing between boxes and table', () => {
     const { getByText } = setup()
 
-    userEvent.click(getByText(API.SEARCH_METHODS[1]))
+    userEvent.click(getByText(UI.TABLE[language]))
+    userEvent.click(getByText(UI.BOXES[language]))
   })
 })

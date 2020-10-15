@@ -7,7 +7,7 @@ import { RESULTS } from '../../enums'
 function FilterWarning ({ language, filtered, total }) {
   return (
     <>
-      <Icon name='warning circle' style={{ color: SSB_COLORS.YELLOW }} />
+      <Icon name='warning circle' style={{ color: SSB_COLORS.BLUE }} />
       {RESULTS.HAVE_FILTERED(filtered, total)[language]}
       <Divider hidden />
     </>

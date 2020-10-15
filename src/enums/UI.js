@@ -3,6 +3,10 @@ export const UI = {
     en: 'Something went wrong, check settings',
     nb: 'Noe gikk galt, sjekk innstillingene'
   },
+  BOXES: {
+    en: 'Boxes',
+    nb: 'Bokser'
+  },
   CONFIGURE_SEARCH: {
     en: 'Adjust search parameters',
     nb: 'Søkealternativer'
@@ -16,20 +20,12 @@ export const UI = {
     nb: 'Datasett'
   },
   EDITED: {
-    en: 'Current results came from a previous search',
-    nb: 'Resultatene som foreligger gjelder forrige søk'
-  },
-  EXTERNAL_GRAPHIQL: {
-    en: 'Access GraphiQL directly',
-    nb: 'Skriv Graphql spørringer direkte mot tjenesten'
+    en: 'Current results are from previous search',
+    nb: 'Resultatene gjelder forrige søk'
   },
   HEADER: {
     en: 'Variable search',
     nb: 'Variabelsøk'
-  },
-  LINEAGE_FIELDS: {
-    en: 'Lineage',
-    nb: 'Lineage'
   },
   NEW_SEARCH: {
     en: 'Hit \'Enter\' for a new search',
@@ -39,22 +35,26 @@ export const UI = {
     en: 'Found nothing',
     nb: 'Fant ingenting'
   },
-  PREVIOUS: {
-    en: 'wich was: ',
-    nb: 'som var: '
-  },
   SEARCH: {
     en: 'Search...',
     nb: 'Søk...'
   },
-  SEARCH_METHOD: {
-    en: 'Search method:',
-    nb: 'Søkemetode:'
+  SEARCH_DATASETS: {
+    en: 'Search for datasets as well:',
+    nb: 'Søk etter datasett også?'
   },
   SHOW_OF_TYPE: (domain, language) => ({
     en: `Of ${(UI[domain][language]).toLowerCase()} show me: `,
     nb: `Av ${(UI[domain][language]).toLowerCase()} vis meg: `
   }),
+  SHOW_RESULTS_AS: {
+    en: 'Show results as:',
+    nb: 'Vis resultater som:'
+  },
+  TABLE: {
+    en: 'Table',
+    nb: 'Tabell'
+  },
   VARIABLES: {
     en: 'Variables',
     nb: 'Variabler'

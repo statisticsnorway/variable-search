@@ -11,6 +11,7 @@ function CopyToClipboard ({ id, type, language }) {
       trigger={
         <Icon
           link
+          fitted
           size='large'
           name='copy outline'
           style={{ color: SSB_COLORS.BLUE }}
