@@ -5,7 +5,7 @@ import { MODEL } from '../configurations'
 export const splitSearchResult = (results, language) => {
   const variables = results.filter(result =>
     MODEL.VARIABLE_TYPES.some(variable =>
-      Object.getOwnPropertyNames(result).includes(variable)
+      Object.getOwnPropertyNames(result).includes(variable) && result['id'] !== null
     )
   )
 
