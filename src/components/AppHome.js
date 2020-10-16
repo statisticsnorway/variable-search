@@ -18,19 +18,18 @@ function AppHome ({ language }) {
   const [previousSearch, setPreviousSearch] = useState('')
   const [datasetResults, setDatasetResults] = useState([])
   const [variableResults, setVariableResults] = useState([])
-  const [datasetTypeFilter, setDatasetTypeFilter] = useState(MODEL.DATASET_TYPES)
   const [variableTypeFilter, setVariableTypeFilter] = useState([MODEL.VARIABLE_TYPES[1]])
 
   const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue } })
 
   useEffect(() => {
     if (!error && !loading && data !== undefined) {
-      const searchResults = splitSearchResult(data)
+      const searchResults = splitSearchResult(data, language)
 
       setDatasetResults(searchResults.datasets)
       setVariableResults(searchResults.variables)
     }
-  }, [error, loading, data])
+  }, [error, loading, data, language])
 
   const doSearch = () => {
     if (searchValue.length >= 1) {
@@ -39,14 +38,6 @@ function AppHome ({ language }) {
       setPreviousSearch(searchValue)
       // noinspection JSIgnoredPromiseFromCall
       fetchResults()
-    }
-  }
-
-  const handleDatasetTypeCheckbox = (includes, datasetType) => {
-    if (includes) {
-      setDatasetTypeFilter(datasetTypeFilter.filter(element => element !== datasetType))
-    } else {
-      setDatasetTypeFilter(datasetTypeFilter.concat([datasetType]))
     }
   }
 
@@ -97,7 +88,6 @@ function AppHome ({ language }) {
           <SearchResultDatasets
             language={language}
             datasets={datasetResults}
-            datasetTypeFilter={datasetTypeFilter}
           />
         </Tab.Pane>
         : null
@@ -129,11 +119,9 @@ function AppHome ({ language }) {
           language={language}
           resultAsBoxes={resultAsBoxes}
           searchDataset={searchDataset}
-          datasetTypeFilter={datasetTypeFilter}
           variableTypeFilter={variableTypeFilter}
           handleResultAsBoxes={handleResultAsBoxes}
           handleSearchDataset={handleSearchDataset}
-          handleDatasetTypeCheckbox={handleDatasetTypeCheckbox}
           handleVariableTypeCheckbox={handleVariableTypeCheckbox}
         />
       </Grid.Column>

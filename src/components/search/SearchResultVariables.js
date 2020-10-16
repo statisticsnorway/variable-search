@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Divider, Grid, Header, Label, Segment, Table } from 'semantic-ui-react'
+import { Divider, Grid, Label, Segment, Table } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText, InfoPopup } from '@statisticsnorway/dapla-js-utilities'
 
 import FilterWarning from './FilterWarning'
@@ -57,15 +57,7 @@ function SearchResultVariables ({ language, resultAsBoxes, variables, variableTy
                   </Grid>
                 </Grid.Column>
                 <Grid.Column>
-                  <Header size='small' content={RESULTS.VARIABLE_IN_DATASETS[language]} />
-                  <Grid columns='equal'>
-                    <Grid.Column>
-                      <VariableInDatasetLookup id={id} type={type} direct={true} language={language} />
-                    </Grid.Column>
-                    <Grid.Column>
-                      <VariableInDatasetLookup id={id} type={type} direct={false} language={language} />
-                    </Grid.Column>
-                  </Grid>
+                  <VariableInDatasetLookup id={id} type={type} language={language} />
                 </Grid.Column>
               </Grid>
             </Segment>
@@ -78,7 +70,7 @@ function SearchResultVariables ({ language, resultAsBoxes, variables, variableTy
               <Table.HeaderCell collapsing />
               <Table.HeaderCell>{RESULTS.NAME[language]}</Table.HeaderCell>
               <Table.HeaderCell>{RESULTS.DESCRIPTION[language]}</Table.HeaderCell>
-              <Table.HeaderCell>{RESULTS.VARIABLE_IN_DATASETS[language]}</Table.HeaderCell>
+              <Table.HeaderCell />
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -101,14 +93,7 @@ function SearchResultVariables ({ language, resultAsBoxes, variables, variableTy
                     trigger={<Table.Cell>{getLocalizedGsimObjectText(language, description)}</Table.Cell>}
                   />
                   <Table.Cell>
-                    <Grid columns='equal'>
-                      <Grid.Column>
-                        <VariableInDatasetLookup id={id} type={type} direct={true} language={language} />
-                      </Grid.Column>
-                      <Grid.Column>
-                        <VariableInDatasetLookup id={id} type={type} direct={false} language={language} />
-                      </Grid.Column>
-                    </Grid>
+                    <VariableInDatasetLookup id={id} type={type} language={language} />
                   </Table.Cell>
                 </Table.Row>
               )

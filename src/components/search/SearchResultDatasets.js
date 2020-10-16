@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Grid, Header, List, Table } from 'semantic-ui-react'
+import React from 'react'
+import { List, Table } from 'semantic-ui-react'
 import { getLocalizedGsimObjectText, getNestedObject } from '@statisticsnorway/dapla-js-utilities'
 
 import CopyToClipboard from './CopyToClipboard'
 import { VALUATION_COLORS } from '../../configurations'
 import { RESULTS } from '../../enums'
 
-function SearchResultDatasets ({ datasets, datasetTypeFilter, language }) {
-  const [filteredDatasets, setFilteredDatasets] = useState(
-    datasets.filter(dataset => datasetTypeFilter.includes(Object.keys(dataset)[0]))
-  )
-
-  useEffect(() => {
-    setFilteredDatasets(datasets.filter(dataset => datasetTypeFilter.includes(Object.keys(dataset)[0])))
-  }, [datasets, datasetTypeFilter])
-
+function SearchResultDatasets ({ datasets, language }) {
   return (
     <>
       <Table basic='very' selectable>
@@ -28,7 +20,7 @@ function SearchResultDatasets ({ datasets, datasetTypeFilter, language }) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {filteredDatasets.map(dataset => {
+          {datasets.map(dataset => {
             const type = Object.keys(dataset)[0]
             const values = dataset[type]
             const { id, name, description, valuation, unitDataStructure } = values
@@ -43,25 +35,17 @@ function SearchResultDatasets ({ datasets, datasetTypeFilter, language }) {
                 <Table.Cell>{getLocalizedGsimObjectText(language, description)}</Table.Cell>
                 <Table.Cell><span style={{ color: VALUATION_COLORS[valuation] }}>{valuation}</span></Table.Cell>
                 <Table.Cell>
-                  <Grid columns='equal'>
-                    <Grid.Column>
-                      <Header size='small' content={RESULTS.DIRECT[language]} />
-                      {something.length === 0 ? '-' :
-                        <List relaxed>
-                          {something.map(thing => thing.map(thingy =>
-                            <List.Item key={thingy.id}>
-                              <i><b>{getLocalizedGsimObjectText(language, thingy.name)}</b></i>
-                              <p>{getLocalizedGsimObjectText(language, thingy.description)}</p>
-                            </List.Item>
-                          ))}
-                        </List>
-                      }
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Header size='tiny' content={RESULTS.LINEAGE[language]} />
-                      -
-                    </Grid.Column>
-                  </Grid>
+                  {something.length === 0 ? '-' :
+                    <List bulleted>
+                      {something.map(thing => thing.map(thingy =>
+                        <List.Item key={thingy.id}>
+                          {getLocalizedGsimObjectText(language, thingy.name)}
+                          <br />
+                          <i>{getLocalizedGsimObjectText(language, thingy.description)}</i>
+                        </List.Item>
+                      ))}
+                    </List>
+                  }
                 </Table.Cell>
               </Table.Row>
             )
