@@ -3,10 +3,6 @@ export const UI = {
     en: 'Something went wrong, check settings',
     nb: 'Noe gikk galt, sjekk innstillingene'
   },
-  BOXES: {
-    en: 'Boxes',
-    nb: 'Bokser'
-  },
   CONFIGURE_SEARCH: {
     en: 'Adjust search parameters',
     nb: 'Søkealternativer'
@@ -35,26 +31,22 @@ export const UI = {
     en: 'Found nothing',
     nb: 'Fant ingenting'
   },
+  OTHER: {
+    en: 'Other:',
+    nb: 'Annet:'
+  },
   SEARCH: {
     en: 'Search...',
     nb: 'Søk...'
   },
   SEARCH_DATASETS: {
-    en: 'Search for datasets as well:',
+    en: 'Search for datasets as well?',
     nb: 'Søk etter datasett også?'
   },
   SHOW_OF_TYPE: (domain, language) => ({
     en: `Of ${(UI[domain][language]).toLowerCase()} show me: `,
     nb: `Av ${(UI[domain][language]).toLowerCase()} vis meg: `
   }),
-  SHOW_RESULTS_AS: {
-    en: 'Show results as:',
-    nb: 'Vis resultater som:'
-  },
-  TABLE: {
-    en: 'Table',
-    nb: 'Tabell'
-  },
   VARIABLES: {
     en: 'Variables',
     nb: 'Variabler'

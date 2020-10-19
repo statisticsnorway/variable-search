@@ -56,11 +56,4 @@ describe('Common mock', () => {
 
     userEvent.click(getByTestId(TEST_IDS.SEARCH_DATASET_TOGGLE))
   })
-
-  test('Sets results showing between boxes and table', () => {
-    const { getByText } = setup()
-
-    userEvent.click(getByText(UI.TABLE[language]))
-    userEvent.click(getByText(UI.BOXES[language]))
-  })
 })

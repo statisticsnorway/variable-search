@@ -1,1 +1,1 @@
-export { splitSearchResult } from './ResultHandling'
+export { drillVariables, splitSearchResult } from './ResultHandling'

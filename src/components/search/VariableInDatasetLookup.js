@@ -4,9 +4,8 @@ import { Accordion, Icon, List } from 'semantic-ui-react'
 
 import DatasetModal from './DatasetModal'
 import { DATASETS_FROM_LINEAGE } from '../../queries'
-import { MODEL } from '../../configurations'
+import { drillVariables } from '../../utilities'
 import { RESULTS, TEST_IDS, UI } from '../../enums'
-import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 function VariableInDatasetLookup ({ id, type, language }) {
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -17,13 +16,15 @@ function VariableInDatasetLookup ({ id, type, language }) {
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
       if (Array.isArray(data) && data.length !== 0) {
-        //TODO: Drop this filter when backend correctly removes nameless results
-        setRetrievedDatasets(data.map(dataset => dataset[MODEL.DATASET_TYPES[0]]).filter(dataset => {
-          const { name } = dataset
-          const extractedName = getLocalizedGsimObjectText(language, name)
+        const datasets = drillVariables(data, type)
+        const filteredDatasets = datasets.filter((dataset, index, a) => a.findIndex(t => (t.id === dataset.id)) === index)
 
-          return extractedName !== ''
-        }))
+        if (datasets.length !== filteredDatasets.length) {
+          console.log('Unfiltered datasets')
+          console.log(datasets)
+        }
+
+        setRetrievedDatasets(filteredDatasets)
       }
     }
   }, [loading, error, data, type, language])
@@ -46,7 +47,7 @@ function VariableInDatasetLookup ({ id, type, language }) {
       content: {
         content: (
           loading ? <Icon loading name='spinner' /> : retrievedDatasets.length >= 1 ?
-            <List bulleted style={{ padding: '0 1rem 1rem 1rem' }}>
+            <List bulleted relaxed style={{ padding: '0 1rem 1rem 1rem' }}>
               {retrievedDatasets.map(dataset => {
                 const { id } = dataset
 
