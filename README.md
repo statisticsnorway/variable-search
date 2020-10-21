@@ -31,12 +31,12 @@ In your application import the component.
 
 `import { VariableSearch } from '@statisticsnorway/dapla-variable-search'`
 
-The component needs two properties to function correctly, `restApi` and `language`.
+The component needs two properties to function correctly, `lineageUrl` and `language`.
 
-`<VariableSearch restApi='http://localhost:8080' language='en' />`
+`<VariableSearch lineageUrl='http://localhost:3001' language='en' />`
 
-`restApi` is the base url for any Linked Data Store you wish to use and `language` sets the language of the component.
-`en` (English) and `nb` (Norwegian) is available.
+`lineageUrl` is the base url for creating links to a [dapla-lineage-viewer](https://github.com/statisticsnorway/dapla-lineage-viewer) 
+and `language` sets the language of the component. `en` (English) and `nb` (Norwegian) is available.
 
 In your application housing this component you also need to set up graphql-hooks in a React `Context`.
 You can checkout how to do it in `/src/utilities/ContextHandling.js` in this project. This is done because the component
@@ -58,6 +58,8 @@ Run `yarn start` and navigate to `http://localhost:3000/`.
 
 **Note** that this application requires [dapla-project (localstack)](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/README.md)
 running to function locally (or atleast a running instance of [Linked Data Store](https://github.com/statisticsnorway/linked-data-store-documentation)).
+It also needs a running instance of [dapla-lineage-viewer](https://github.com/statisticsnorway/dapla-lineage-viewer)
+running for the lineage links to work.
 
 ### Publish library
 To publish to [npm](https://www.npmjs.com/) you need a user and a membership in the `statisticsnorway` organization on 

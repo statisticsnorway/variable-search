@@ -9,7 +9,7 @@ import { FULL_TEXT_SEARCH } from '../queries'
 import { MODEL } from '../configurations'
 import { UI } from '../enums'
 
-function AppHome ({ language }) {
+function AppHome ({ lineageUrl, language }) {
   const [searched, setSearched] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const [searchEdited, setSearchEdited] = useState(false)
@@ -64,6 +64,7 @@ function AppHome ({ language }) {
         <Tab.Pane as={Segment} basic style={{ border: 'none' }}>
           <SearchResultVariables
             language={language}
+            lineageUrl={lineageUrl}
             variables={variableResults}
             variableTypeFilter={variableTypeFilter}
           />

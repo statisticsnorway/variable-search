@@ -4,5 +4,6 @@ jest.mock('axios-hooks')
 jest.mock('graphql-hooks')
 
 window._env = {
-  REACT_APP_API: process.env.REACT_APP_API
+  REACT_APP_API: process.env.REACT_APP_API,
+  REACT_APP_LINEAGE: process.env.REACT_APP_LINEAGE
 }

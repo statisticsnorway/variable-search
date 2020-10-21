@@ -7,7 +7,7 @@ import CopyToClipboard from './CopyToClipboard'
 import VariableInDatasetLookup from './VariableInDatasetLookup'
 import { RESULTS } from '../../enums'
 
-function SearchResultVariables ({ language, variables, variableTypeFilter }) {
+function SearchResultVariables ({ language, lineageUrl, variables, variableTypeFilter }) {
   const [filteredVariables, setFilteredVariables] = useState(
     variables.filter(variable => variableTypeFilter.includes(Object.keys(variable)[0]))
   )
@@ -61,8 +61,8 @@ function SearchResultVariables ({ language, variables, variableTypeFilter }) {
               </Grid.Column>
             </Grid>
             <Divider hidden />
-            <a href={`${window._env.REACT_APP_API}/lineage?id=${id}&type=${type}`} target='_blank' rel='noopener noreferrer'>
-              Se sporing
+            <a href={`${lineageUrl}?id=${id}&type=${type}`} target='_blank' rel='noopener noreferrer'>
+              Sporing
             </a>
           </Segment>
         )
