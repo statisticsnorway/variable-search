@@ -9,17 +9,14 @@ import { MODEL } from '../configurations'
 import { TEST_CONFIGURATIONS } from '../configurations/TEST'
 import { TEST_IDS } from '../enums'
 
-import PersonSearchResult from './test-data/PersonSearchResult.json'
-import LineageDatasetLookupResult from './test-data/LineageDatasetLookupResult.json'
+import VariableInDatasetLookupResultInstance from './test-data/VariableInDatasetLookupResultInstance.json'
+import VariableInDatasetLookupResultRepresented from './test-data/VariableInDatasetLookupResultRepresented.json'
+import VariableInDatasetLookupResultVariable from './test-data/VariableInDatasetLookupResultVariable.json'
 
 const { language } = TEST_CONFIGURATIONS
-const firstDatasetName = LineageDatasetLookupResult[0].unitDataSet.name[0].languageText
-const secondDatasetName = LineageDatasetLookupResult[1].unitDataSet.name[0].languageText
-const variableId = PersonSearchResult[0].representedVariable.id
-const variableType = MODEL.VARIABLE_TYPES[1]
 const fetchResults = jest.fn()
 
-const setup = () => {
+const setup = (variableType, variableId) => {
   const { getByTestId, getByText } = render(
     <VariableInDatasetLookup id={variableId} type={variableType} language={language} />
   )
@@ -30,18 +27,43 @@ const setup = () => {
 test('Loads', () => {
   useManualQuery.mockReturnValue([fetchResults, { loading: true, error: null, data: undefined }])
 
-  setup(true)
+  setup()
 })
 
-test('Renders basics', () => {
-  useManualQuery.mockReturnValue([fetchResults, { loading: false, error: null, data: LineageDatasetLookupResult }])
+test('Renders basics for InstanceVariable', () => {
+  useManualQuery.mockReturnValue([fetchResults, {
+    loading: false,
+    error: null,
+    data: VariableInDatasetLookupResultInstance
+  }])
 
-  const { getByText } = setup()
+  setup(MODEL.VARIABLE_TYPES[0], 'felles.demo.dapla.oktober.kommune$fnr')
 
-  expect(useManualQuery).toHaveBeenCalledWith(DATASETS_FROM_LINEAGE(variableType), { variables: { id: variableId } })
+  expect(useManualQuery).toHaveBeenCalledWith(DATASETS_FROM_LINEAGE(MODEL.VARIABLE_TYPES[0]), { variables: { id: 'felles.demo.dapla.oktober.kommune$fnr' } })
+})
 
-  expect(getByText(firstDatasetName, { exact: false })).toBeInTheDocument()
-  expect(getByText(secondDatasetName, { exact: false })).toBeInTheDocument()
+test('Renders basics for RepresentedVariable', () => {
+  useManualQuery.mockReturnValue([fetchResults, {
+    loading: false,
+    error: null,
+    data: VariableInDatasetLookupResultRepresented
+  }])
+
+  setup(MODEL.VARIABLE_TYPES[1], 'RepresentedVariable_DUMMY')
+
+  expect(useManualQuery).toHaveBeenCalledWith(DATASETS_FROM_LINEAGE(MODEL.VARIABLE_TYPES[1]), { variables: { id: 'RepresentedVariable_DUMMY' } })
+})
+
+test('Renders basics for Variable', () => {
+  useManualQuery.mockReturnValue([fetchResults, {
+    loading: false,
+    error: null,
+    data: VariableInDatasetLookupResultVariable
+  }])
+
+  setup(MODEL.VARIABLE_TYPES[2], 'Variable_DUMMY')
+
+  expect(useManualQuery).toHaveBeenCalledWith(DATASETS_FROM_LINEAGE(MODEL.VARIABLE_TYPES[2]), { variables: { id: 'Variable_DUMMY' } })
 })
 
 test('Inflate test coverage by opening/closing accordion', () => {

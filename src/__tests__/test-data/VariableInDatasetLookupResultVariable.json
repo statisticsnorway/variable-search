@@ -1,0 +1,216 @@
+[
+  {
+    "variable": {
+      "reverseRepresentedVariableVariable": [
+        {
+          "id": "RepresentertVariable_DUMMY",
+          "reverseInstanceVariableRepresentedVariable": []
+        },
+        {
+          "id": "RepresentedVariable_DUMMY",
+          "reverseInstanceVariableRepresentedVariable": [
+            {
+              "id": "felles.demo.dapla.oktober.kommune$fnr",
+              "reverseLineageFieldInstanceVariable": [
+                {
+                  "smart": [
+                    {
+                      "lineageDataset": {
+                        "reverseUnitDataSetLineage": [
+                          {
+                            "lastUpdatedBy": null,
+                            "administrativeStatus": "DRAFT",
+                            "description": [
+                              {
+                                "languageText": "Stuff om kommune"
+                              }
+                            ],
+                            "dataSetState": "INPUT_DATA",
+                            "temporalityType": "EVENT",
+                            "version": "1.0.0",
+                            "metadataSourcePath": null,
+                            "valuation": null,
+                            "dataSourcePath": "/felles/demo/dapla/oktober/kommune",
+                            "createdBy": "magnus",
+                            "name": [
+                              {
+                                "languageText": "Kommunes"
+                              }
+                            ],
+                            "id": "felles.demo.dapla.oktober.kommune",
+                            "shortName": null
+                          }
+                        ],
+                        "id": "felles.demo.dapla.oktober.kommune"
+                      },
+                      "id": "felles.demo.dapla.oktober.kommune$fnr"
+                    },
+                    {
+                      "lineageDataset": {
+                        "reverseUnitDataSetLineage": [
+                          {
+                            "lastUpdatedBy": null,
+                            "administrativeStatus": "DRAFT",
+                            "description": [],
+                            "dataSetState": "INPUT_DATA",
+                            "temporalityType": "EVENT",
+                            "version": "1.0.0",
+                            "metadataSourcePath": null,
+                            "valuation": null,
+                            "dataSourcePath": "/felles/demo/dapla/oktober/person",
+                            "createdBy": "magnus",
+                            "name": [
+                              {
+                                "languageText": ""
+                              }
+                            ],
+                            "id": "felles.demo.dapla.oktober.person",
+                            "shortName": null
+                          }
+                        ],
+                        "id": "felles.demo.dapla.oktober.person"
+                      },
+                      "id": "felles.demo.dapla.oktober.person$fnr"
+                    }
+                  ],
+                  "id": "felles.demo.dapla.oktober.kommune$fnr"
+                }
+              ]
+            },
+            {
+              "id": "felles.demo.dapla.oktober.kommune$kommune",
+              "reverseLineageFieldInstanceVariable": [
+                {
+                  "smart": [
+                    {
+                      "lineageDataset": {
+                        "reverseUnitDataSetLineage": [
+                          {
+                            "lastUpdatedBy": null,
+                            "administrativeStatus": "DRAFT",
+                            "description": [
+                              {
+                                "languageText": "Stuff om kommune"
+                              }
+                            ],
+                            "dataSetState": "INPUT_DATA",
+                            "temporalityType": "EVENT",
+                            "version": "1.0.0",
+                            "metadataSourcePath": null,
+                            "valuation": null,
+                            "dataSourcePath": "/felles/demo/dapla/oktober/kommune",
+                            "createdBy": "magnus",
+                            "name": [
+                              {
+                                "languageText": "Kommunes"
+                              }
+                            ],
+                            "id": "felles.demo.dapla.oktober.kommune",
+                            "shortName": null
+                          }
+                        ],
+                        "id": "felles.demo.dapla.oktober.kommune"
+                      },
+                      "id": "felles.demo.dapla.oktober.kommune$kommune"
+                    },
+                    {
+                      "lineageDataset": {
+                        "reverseUnitDataSetLineage": [
+                          {
+                            "lastUpdatedBy": null,
+                            "administrativeStatus": "DRAFT",
+                            "description": [
+                              {
+                                "languageText": "EN kommune"
+                              }
+                            ],
+                            "dataSetState": "INPUT_DATA",
+                            "temporalityType": "EVENT",
+                            "version": "1.0.0",
+                            "metadataSourcePath": null,
+                            "valuation": null,
+                            "dataSourcePath": "/felles/demo/dapla/oktober/kommune_formue",
+                            "createdBy": "magnus",
+                            "name": [
+                              {
+                                "languageText": "Kommune"
+                              }
+                            ],
+                            "id": "felles.demo.dapla.oktober.kommune_formue",
+                            "shortName": null
+                          }
+                        ],
+                        "id": "felles.demo.dapla.oktober.kommune_formue"
+                      },
+                      "id": "felles.demo.dapla.oktober.kommune_formue$kommune"
+                    },
+                    {
+                      "lineageDataset": {
+                        "reverseUnitDataSetLineage": [
+                          {
+                            "lastUpdatedBy": null,
+                            "administrativeStatus": "DRAFT",
+                            "description": [],
+                            "dataSetState": "INPUT_DATA",
+                            "temporalityType": "EVENT",
+                            "version": "1.0.0",
+                            "metadataSourcePath": null,
+                            "valuation": null,
+                            "dataSourcePath": "/felles/demo/dapla/oktober/person",
+                            "createdBy": "magnus",
+                            "name": [
+                              {
+                                "languageText": ""
+                              }
+                            ],
+                            "id": "felles.demo.dapla.oktober.person",
+                            "shortName": null
+                          }
+                        ],
+                        "id": "felles.demo.dapla.oktober.person"
+                      },
+                      "id": "felles.demo.dapla.oktober.person$kommune"
+                    },
+                    {
+                      "lineageDataset": {
+                        "reverseUnitDataSetLineage": [
+                          {
+                            "lastUpdatedBy": null,
+                            "administrativeStatus": "DRAFT",
+                            "description": [
+                              {
+                                "languageText": "En kommuune"
+                              }
+                            ],
+                            "dataSetState": "INPUT_DATA",
+                            "temporalityType": "EVENT",
+                            "version": "1.0.0",
+                            "metadataSourcePath": null,
+                            "valuation": null,
+                            "dataSourcePath": "/felles/demo/dapla/oktober/agg_kommune_formue",
+                            "createdBy": "magnus",
+                            "name": [
+                              {
+                                "languageText": "Kommune"
+                              }
+                            ],
+                            "id": "felles.demo.dapla.oktober.agg_kommune_formue",
+                            "shortName": null
+                          }
+                        ],
+                        "id": "felles.demo.dapla.oktober.agg_kommune_formue"
+                      },
+                      "id": "felles.demo.dapla.oktober.agg_kommune_formue$kommune"
+                    }
+                  ],
+                  "id": "felles.demo.dapla.oktober.kommune$kommune"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "Variable_DUMMY"
+    }
+  }
+]

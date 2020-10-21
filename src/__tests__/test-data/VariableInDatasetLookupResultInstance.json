@@ -1,0 +1,72 @@
+[
+  {
+    "instanceVariable": {
+      "id": "felles.demo.dapla.oktober.kommune$fnr",
+      "reverseLineageFieldInstanceVariable": [
+        {
+          "smart": [
+            {
+              "lineageDataset": {
+                "reverseUnitDataSetLineage": [
+                  {
+                    "lastUpdatedBy": null,
+                    "administrativeStatus": "DRAFT",
+                    "description": [
+                      {
+                        "languageText": "Stuff om kommune"
+                      }
+                    ],
+                    "dataSetState": "INPUT_DATA",
+                    "temporalityType": "EVENT",
+                    "version": "1.0.0",
+                    "metadataSourcePath": null,
+                    "valuation": null,
+                    "dataSourcePath": "/felles/demo/dapla/oktober/kommune",
+                    "createdBy": "magnus",
+                    "name": [
+                      {
+                        "languageText": "Kommunes"
+                      }
+                    ],
+                    "id": "felles.demo.dapla.oktober.kommune",
+                    "shortName": null
+                  }
+                ],
+                "id": "felles.demo.dapla.oktober.kommune"
+              },
+              "id": "felles.demo.dapla.oktober.kommune$fnr"
+            },
+            {
+              "lineageDataset": {
+                "reverseUnitDataSetLineage": [
+                  {
+                    "lastUpdatedBy": null,
+                    "administrativeStatus": "DRAFT",
+                    "description": [],
+                    "dataSetState": "INPUT_DATA",
+                    "temporalityType": "EVENT",
+                    "version": "1.0.0",
+                    "metadataSourcePath": null,
+                    "valuation": null,
+                    "dataSourcePath": "/felles/demo/dapla/oktober/person",
+                    "createdBy": "magnus",
+                    "name": [
+                      {
+                        "languageText": ""
+                      }
+                    ],
+                    "id": "felles.demo.dapla.oktober.person",
+                    "shortName": null
+                  }
+                ],
+                "id": "felles.demo.dapla.oktober.person"
+              },
+              "id": "felles.demo.dapla.oktober.person$fnr"
+            }
+          ],
+          "id": "felles.demo.dapla.oktober.kommune$fnr"
+        }
+      ]
+    }
+  }
+]

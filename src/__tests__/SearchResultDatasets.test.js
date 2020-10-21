@@ -9,7 +9,7 @@ import PersonSearchResult from './test-data/PersonSearchResult.json'
 
 const { language } = TEST_CONFIGURATIONS
 const { datasets } = splitSearchResult(PersonSearchResult)
-const datasetName = PersonSearchResult[2].unitDataSet.name[0].languageText
+const datasetName = PersonSearchResult[3].unitDataSet.name[0].languageText
 
 const setup = () => {
   const { getByText, queryByText } = render(

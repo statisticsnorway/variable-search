@@ -1,18 +1,58 @@
 [
   {
+    "instanceVariable": {
+      "name": [
+        {
+          "languageText": "NationalPersonIdentifier"
+        }
+      ],
+      "representedVariable": {
+        "name": [
+          {
+            "languageText": "NationalPersonIdentifier"
+          }
+        ],
+        "description": [
+          {
+            "languageText": "National identifier number for person"
+          }
+        ],
+        "id": "6cdecd72-c4a8-4b56-9c0a-9fd01c4fea56"
+      },
+      "description": [
+        {
+          "languageText": "National identifier number for person"
+        }
+      ],
+      "id": "6cdecd72-c4a8-4b56-9c0a-9fd01c4few56"
+    }
+  },
+  {
     "representedVariable": {
       "name": [
         {
           "languageText": "NationalPersonIdentifier"
         }
       ],
+      "variable": {
+        "name": [
+          {
+            "languageText": "NationalPersonIdentifier"
+          }
+        ],
+        "description": [
+          {
+            "languageText": "National identifier number for person"
+          }
+        ],
+        "id": "0cbfbe23-5d4a-4503-9c3a-956e07574b65"
+      },
       "description": [
         {
           "languageText": "National identifier number for person"
         }
       ],
-      "id": "6cdecd72-c4a8-4b56-9c0a-9fd01c4fea56",
-      "shortName": "NPI_RV"
+      "id": "6cdecd72-c4a8-4b56-9c0a-9fd01c4fea56"
     }
   },
   {
@@ -27,8 +67,7 @@
           "languageText": "National identifier number for person"
         }
       ],
-      "id": "0cbfbe23-5d4a-4503-9c3a-956e07574b65",
-      "shortName": "NPI_V"
+      "id": "0cbfbe23-5d4a-4503-9c3a-956e07574b65"
     }
   },
   {
@@ -150,6 +189,54 @@
       "unitDataStructure": {
         "logicalRecords": []
       },
+      "dataSetState": "RAW_DATA",
+      "temporalityType": "EVENT",
+      "version": "1.0.0",
+      "metadataSourcePath": null,
+      "valuation": null,
+      "dataSourcePath": "/ske/sirius-person-utkast/2018v19",
+      "createdBy": "rawdata-converter-app-sirius",
+      "name": [
+        {
+          "languageText": ""
+        }
+      ],
+      "id": "ske.sirius-person-utkast.2018v19",
+      "shortName": null
+    }
+  },
+  {
+    "unitDataSet": {
+      "lastUpdatedBy": null,
+      "administrativeStatus": "DRAFT",
+      "description": [],
+      "unitDataStructure": {
+        "logicalRecords": []
+      },
+      "dataSetState": "RAW_DATA",
+      "temporalityType": "EVENT",
+      "version": "1.0.0",
+      "metadataSourcePath": null,
+      "valuation": null,
+      "dataSourcePath": "/skatt/person/rawdata-2019",
+      "createdBy": "mehran",
+      "name": [
+        {
+          "languageText": ""
+        }
+      ],
+      "id": "skatt.person.rawdata-2019",
+      "shortName": null
+    }
+  },
+  {
+    "unitDataSet": {
+      "lastUpdatedBy": null,
+      "administrativeStatus": "DRAFT",
+      "description": [],
+      "unitDataStructure": {
+        "logicalRecords": []
+      },
       "dataSetState": "INPUT_DATA",
       "temporalityType": "EVENT",
       "version": "1.0.0",
@@ -163,6 +250,126 @@
         }
       ],
       "id": "felles.test.lineage.person",
+      "shortName": null
+    }
+  },
+  {
+    "unitDataSet": {
+      "lastUpdatedBy": null,
+      "administrativeStatus": "DRAFT",
+      "description": [],
+      "unitDataStructure": {
+        "logicalRecords": []
+      },
+      "dataSetState": "INPUT_DATA",
+      "temporalityType": "EVENT",
+      "version": "1.0.0",
+      "metadataSourcePath": null,
+      "valuation": null,
+      "dataSourcePath": "/felles/test/lineage/konto",
+      "createdBy": "magnus",
+      "name": [
+        {
+          "languageText": ""
+        }
+      ],
+      "id": "felles.test.lineage.konto",
+      "shortName": null
+    }
+  },
+  {
+    "unitDataSet": {
+      "lastUpdatedBy": null,
+      "administrativeStatus": "DRAFT",
+      "description": [],
+      "unitDataStructure": {
+        "logicalRecords": []
+      },
+      "dataSetState": "INPUT_DATA",
+      "temporalityType": "EVENT",
+      "version": "1.0.0",
+      "metadataSourcePath": null,
+      "valuation": null,
+      "dataSourcePath": "/felles/test/lineage/innskudd",
+      "createdBy": "magnus",
+      "name": [
+        {
+          "languageText": ""
+        }
+      ],
+      "id": "felles.test.lineage.innskudd",
+      "shortName": null
+    }
+  },
+  {
+    "unitDataSet": {
+      "lastUpdatedBy": null,
+      "administrativeStatus": "DRAFT",
+      "description": [],
+      "unitDataStructure": {
+        "logicalRecords": []
+      },
+      "dataSetState": "INPUT_DATA",
+      "temporalityType": "EVENT",
+      "version": "1.0.0",
+      "metadataSourcePath": null,
+      "valuation": null,
+      "dataSourcePath": "/felles/demo/dapla/oktober/formue",
+      "createdBy": "magnus",
+      "name": [
+        {
+          "languageText": ""
+        }
+      ],
+      "id": "felles.demo.dapla.oktober.formue",
+      "shortName": null
+    }
+  },
+  {
+    "unitDataSet": {
+      "lastUpdatedBy": null,
+      "administrativeStatus": "DRAFT",
+      "description": [],
+      "unitDataStructure": {
+        "logicalRecords": []
+      },
+      "dataSetState": "INPUT_DATA",
+      "temporalityType": "EVENT",
+      "version": "1.0.0",
+      "metadataSourcePath": null,
+      "valuation": null,
+      "dataSourcePath": "/felles/demo/dapla/oktober/konto",
+      "createdBy": "magnus",
+      "name": [
+        {
+          "languageText": ""
+        }
+      ],
+      "id": "felles.demo.dapla.oktober.konto",
+      "shortName": null
+    }
+  },
+  {
+    "unitDataSet": {
+      "lastUpdatedBy": null,
+      "administrativeStatus": "DRAFT",
+      "description": [],
+      "unitDataStructure": {
+        "logicalRecords": []
+      },
+      "dataSetState": "INPUT_DATA",
+      "temporalityType": "EVENT",
+      "version": "1.0.0",
+      "metadataSourcePath": null,
+      "valuation": null,
+      "dataSourcePath": "/felles/demo/dapla/oktober/person",
+      "createdBy": "magnus",
+      "name": [
+        {
+          "languageText": ""
+        }
+      ],
+      "id": "felles.demo.dapla.oktober.person",
       "shortName": null
     }
   }
