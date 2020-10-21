@@ -11,10 +11,6 @@ export const RESULTS = {
     en: `Reminder that you have filtered your search, in total there are ${total} hit(s), but you are only showing ${filtered}`,
     nb: `Obs, du har filtrert søket, totalt ${total} treff, men etter filtrering vises bare ${filtered}`
   }),
-  INHERITS_FROM: {
-    en: 'Inherits from',
-    nb: 'Arver fra'
-  },
   NAME: {
     en: 'Name',
     nb: 'Navn'

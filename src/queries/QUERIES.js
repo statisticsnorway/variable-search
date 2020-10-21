@@ -11,8 +11,14 @@ const fromVariableType = {
               id
               reverseUnitDataSetLineage {
                 id
-                name {languageText}
-                description {languageText}
+                name {
+                  languageText
+                  languageCode
+                }
+                description {
+                  languageText
+                  languageCode
+                }
                 version
                 administrativeStatus
                 valuation
@@ -44,8 +50,14 @@ const fromVariableType = {
                 id
                 reverseUnitDataSetLineage {
                   id
-                  name {languageText}
-                  description {languageText}
+                  name {
+                    languageText
+                    languageCode
+                  }
+                  description {
+                    languageText
+                    languageCode  
+                  }
                   version
                   administrativeStatus
                   valuation
@@ -80,8 +92,14 @@ const fromVariableType = {
                   id
                   reverseUnitDataSetLineage {
                     id
-                    name {languageText}
-                    description {languageText}
+                    name {
+                      languageText
+                      languageCode
+                    }
+                    description {
+                      languageText
+                      languageCode
+                    }
                     version
                     administrativeStatus
                     valuation
@@ -109,33 +127,69 @@ export const FULL_TEXT_SEARCH = `
 {
   instanceVariable(filter: {OR: [{name_every: {languageText_contains: $text}}, {description_every: {languageText_contains: $text}}]}) {
     id
-    name {languageText}
-    description {languageText}
+    name {
+      languageText
+      languageCode
+    }
+    description {
+      languageText
+      languageCode
+    }
     representedVariable {
       id
-      name {languageText}
-      description {languageText}
+      name {
+        languageText
+        languageCode
+      }
+      description {
+        languageText
+        languageCode
+      }
     }
   }
   representedVariable(filter: {OR: [{name_every: {languageText_contains: $text}}, {description_every: {languageText_contains: $text}}]}) {
     id
-    name {languageText}
-    description {languageText}
+    name {
+      languageText
+      languageCode  
+    }
+    description {
+      languageText
+      languageCode
+    }
     variable {
       id
-      name {languageText}
-      description {languageText}
+      name {
+        languageText
+        languageCode
+      }
+      description {
+        languageText
+        languageCode
+      }
     }
   }
   variable(filter: {OR: [{name_every: {languageText_contains: $text}}, {description_every: {languageText_contains: $text}}]}) {
     id
-    name {languageText}
-    description {languageText}
+    name {
+      languageText
+      languageCode
+    }
+    description {
+      languageText
+      languageCode
+    }
   }
   unitDataSet(filter: {OR: [{name_every: {languageText_contains: $text}}, {description_every: {languageText_contains: $text}}, {dataSourcePath_contains: $text}]}) {
     id
-    name {languageText}
-    description {languageText}
+    name {
+      languageText
+      languageCode
+    }
+    description {
+      languageText
+      languageCode
+    }
     version
     administrativeStatus
     valuation
@@ -150,8 +204,14 @@ export const FULL_TEXT_SEARCH = `
       logicalRecords {
         instanceVariables {
           id
-          name {languageText}
-          description {languageText}
+          name {
+            languageText
+            languageCode
+          }
+          description {
+            languageText
+            languageCode
+          }
         }
       }
     }

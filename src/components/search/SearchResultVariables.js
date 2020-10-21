@@ -5,7 +5,6 @@ import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities
 import FilterWarning from './FilterWarning'
 import CopyToClipboard from './CopyToClipboard'
 import VariableInDatasetLookup from './VariableInDatasetLookup'
-import { GSIM } from '../../configurations'
 import { RESULTS } from '../../enums'
 
 function SearchResultVariables ({ language, variables, variableTypeFilter }) {
@@ -26,19 +25,6 @@ function SearchResultVariables ({ language, variables, variableTypeFilter }) {
         const type = Object.keys(variable)[0]
         const values = variable[type]
         const { id, name, description } = values
-
-        let inheritsFrom = false
-        let inheritsFromType = false
-
-        if (type === GSIM.INSTANCE_VARIABLE) {
-          inheritsFrom = getLocalizedGsimObjectText(language, values[GSIM.REPRESENTED_VARIABLE][GSIM.NAME])
-          inheritsFromType = GSIM.REPRESENTED_VARIABLE
-        }
-
-        if (type === GSIM.REPRESENTED_VARIABLE) {
-          inheritsFrom = getLocalizedGsimObjectText(language, values[GSIM.VARIABLE][GSIM.NAME])
-          inheritsFromType = GSIM.VARIABLE
-        }
 
         return (
           <Segment key={id} raised>
@@ -68,22 +54,16 @@ function SearchResultVariables ({ language, variables, variableTypeFilter }) {
                       {getLocalizedGsimObjectText(language, description)}
                     </Grid.Column>
                   </Grid.Row>
-                  {inheritsFrom &&
-                  <Grid.Row>
-                    <Grid.Column width={4}>
-                      <b>{RESULTS.INHERITS_FROM[language]}</b>
-                    </Grid.Column>
-                    <Grid.Column width={12}>
-                      {`${inheritsFrom} (${inheritsFromType})`}
-                    </Grid.Column>
-                  </Grid.Row>
-                  }
                 </Grid>
               </Grid.Column>
               <Grid.Column>
                 <VariableInDatasetLookup id={id} type={type} language={language} />
               </Grid.Column>
             </Grid>
+            <Divider hidden />
+            <a href={`${window._env.REACT_APP_API}/lineage?id=${id}&type=${type}`} target='_blank' rel='noopener noreferrer'>
+              Se sporing
+            </a>
           </Segment>
         )
       })}
