@@ -84,6 +84,7 @@ function AppHome ({ lineageUrl, language }) {
         <Tab.Pane as={Segment} basic style={{ border: 'none' }}>
           <SearchResultDatasets
             language={language}
+            lineageUrl={lineageUrl}
             datasets={datasetResults}
           />
         </Tab.Pane>
