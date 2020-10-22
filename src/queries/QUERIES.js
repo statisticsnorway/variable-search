@@ -200,21 +200,6 @@ export const FULL_TEXT_SEARCH = `
     shortName
     temporalityType
     dataSetState
-    unitDataStructure {
-      logicalRecords {
-        instanceVariables {
-          id
-          name {
-            languageText
-            languageCode
-          }
-          description {
-            languageText
-            languageCode
-          }
-        }
-      }
-    }
   }
 }
 `

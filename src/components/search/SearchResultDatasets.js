@@ -1,12 +1,11 @@
 import React from 'react'
-import { List, Table } from 'semantic-ui-react'
-import { getLocalizedGsimObjectText, getNestedObject } from '@statisticsnorway/dapla-js-utilities'
+import { Table } from 'semantic-ui-react'
+import { getLocalizedGsimObjectText } from '@statisticsnorway/dapla-js-utilities'
 
 import CopyToClipboard from './CopyToClipboard'
-import { GSIM } from '../../configurations'
 import { RESULTS } from '../../enums'
 
-function SearchResultDatasets ({ datasets, language }) {
+function SearchResultDatasets ({ datasets, lineageUrl, language }) {
   return (
     <>
       <Table basic='very' selectable>
@@ -23,9 +22,7 @@ function SearchResultDatasets ({ datasets, language }) {
           {datasets.map(dataset => {
             const type = Object.keys(dataset)[0]
             const values = dataset[type]
-            const { id, name, description, dataSourcePath, unitDataStructure } = values
-            const variables = getNestedObject(unitDataStructure, [GSIM.LOGICAL_RECORDS])
-              .map(entry => entry[GSIM.INSTANCE_VARIABLES])
+            const { id, name, description, dataSourcePath } = values
 
             return (
               <Table.Row key={id}>
@@ -36,22 +33,9 @@ function SearchResultDatasets ({ datasets, language }) {
                 <Table.Cell>{getLocalizedGsimObjectText(language, description)}</Table.Cell>
                 <Table.Cell>{dataSourcePath}</Table.Cell>
                 <Table.Cell>
-                  {variables.length === 0 ? '-' :
-                    <List bulleted>
-                      {variables.map(records => records.map(variable => {
-                          const { id, name, description } = variable
-
-                          return (
-                            <List.Item key={id}>
-                              {getLocalizedGsimObjectText(language, name)}
-                              <br />
-                              <i>{getLocalizedGsimObjectText(language, description)}</i>
-                            </List.Item>
-                          )
-                        }
-                      ))}
-                    </List>
-                  }
+                  <a href={`${lineageUrl}?id=${id}&type=dataset`} target='_blank' rel='noopener noreferrer'>
+                    Sporing
+                  </a>
                 </Table.Cell>
               </Table.Row>
             )
