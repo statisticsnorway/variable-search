@@ -15,7 +15,7 @@ function SearchResultDatasets ({ datasets, lineageUrl, language }) {
             <Table.HeaderCell>{RESULTS.NAME[language]}</Table.HeaderCell>
             <Table.HeaderCell>{RESULTS.DESCRIPTION[language]}</Table.HeaderCell>
             <Table.HeaderCell>{RESULTS.DATA_SOURCE_PATH[language]}</Table.HeaderCell>
-            <Table.HeaderCell>{RESULTS.VARIABLES_IN_DATASET[language]}</Table.HeaderCell>
+            <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
         <Table.Body>
