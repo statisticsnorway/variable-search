@@ -18,9 +18,5 @@ export const RESULTS = {
   VARIABLE_IN_DATASETS: {
     en: 'Variable linked in datasets',
     nb: 'Datasett denne variabelen er koblet til'
-  },
-  VARIABLES_IN_DATASET: {
-    en: 'Variables linked to this dataset',
-    nb: 'Variabler koblet til dette datasettet'
   }
 }
