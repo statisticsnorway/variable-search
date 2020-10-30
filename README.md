@@ -1,6 +1,6 @@
-# variable-search
+# dapla-variable-search
 [![npm version](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search.svg)](https://badge.fury.io/js/%40statisticsnorway%2Fdapla-variable-search)
-[![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.variable-search?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=12&branchName=master)
+[![Build Status](https://dev.azure.com/statisticsnorway/Dapla/_apis/build/status/Frontends/statisticsnorway.dapla-variable-search?branchName=master)](https://dev.azure.com/statisticsnorway/Dapla/_build/latest?definitionId=132&branchName=master)
 
 This application is built for in-house use in Statistics Norway and it aims to create a smart and interactive variable
 and dataset search with the help of the 
@@ -8,7 +8,7 @@ and dataset search with the help of the
 exposed by [Linked Data Store](https://github.com/statisticsnorway/linked-data-store-documentation).
 
 Functionality includes:
-* Searching through GSIM domains (specifically variables and datasets) and Lineage
+* Searching through variables and datasets
 * Listing connections between variables and datasets (which datasets use which variables and vice versa)
 
 The project makes limited use of the [ssb-component-library](https://github.com/statisticsnorway/ssb-component-library)
@@ -51,9 +51,9 @@ Run `yarn start` and navigate to `http://localhost:3000/`.
 
 ### Docker locally
 * `yarn build`
-* `docker build -t variable-search .`
-* `docker run -p 8000:80 variable-search:latest`
-  * Alternatively with custom environment variables: `docker run -p 8000:80 -e REACT_APP_API=http://localhost:29090 variable-search:latest`
+* `docker build -t dapla-variable-search .`
+* `docker run -p 8000:80 dapla-variable-search:latest`
+  * Alternatively with custom environment variables: `docker run -p 8000:80 -e REACT_APP_API=http://localhost:29090 dapla-variable-search:latest`
 * Navigate to `http://localhost:8000`
 
 **Note** that this application requires [dapla-project (localstack)](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/README.md)

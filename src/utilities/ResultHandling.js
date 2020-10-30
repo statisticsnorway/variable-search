@@ -50,10 +50,6 @@ export const drillVariables = (data, type) => data.reduce((acc, cur) => {
   let lineageFields
 
   switch (type) {
-    case GSIM.INSTANCE_VARIABLE:
-      lineageFields = cur[type][QUERY_HELPERS.REVERSE.LF_IV]
-      break
-
     case GSIM.REPRESENTED_VARIABLE:
       lineageFields = findThroughRepresented(cur, type)
       break

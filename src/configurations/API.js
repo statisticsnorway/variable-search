@@ -5,9 +5,6 @@ export const API = {
 
 export const GSIM = {
   DESCRIPTION: 'description',
-  INSTANCE_VARIABLE: 'instanceVariable',
-  INSTANCE_VARIABLES: 'instanceVariables',
-  LOGICAL_RECORDS: 'logicalRecords',
   NAME: 'name',
   REPRESENTED_VARIABLE: 'representedVariable',
   VARIABLE: 'variable'
