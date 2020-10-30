@@ -27,7 +27,9 @@ const setup = () => {
 }
 
 describe('Common mock', () => {
-  useManualQuery.mockReturnValue([fetchResults, { loading: false, error: null, data: PersonSearchResult }])
+  beforeEach(() => {
+    useManualQuery.mockReturnValue([fetchResults, { loading: false, error: null, data: PersonSearchResult }])
+  })
 
   test('Search initiates and shows previous search', async () => {
     const { getByPlaceholderText, getByText } = setup()
