@@ -1,7 +1,7 @@
 import { API } from './API'
 import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 
-const errorString = 'A problem occured'
+const errorString = 'A problem occurred'
 
 export const TEST_CONFIGURATIONS = {
   alternativeApi: 'http://localhost:9999',
