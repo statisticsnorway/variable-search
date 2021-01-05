@@ -1,6 +1,6 @@
 {
   "name": "@statisticsnorway/dapla-variable-search",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Variable and dataset search for Statistics Norway Dataplatform",
   "main": "lib/bundle.js",
   "repository": {

@@ -19,7 +19,11 @@ function AppHome ({ lineageUrl, language }) {
   const [variableResults, setVariableResults] = useState([])
   const [variableTypeFilter, setVariableTypeFilter] = useState(MODEL.VARIABLE_TYPES)
 
-  const [fetchResults, { loading, error, data }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue.trim() } })
+  const [fetchResults, {
+    loading,
+    error,
+    data
+  }] = useManualQuery(FULL_TEXT_SEARCH, { variables: { text: searchValue.trim() } })
 
   useEffect(() => {
     if (!error && !loading && data !== undefined) {

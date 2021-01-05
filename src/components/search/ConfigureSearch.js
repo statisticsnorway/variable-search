@@ -4,7 +4,13 @@ import { Accordion, Checkbox, Divider, Header, List } from 'semantic-ui-react'
 import { MODEL } from '../../configurations'
 import { TEST_IDS, UI } from '../../enums'
 
-function ConfigureSearch ({ searchDataset, handleSearchDataset, variableTypeFilter, handleVariableTypeCheckbox, language }) {
+function ConfigureSearch ({
+  searchDataset,
+  handleSearchDataset,
+  variableTypeFilter,
+  handleVariableTypeCheckbox,
+  language
+}) {
   const panels = [
     {
       key: 1,
