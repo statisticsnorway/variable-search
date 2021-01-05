@@ -11,7 +11,11 @@ function VariableInDatasetLookup ({ id, type, language }) {
   const [activeIndex, setActiveIndex] = useState(-1)
   const [retrievedDatasets, setRetrievedDatasets] = useState([])
 
-  const [fetchResults, { loading, error, data }] = useManualQuery(DATASETS_FROM_LINEAGE(type), { variables: { id: id } })
+  const [fetchResults, {
+    loading,
+    error,
+    data
+  }] = useManualQuery(DATASETS_FROM_LINEAGE(type), { variables: { id: id } })
 
   useEffect(() => {
     if (!loading && !error && data !== undefined) {
@@ -48,15 +52,11 @@ function VariableInDatasetLookup ({ id, type, language }) {
         content: (
           loading ? <Icon loading name='spinner' /> : retrievedDatasets.length >= 1 ?
             <List bulleted relaxed style={{ padding: '0 1rem 1rem 1rem' }}>
-              {retrievedDatasets.map(dataset => {
-                const { id } = dataset
-
-                return (
-                  <List.Item key={id} as='a'>
-                    <DatasetModal dataset={dataset} language={language} />
-                  </List.Item>
-                )
-              })}
+              {retrievedDatasets.map(dataset =>
+                <List.Item key={dataset.id} as='a'>
+                  <DatasetModal dataset={dataset} language={language} />
+                </List.Item>
+              )}
             </List> : UI.NO_RESULTS[language]
         )
       }

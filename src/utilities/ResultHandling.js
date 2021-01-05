@@ -67,14 +67,14 @@ export const drillVariables = (data, type) => data.reduce((acc, cur) => {
       const smart = lineageField[QUERY_HELPERS.SMART]
 
       if (smart.length !== 0) {
-        const dataset = smart.filter(dataset =>
-          dataset[QUERY_HELPERS.LINEAGE_DATASET].hasOwnProperty(QUERY_HELPERS.REVERSE.UDS_L) &&
-          dataset[QUERY_HELPERS.LINEAGE_DATASET][QUERY_HELPERS.REVERSE.UDS_L].length !== 0
+        const dataset = smart.filter(innerDataset =>
+          innerDataset[QUERY_HELPERS.LINEAGE_DATASET].hasOwnProperty(QUERY_HELPERS.REVERSE.UDS_L) &&
+          innerDataset[QUERY_HELPERS.LINEAGE_DATASET][QUERY_HELPERS.REVERSE.UDS_L].length !== 0
         )
 
         if (dataset.length !== 0) {
-          dataset.forEach(dataset => {
-            dataset[QUERY_HELPERS.LINEAGE_DATASET][QUERY_HELPERS.REVERSE.UDS_L].forEach(lineage =>
+          dataset.forEach(innerDataset => {
+            innerDataset[QUERY_HELPERS.LINEAGE_DATASET][QUERY_HELPERS.REVERSE.UDS_L].forEach(lineage =>
               datasets.push(lineage)
             )
           })
