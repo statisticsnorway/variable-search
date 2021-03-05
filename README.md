@@ -57,7 +57,7 @@ Run `yarn start` and navigate to `http://localhost:3000/`.
 * Navigate to `http://localhost:8000`
 
 **Note** that this application requires [dapla-project (localstack)](https://github.com/statisticsnorway/dapla-project/blob/master/localstack/README.md)
-running to function locally (or atleast a running instance of [Linked Data Store](https://github.com/statisticsnorway/linked-data-store-documentation)).
+running to function locally (or at least a running instance of [Linked Data Store](https://github.com/statisticsnorway/linked-data-store-documentation)).
 It also needs a running instance of [dapla-lineage-viewer](https://github.com/statisticsnorway/dapla-lineage-viewer)
 running for the lineage links to work.
 
@@ -66,7 +66,7 @@ To publish to [npm](https://www.npmjs.com) you need a user and a membership in t
 npm. The user must also have 2FA authentication enabled. Steps to follow:
 
 1. Login into your npm account in a terminal with `npm login`
-2. Make sure all tests works (test components in the example application aswell, if you made a new one)
+2. Make sure all tests works (test components in the example application as well, if you made a new one)
 3. Bump version in `package.json`
 4. Run `yarn package`
 5. Dry run a release with `npm pack`
